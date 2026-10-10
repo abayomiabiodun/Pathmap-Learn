@@ -237,5 +237,15 @@
   "quiz_first_step_business": "Listez les coûts d’un produit ou service. Essayez un prix qui les couvre et laisse un petit bénéfice.",
   "quiz_first_step_writing": "Expliquez une idée en cinq phrases. Simplifiez les mots et demandez à un lecteur ce qu’il a compris.",
   "quiz_first_step_project": "Planifiez un petit événement. Listez les étapes, leur ordre et des délais réalistes.",
-  "quiz_first_step_teaching": "Expliquez une chose à un débutant avec un exemple, posez une question et adaptez l’explication."
+  "quiz_first_step_teaching": "Expliquez une chose à un débutant avec un exemple, posez une question et adaptez l’explication.",
+  "known_eyebrow": "VOTRE VOIE, VOTRE CHOIX",
+  "known_question": "Quelle voie souhaitez-vous suivre ?",
+  "known_intro": "Choisissez votre voie, votre niveau et votre langue. Aucun quiz de forces n’est nécessaire.",
+  "known_count": "Étape {current} sur {total}",
+  "known_finish": "Enregistrer mes préférences",
+  "known_ready_heading": "Votre voie est choisie.",
+  "known_ready_intro": "Vous avez choisi cette direction. Voici un premier pas pratique.",
+  "known_summary": "Votre niveau : {level}. Langue : {language}.",
+  "known_edit": "Modifier mes choix",
+  "known_privacy": "Vos choix et les 25 dernières sélections restent sur cet appareil. Votre historique du quiz est conservé. Changez de voie à tout moment."
 }

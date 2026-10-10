@@ -157,9 +157,52 @@ const storageSchema = z.object({
   version: z.literal(1),
   draft: draftSchema,
   attempts: z.array(attemptSchema).check(z.maxLength(25)),
+  knownDraft: z._default(
+    z.partial(z.pick(answersSchema, { interest: true, level: true, language: true })),
+    {},
+  ),
+  selections: z._default(
+    z
+      .array(
+        z.object({
+          path: z.enum(pathIds),
+          level: z.enum(answerOptions.level),
+          language: z.enum(locales),
+          completedAt: z.string(),
+        }),
+      )
+      .check(z.maxLength(25)),
+    [],
+  ),
 });
 export type QuizStorage = z.infer<typeof storageSchema>;
-export const emptyQuiz: QuizStorage = { version: 1, draft: {}, attempts: [] };
+export const emptyQuiz: QuizStorage = {
+  version: 1,
+  draft: {},
+  attempts: [],
+  knownDraft: {},
+  selections: [],
+};
+export const knownPathSchema = z.pick(answersSchema, {
+  interest: true,
+  level: true,
+  language: true,
+});
+export function completeKnownPath(
+  state: QuizStorage,
+  input: unknown,
+  completedAt: string,
+): QuizStorage {
+  const answers = knownPathSchema.parse(input);
+  return {
+    ...state,
+    knownDraft: {},
+    selections: [
+      ...state.selections,
+      { path: answers.interest, level: answers.level, language: answers.language, completedAt },
+    ].slice(-25),
+  };
+}
 export function readQuiz(raw: string | null): QuizStorage {
   try {
     const parsed = storageSchema.safeParse(raw ? JSON.parse(raw) : emptyQuiz);
@@ -175,6 +218,7 @@ export function completeQuiz(
 ): QuizStorage {
   const validAnswers = answersSchema.parse(answers);
   return {
+    ...state,
     version: 1,
     draft: validAnswers,
     attempts: [

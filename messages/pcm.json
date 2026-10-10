@@ -237,5 +237,15 @@
   "quiz_first_step_business": "List cost of small product or service. Try price wey cover cost and leave small profit.",
   "quiz_first_step_writing": "Explain everyday idea with five sentences. Use shorter words and ask reader wetin dem understand.",
   "quiz_first_step_project": "Plan small event or task. List steps, choose first one and give each step realistic deadline.",
-  "quiz_first_step_teaching": "Explain one thing you know to beginner. Use simple example, ask question and adjust your explanation."
+  "quiz_first_step_teaching": "Explain one thing you know to beginner. Use simple example, ask question and adjust your explanation.",
+  "known_eyebrow": "YOUR PATH, YOUR CHOICE",
+  "known_question": "Which path you wan follow?",
+  "known_intro": "Choose path, level and learning language. You no need strengths quiz.",
+  "known_count": "Step {current} of {total}",
+  "known_finish": "Save my learning choices",
+  "known_ready_heading": "Your path don set.",
+  "known_ready_intro": "Na you choose this direction. See small first step for your path.",
+  "known_summary": "Your starting level: {level}. Learning language: {language}.",
+  "known_edit": "Change my choices",
+  "known_privacy": "Your choices and last 25 selections stay for this device. Quiz history still dey. You fit change path anytime."
 }

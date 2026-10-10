@@ -10,6 +10,8 @@ import {
   answerOptions,
   answersSchema,
   completeQuiz,
+  completeKnownPath,
+  knownPathSchema,
   emptyQuiz,
   pathIds,
   pathNameKeys,
@@ -155,6 +157,142 @@ export function Quiz() {
         </Button>
       </div>
       <p className="quiz-note">{t('quiz_privacy')}</p>
+    </div>
+  );
+}
+
+export function KnownPath() {
+  const t = useTranslations();
+  const { state, save, saveFailed } = useQuizStorage();
+  const [position, setPosition] = useState<number | null>(null);
+  const steps = ['interest', 'level', 'language'] as const;
+  const latest = state.selections.at(-1);
+  const ready = position === null && !!latest && Object.keys(state.knownDraft).length === 0;
+  const unanswered = steps.findIndex((key) => !state.knownDraft[key]);
+  const index = position ?? (unanswered < 0 ? steps.length - 1 : unanswered);
+  const question = steps[index];
+  const selected = state.knownDraft[question];
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    heading.current?.focus();
+  }, [index, ready]);
+  function next() {
+    if (index < 2) {
+      setPosition(index + 1);
+      return;
+    }
+    const parsed = knownPathSchema.safeParse(state.knownDraft);
+    if (parsed.success && save(completeKnownPath(state, parsed.data, new Date().toISOString())))
+      setPosition(null);
+  }
+  return (
+    <div className="page-container quiz-container">
+      <span className="eyebrow">{t('known_eyebrow')}</span>
+      {ready ? (
+        <>
+          <h1 ref={heading} tabIndex={-1}>
+            {t('known_ready_heading')}
+          </h1>
+          <p>{t('known_ready_intro')}</p>
+          <section className="quiz-strength">
+            <h2>{t(pathNameKeys[latest!.path])}</h2>
+            <p>
+              {t('known_summary', {
+                level: t(optionKey('level', latest!.level)),
+                language: localeNames[latest!.language],
+              })}
+            </p>
+            <h3>{t('quiz_next_step')}</h3>
+            <p>{t(`quiz_first_step_${latest!.path}`)}</p>
+          </section>
+          <div className="quiz-actions">
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (
+                  save({
+                    ...state,
+                    knownDraft: {
+                      interest: latest!.path,
+                      level: latest!.level,
+                      language: latest!.language,
+                    },
+                  })
+                )
+                  setPosition(0);
+              }}
+            >
+              {t('known_edit')}
+            </Button>
+            <Link href="/quiz" className="button button-primary">
+              {t('start')}
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="quiz-progress-label">
+            <span>{t('known_count', { current: index + 1, total: steps.length })}</span>
+            {!saveFailed && <span>{t('quiz_saved')}</span>}
+          </div>
+          <progress
+            className="quiz-progress"
+            value={index + 1}
+            max={steps.length}
+            aria-label={t('quiz_progress')}
+          />
+          <h1 ref={heading} tabIndex={-1}>
+            {t(question === 'interest' ? 'known_question' : `quiz_question_${question}`)}
+          </h1>
+          <p>{t('known_intro')}</p>
+          <fieldset className="quiz-options" key={question}>
+            <legend className="sr-only">
+              {t(question === 'interest' ? 'known_question' : `quiz_question_${question}`)}
+            </legend>
+            {answerOptions[question].map((option) => (
+              <label
+                className={`quiz-option ${selected === option ? 'selected' : ''}`}
+                key={option}
+              >
+                <input
+                  type="radio"
+                  name={question}
+                  checked={selected === option}
+                  value={option}
+                  onChange={() => {
+                    setPosition(index);
+                    save({ ...state, knownDraft: { ...state.knownDraft, [question]: option } });
+                  }}
+                />
+                <span>
+                  {question === 'interest'
+                    ? t(pathNameKeys[option as keyof typeof pathNameKeys])
+                    : question === 'language'
+                      ? localeNames[option as Locale]
+                      : t(optionKey(question, option))}
+                </span>
+                {selected === option && <Check size={20} aria-hidden="true" />}
+              </label>
+            ))}
+          </fieldset>
+          <div className="quiz-actions">
+            <Button variant="outline" disabled={index === 0} onClick={() => setPosition(index - 1)}>
+              <ArrowLeft size={18} />
+              {t('quiz_back')}
+            </Button>
+            <Button disabled={!selected} onClick={next}>
+              {t(index === 2 ? 'known_finish' : 'quiz_next')}
+              <ArrowRight size={18} />
+            </Button>
+          </div>
+        </>
+      )}
+      {saveFailed && (
+        <p role="alert" className="form-error">
+          {t('quiz_save_error')}
+        </p>
+      )}
+      <p className="quiz-note">{t('known_privacy')}</p>
     </div>
   );
 }

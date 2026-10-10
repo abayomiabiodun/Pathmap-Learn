@@ -237,5 +237,15 @@
   "quiz_first_step_business": "Lissafa kuɗin samfur ko hidima. Gwada farashin da ya rufe kuɗi ya bar ɗan riba.",
   "quiz_first_step_writing": "Bayyana ra'ayi cikin jimloli biyar. Yi amfani da kalmomi masu sauƙi ka tambayi mai karatu abin da ya fahimta.",
   "quiz_first_step_project": "Tsara ƙaramin taro ko aiki. Lissafa matakai, zaɓi na farko ka ba kowanne wa'adin da ya dace.",
-  "quiz_first_step_teaching": "Bayyana abin da ka sani ga mafari. Yi amfani da misali, yi tambaya ka daidaita bayaninka."
+  "quiz_first_step_teaching": "Bayyana abin da ka sani ga mafari. Yi amfani da misali, yi tambaya ka daidaita bayaninka.",
+  "known_eyebrow": "HANYARKA, ZAƁINKA",
+  "known_question": "Wace hanya kake son bi?",
+  "known_intro": "Zaɓi hanya, mataki da harshen koyo. Ba a buƙatar tambayoyin ƙarfi.",
+  "known_count": "Mataki {current} cikin {total}",
+  "known_finish": "Adana zaɓin koyona",
+  "known_ready_heading": "An zaɓi hanyarka.",
+  "known_ready_intro": "Kai ka zaɓi wannan hanyar. Ga mataki na farko mai amfani.",
+  "known_summary": "Matakin farawarka: {level}. Harshen koyo: {language}.",
+  "known_edit": "Canza zaɓina",
+  "known_privacy": "Zaɓinka da zaɓuɓɓuka 25 na baya suna a wannan na'ura. Tarihin tambayoyinka yana nan. Za ka iya canza hanya a kowane lokaci."
 }

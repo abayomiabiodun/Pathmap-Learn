@@ -237,5 +237,15 @@
   "quiz_first_step_business": "Ṣe àtòjọ iye owó ọjà tàbí iṣẹ́, kí o sì yan owó tó bo ìnáwó tí èrè díẹ̀ wà.",
   "quiz_first_step_writing": "Ṣàlàyé èrò kan nínú gbólóhùn márùn-ún, lo ọ̀rọ̀ kúkúrú, kí o béèrè ohun tí òǹkàwé lóye.",
   "quiz_first_step_project": "Ṣètò ìṣẹ̀lẹ̀ kékeré, kọ ìgbésẹ̀, yan ohun tó kọ́kọ́ yẹ, kí o sì fún wọn ní àkókò.",
-  "quiz_first_step_teaching": "Ṣàlàyé ohun kan fún olùbẹ̀rẹ̀, lo àpẹẹrẹ rọrùn, béèrè ìbéèrè, kí o sì ṣe àtúnṣe àlàyé."
+  "quiz_first_step_teaching": "Ṣàlàyé ohun kan fún olùbẹ̀rẹ̀, lo àpẹẹrẹ rọrùn, béèrè ìbéèrè, kí o sì ṣe àtúnṣe àlàyé.",
+  "known_eyebrow": "Ọ̀NÀ RẸ, YÍYÀN RẸ",
+  "known_question": "Ọ̀nà wo ni o fẹ́ tẹ̀lé?",
+  "known_intro": "Yan ọ̀nà, ìpele àti èdè ẹ̀kọ́ rẹ. O kò nílò ìbéèrè agbára.",
+  "known_count": "Ìgbésẹ̀ {current} nínú {total}",
+  "known_finish": "Fipamọ́ àṣàyàn ẹ̀kọ́ mi",
+  "known_ready_heading": "A ti yan ọ̀nà rẹ.",
+  "known_ready_intro": "Ìwọ ló yan ọ̀nà yìí. Èyí ni ìgbésẹ̀ àkọ́kọ́ tó wúlò.",
+  "known_summary": "Ìpele ìbẹ̀rẹ̀ rẹ: {level}. Èdè ẹ̀kọ́: {language}.",
+  "known_edit": "Yí àṣàyàn mi padà",
+  "known_privacy": "Àṣàyàn àti ìgbà 25 tó ṣẹ̀ṣẹ̀ wà lórí ẹ̀rọ yìí. Àkọsílẹ̀ ìbéèrè rẹ wà ní ìpamọ́. O lè yí ọ̀nà padà nígbàkigbà."
 }

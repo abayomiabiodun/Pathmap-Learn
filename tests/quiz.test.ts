@@ -3,6 +3,7 @@ import {
   answerOptions,
   answersSchema,
   completeQuiz,
+  completeKnownPath,
   emptyQuiz,
   pathIds,
   readQuiz,
@@ -104,6 +105,24 @@ describe('quiz scoring', () => {
   });
 });
 describe('quiz history', () => {
+  it('saves manual selections independently and migrates older quiz storage', () => {
+    const prior = completeQuiz(emptyQuiz, answers, 'before');
+    let state = prior;
+    for (let index = 0; index < 26; index++)
+      state = completeKnownPath(
+        state,
+        { interest: 'web', level: 'basics', language: 'fr' },
+        String(index),
+      );
+    expect(state.selections).toHaveLength(25);
+    expect(state.selections.at(-1)?.path).toBe('web');
+    expect(state.attempts).toEqual(prior.attempts);
+    expect(state.draft).toEqual(prior.draft);
+    expect(
+      readQuiz(JSON.stringify({ version: 1, draft: prior.draft, attempts: prior.attempts })),
+    ).toEqual(prior);
+    expect(() => completeKnownPath(state, {}, 'now')).toThrow();
+  });
   it('restores drafts and rejects corrupt or invalid saved input', () => {
     expect(readQuiz(null)).toEqual(emptyQuiz);
     expect(readQuiz('broken')).toEqual(emptyQuiz);

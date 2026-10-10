@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import { Providers } from '@/components/providers';
 import en from '../messages/en.json';
-import { Quiz, QuizResults } from '@/components/quiz';
+import { KnownPath, Quiz, QuizResults } from '@/components/quiz';
 import { completeQuiz, emptyQuiz, type QuizAnswers } from '@/lib/quiz';
 const push = vi.hoisted(() => vi.fn());
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
@@ -22,6 +22,26 @@ const answers: QuizAnswers = {
 function app(component: React.ReactNode) {
   return render(<Providers initialMessages={en}>{component}</Providers>);
 }
+it('selects a known path in three steps, restores it and allows edits without scored results', () => {
+  const view = app(<KnownPath />);
+  expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();
+  fireEvent.click(screen.getByRole('radio', { name: 'Web Development' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  fireEvent.click(screen.getByRole('radio', { name: 'I know some basics' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  fireEvent.click(screen.getByRole('radio', { name: 'Français' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Save my learning preferences' }));
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Your path is set.');
+  expect(screen.queryByText('Your match breakdown')).not.toBeInTheDocument();
+  view.unmount();
+  app(<KnownPath />);
+  expect(screen.getByRole('heading', { name: 'Web Development' })).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Change my choices' }));
+  expect(screen.getByRole('radio', { name: 'Web Development' })).toBeChecked();
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which path');
+});
 it('requires an answer, supports back, restores progress and completes the quiz', () => {
   const view = app(<Quiz />);
   expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();

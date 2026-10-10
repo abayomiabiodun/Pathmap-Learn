@@ -1,5 +1,11 @@
 # Path quiz
 
+`/quiz?skip=true` is the three-step known-path flow: select one of ten paths,
+choose a starting level, then choose a learning language. It saves a separate
+selection history and shows the chosen path's practical first step. It does not
+invent strengths or match percentages. Editing these choices preserves quiz
+drafts and attempts. Older stored quiz records migrate with empty manual fields.
+
 `/quiz` asks ten questions, one per screen. Answers autosave on the current device;
 reopening the quiz resumes at the first unanswered question. Back revisits an answer.
 `/quiz/results` shows a self-reported strength, two recommendations, contributing

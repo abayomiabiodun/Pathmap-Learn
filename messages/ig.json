@@ -237,5 +237,15 @@
   "quiz_first_step_business": "Depụta ọnụ ahịa ngwaahịa ma ọ bụ ọrụ. Nwale ọnụahịa ga-ekpuchi mmefu ma hapụ obere uru.",
   "quiz_first_step_writing": "Kọwaa echiche n'ahịrịokwu ise. Jiri okwu dị mfe dee ya ọzọ ma jụọ onye na-agụ ihe ọ ghọtara.",
   "quiz_first_step_project": "Hazie obere mmemme ma ọ bụ ọrụ. Depụta nzọụkwụ, họrọ nke mbụ ma nye nke ọ bụla oge a pụrụ imezu.",
-  "quiz_first_step_teaching": "Kọwaara onye mbido ihe ị maara. Jiri ihe atụ dị mfe, jụọ ajụjụ ma gbanwee nkọwa gị."
+  "quiz_first_step_teaching": "Kọwaara onye mbido ihe ị maara. Jiri ihe atụ dị mfe, jụọ ajụjụ ma gbanwee nkọwa gị.",
+  "known_eyebrow": "ỤZỌ GỊ, NHỌRỌ GỊ",
+  "known_question": "Kedu ụzọ ị chọrọ iso?",
+  "known_intro": "Họrọ ụzọ, ọkwa na asụsụ mmụta gị. Achọghị ajụjụ ike.",
+  "known_count": "Nzọụkwụ {current} n'ime {total}",
+  "known_finish": "Chekwaa nhọrọ mmụta m",
+  "known_ready_heading": "Ahọrọla ụzọ gị.",
+  "known_ready_intro": "Ị họọrọ ụzọ a. Nke a bụ nzọụkwụ mbụ bara uru.",
+  "known_summary": "Ọkwa mmalite gị: {level}. Asụsụ mmụta: {language}.",
+  "known_edit": "Gbanwee nhọrọ m",
+  "known_privacy": "Nhọrọ gị na nhọrọ 25 ikpeazụ dị na ngwaọrụ a. Echekwara akụkọ ajụjụ gị. Ị nwere ike ịgbanwe ụzọ mgbe ọ bụla."
 }
