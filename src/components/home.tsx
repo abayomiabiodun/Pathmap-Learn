@@ -232,6 +232,10 @@ export function Home() {
           <Link prefetch={false} href="/recruiter" className="button button-outline">
             {t('eng_recruiter')} →
           </Link>
+          <br />
+          <Link prefetch={false} href="/circles" className="button button-outline">
+            {t('comm_title')} →
+          </Link>
         </div>
       </section>
       <section className="bottom-banner">

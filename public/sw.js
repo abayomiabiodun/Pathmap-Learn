@@ -1,5 +1,5 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v11';
+const SHELL = 'pathmap-shell-v12';
 const LESSONS = 'pathmap-lessons-v2';
 const PUBLIC_PAGES = [
   '/',
@@ -72,6 +72,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.startsWith('/api') ||
     url.pathname.startsWith('/auth') ||
     url.pathname.startsWith('/recruiter') ||
+    url.pathname.startsWith('/circles') ||
     event.request.headers.has('rsc')
   )
     return;

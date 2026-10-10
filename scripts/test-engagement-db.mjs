@@ -33,6 +33,7 @@ try {
     create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
     grant usage on schema auth,public to anon,authenticated; grant execute on function auth.uid() to anon,authenticated;`);
   await db.exec(readFileSync('supabase/migrations/20261010000100_engagement.sql', 'utf8'));
+  await db.exec(readFileSync('supabase/migrations/20261010000200_community.sql', 'utf8'));
   assert.equal(
     (
       await query(

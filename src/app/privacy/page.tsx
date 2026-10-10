@@ -18,6 +18,10 @@ export default function Page() {
           'ui_public_portfolios_recruiter_visibility_and_leaderboards_are_opt_in_we_never_send_email_sms_or_whatsapp_reminders_without_your_recorded_permission',
         )}
       </p>
+      <h2>{t('comm_title')}</h2>
+      <p>{t('comm_consent')}</p>
+      <p>{t('comm_mentor_intro')}</p>
+      <p>{t('comm_leave_hint')}</p>
       <h2>{t('ui_your_data_rights')}</h2>
       <p>
         {t(

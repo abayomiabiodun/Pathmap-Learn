@@ -61,6 +61,9 @@ function Navigation() {
       <Link prefetch={false} href="/learn">
         {t('eng_continue')}
       </Link>
+      <Link prefetch={false} href="/circles">
+        {t('comm_title')}
+      </Link>
       <Link prefetch={false} href="/recruiter">
         {t('eng_recruiter')}
       </Link>

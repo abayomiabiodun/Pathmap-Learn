@@ -1,0 +1,47 @@
+.community-section {
+  margin: 32px 0;
+  scroll-margin-top: 100px;
+}
+.community-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.community-threads {
+  list-style: none;
+  padding: 0;
+}
+.community-thread {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+}
+.community-thread h3 {
+  margin-bottom: 6px;
+}
+.community time {
+  font-size: 13px;
+  color: var(--muted);
+}
+.community-messages {
+  list-style: none;
+  padding: 0 0 0 16px;
+  border-left: 3px solid var(--border);
+}
+.community-messages li {
+  margin: 16px 0;
+  padding: 10px;
+  background: var(--soft-green);
+  border-radius: 10px;
+}
+.community-messages p {
+  margin: 8px 0;
+}
+.community-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--soft-green);
+  font-size: 14px;
+}
+.community .eng-card {
+  contain-intrinsic-size: auto 350px;
+}

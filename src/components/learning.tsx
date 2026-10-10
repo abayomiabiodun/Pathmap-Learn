@@ -281,6 +281,9 @@ export function Learning({
       <Link href="/dashboard" prefetch={false} className="button button-outline">
         {t('eng_dashboard')}
       </Link>
+      <Link href="/circles" prefetch={false} className="button button-outline">
+        {t('comm_title')}
+      </Link>
       {path && <p>{t('learn_offline')}</p>}
     </div>
   );

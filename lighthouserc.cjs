@@ -11,6 +11,7 @@ module.exports = {
         'http://localhost:3100/learn/web',
         'http://localhost:3100/dashboard',
         'http://localhost:3100/recruiter',
+        'http://localhost:3100/circles',
       ],
       numberOfRuns: 3,
       settings: {
