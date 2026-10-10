@@ -1,13 +1,21 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v5';
+const SHELL = 'pathmap-shell-v6';
 const LESSONS = 'pathmap-lessons-v1';
-const PUBLIC_PAGES = ['/', '/offline', '/paths', '/icon.svg', '/manifest.webmanifest'];
+const PUBLIC_PAGES = [
+  '/',
+  '/offline',
+  '/paths',
+  '/quiz',
+  '/quiz/results',
+  '/icon.svg',
+  '/manifest.webmanifest',
+];
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL).then(async (cache) => {
       await cache.addAll(PUBLIC_PAGES);
       const assets = new Set();
-      for (const path of ['/', '/offline', '/paths']) {
+      for (const path of ['/', '/offline', '/paths', '/quiz', '/quiz/results']) {
         const response = await cache.match(path);
         const html = await response.text();
         for (const match of html.matchAll(/(?:src|href)="([^" ]+)"/g)) {

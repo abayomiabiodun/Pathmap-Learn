@@ -15,7 +15,7 @@ On this Windows computer, Node and pnpm are available through the Codex bundled 
 - `src/app`: Next.js App Router pages, layouts and auth callback.
 - `src/components`: responsive UI, shadcn-style Radix Button, providers, auth form.
 - `src/lib`: pure validated preferences, redirect protection, Supabase adapter.
-- `messages`: English, Nigerian Pidgin, Yoruba, Hausa, Igbo and French UI with English fallback.
+- `messages`: complete UI catalogs for English, Nigerian Pidgin, Yoruba, Hausa, Igbo and French; additional language packs load on demand.
 - `public`: installable PWA manifest, inline SVG icons and public-shell service worker.
 - `tests`: Vitest/RTL, MSW mocks, Playwright desktop and 360px mobile, axe WCAG checks.
 
@@ -45,7 +45,7 @@ Service worker caches only explicitly public pages and static assets, never acco
 
 ## Status
 
-Phase 1 foundation is implemented. See [validation and continuation notes](docs/phase-1.md). The app includes home, the ten-path catalog, auth, privacy, offline fallback, appearance/language controls and the PWA shell. Quiz, games, library, dashboards, database-backed community and guidance features belong to Phases 2–8 and are not implemented yet; their navigation destinations are reserved.
+Phase 1 foundation and the local quiz flow are implemented. See [validation and continuation notes](docs/phase-1.md) and [quiz scoring and storage](docs/quiz.md). The app includes home, the ten-path catalog, auth, a ten-question quiz, strengths and path recommendations, privacy, offline fallback, appearance/language controls and the PWA shell. Quiz drafts and the latest 25 attempts stay on the current device; account syncing is pending the database phase. Games, the personalized library, dashboards, database-backed community and guidance features remain unfinished. Library currently explains its availability; other future navigation destinations are reserved.
 
 Docker Desktop and WSL were installed for Phase 2. Windows Virtual Machine Platform was enabled, but Windows reports a pending restart and WSL2 cannot start yet. Restart Windows, open Docker Desktop, and wait for its engine to start before continuing with database migrations and RLS tests. No database phase has been marked complete.
 

@@ -19,7 +19,13 @@ for (const [locale, messages] of Object.entries({ en, fr, pcm, yo, ha, ig })) {
       onError: (error) => errors.push(error),
     });
     for (const key of Object.keys(en) as (keyof typeof en)[]) {
-      expect(translate(key)).not.toBe('');
+      const values = Object.fromEntries(
+        [...en[key].matchAll(/\{(\w+)\}/g)].map((match) => [
+          match[1],
+          ['current', 'total', 'percent'].includes(match[1]) ? 2 : 'example',
+        ]),
+      );
+      expect(translate(key, values)).not.toBe('');
     }
     expect(errors).toEqual([]);
   });

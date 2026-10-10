@@ -1,10 +1,9 @@
 'use client';
 import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
-import en from '../../messages/en.json';
+import type en from '../../messages/en.json';
 import { readPreferences, shouldSuggestLite, type Preferences } from '@/lib/preferences';
 const loadMessages = {
-  en: () => Promise.resolve(en),
   pcm: () => import('../../messages/pcm.json').then((module) => module.default),
   yo: () => import('../../messages/yo.json').then((module) => module.default),
   ha: () => import('../../messages/ha.json').then((module) => module.default),
@@ -44,19 +43,32 @@ const connectionSnapshot = () =>
   );
 const noSuggestion = () => false;
 export const usePreferences = () => useContext(Context);
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  initialMessages,
+}: {
+  children: React.ReactNode;
+  initialMessages: typeof en;
+}) {
   const preferences = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
   const suggestLite = useSyncExternalStore(subscribe, connectionSnapshot, noSuggestion);
-  const [translation, setTranslation] = useState({ locale: defaults.locale, messages: en });
+  const [translation, setTranslation] = useState({
+    locale: defaults.locale,
+    messages: initialMessages,
+  });
   useEffect(() => {
     let active = true;
-    loadMessages[preferences.locale]().then((messages) => {
+    const messagesPromise =
+      preferences.locale === 'en'
+        ? Promise.resolve(initialMessages)
+        : loadMessages[preferences.locale]();
+    messagesPromise.then((messages) => {
       if (active) setTranslation({ locale: preferences.locale, messages });
     });
     return () => {
       active = false;
     };
-  }, [preferences.locale]);
+  }, [preferences.locale, initialMessages]);
   useEffect(() => {
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
   }, []);

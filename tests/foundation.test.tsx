@@ -8,6 +8,7 @@ import { AuthForm } from '@/components/auth-form';
 import { Button } from '@/components/ui/button';
 import { LearningProviders } from '@/components/learning-providers';
 import fr from '../messages/fr.json';
+import en from '../messages/en.json';
 import pcm from '../messages/pcm.json';
 import yo from '../messages/yo.json';
 import ha from '../messages/ha.json';
@@ -15,7 +16,7 @@ import ig from '../messages/ig.json';
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 function app(children: React.ReactNode) {
   return render(
-    <Providers>
+    <Providers initialMessages={en}>
       <Shell>{children}</Shell>
     </Providers>,
   );

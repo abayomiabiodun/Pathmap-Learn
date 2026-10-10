@@ -2,7 +2,7 @@ module.exports = {
   ci: {
     collect: {
       startServerCommand: 'pnpm start --port 3100',
-      url: ['http://localhost:3100/', 'http://localhost:3100/auth'],
+      url: ['http://localhost:3100/', 'http://localhost:3100/auth', 'http://localhost:3100/quiz'],
       numberOfRuns: 3,
       settings: {
         throttlingMethod: 'devtools',

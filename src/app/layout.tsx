@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Providers } from '@/components/providers';
 import { Shell } from '@/components/shell';
+import en from '../../messages/en.json';
 import './globals.css';
 import './fonts.css';
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Providers>
+        <Providers initialMessages={en}>
           <Shell>{children}</Shell>
         </Providers>
       </body>

@@ -1,0 +1,189 @@
+import * as z from 'zod/mini';
+import { locales } from './preferences';
+
+// Path order is also the stable tie-break order. Add paths here before extending the matrix.
+export const pathIds = [
+  'data',
+  'web',
+  'cyber',
+  'ai',
+  'design',
+  'marketing',
+  'business',
+  'writing',
+  'project',
+  'teaching',
+] as const;
+export type PathId = (typeof pathIds)[number];
+export const pathNameKeys: Record<PathId, string> = {
+  data: 'ui_data',
+  web: 'ui_web_development',
+  cyber: 'ui_cybersecurity',
+  ai: 'ui_ai_and_machine_learning',
+  design: 'ui_ui_ux_design',
+  marketing: 'ui_digital_marketing',
+  business: 'ui_business_and_entrepreneurship',
+  writing: 'ui_writing_and_communication',
+  project: 'ui_project_management',
+  teaching: 'ui_teaching_and_facilitation',
+};
+export const questionIds = [
+  'interest',
+  'strength',
+  'level',
+  'background',
+  'language',
+  'device',
+  'style',
+  'time',
+  'goal',
+  'confidence',
+] as const;
+export type QuestionId = (typeof questionIds)[number];
+export const answerOptions = {
+  interest: pathIds,
+  strength: ['logic', 'building', 'creativity', 'people', 'detail'],
+  level: ['new', 'basics', 'built'],
+  background: ['student', 'teacher', 'trader', 'marketer', 'service', 'tech', 'other'],
+  language: locales,
+  device: ['low', 'phone', 'offline', 'good'],
+  style: ['video', 'reading', 'projects', 'games'],
+  time: ['one', 'three', 'five'],
+  goal: ['job', 'freelance', 'scholarship', 'switch', 'growth'],
+  confidence: ['ready', 'unsure', 'support'],
+} as const;
+export const answersSchema = z.object({
+  interest: z.enum(answerOptions.interest),
+  strength: z.enum(answerOptions.strength),
+  level: z.enum(answerOptions.level),
+  background: z.enum(answerOptions.background),
+  language: z.enum(answerOptions.language),
+  device: z.enum(answerOptions.device),
+  style: z.enum(answerOptions.style),
+  time: z.enum(answerOptions.time),
+  goal: z.enum(answerOptions.goal),
+  confidence: z.enum(answerOptions.confidence),
+});
+export type QuizAnswers = z.infer<typeof answersSchema>;
+export const draftSchema = z.partial(answersSchema);
+export type QuizDraft = z.infer<typeof draftSchema>;
+
+// Only interests (6), self-reported strengths (4), and relevant background (2) score paths.
+// Each matrix value is 0–1, multiplied by the question's weight. All other answers
+// tailor future resources/goals; language, equipment, time and confidence never limit a path.
+const weights = { interest: 6, strength: 4, background: 2 } as const;
+type Points = Partial<Record<PathId, number>>;
+const strengthMatrix: Record<QuizAnswers['strength'], Points> = {
+  logic: { data: 1, ai: 1, cyber: 0.75, web: 0.5, project: 0.25 },
+  building: { web: 1, business: 0.75, ai: 0.5, design: 0.5, project: 0.25 },
+  creativity: { design: 1, writing: 1, marketing: 0.75, business: 0.25, web: 0.25 },
+  people: { teaching: 1, marketing: 1, business: 0.75, project: 0.75, writing: 0.5 },
+  detail: { cyber: 1, project: 1, data: 0.75, writing: 0.5, design: 0.5 },
+};
+const backgroundMatrix: Record<QuizAnswers['background'], Points> = {
+  student: {},
+  teacher: { teaching: 1, writing: 0.5, project: 0.25 },
+  trader: { business: 1, marketing: 0.5, data: 0.25 },
+  marketer: { marketing: 1, writing: 0.5, design: 0.25 },
+  service: { project: 1, teaching: 0.5, business: 0.5 },
+  tech: { web: 1, cyber: 0.5, ai: 0.5, data: 0.5 },
+  other: {},
+};
+export type Contribution = { question: keyof typeof weights; option: string; points: number };
+export function scoreQuiz(input: unknown) {
+  const answers = answersSchema.parse(input);
+  const scores = pathIds
+    .map((path) => {
+      const contributions: Contribution[] = [
+        {
+          question: 'interest',
+          option: answers.interest,
+          points: answers.interest === path ? weights.interest : 0,
+        },
+        {
+          question: 'strength',
+          option: answers.strength,
+          points: (strengthMatrix[answers.strength][path] ?? 0) * weights.strength,
+        },
+        {
+          question: 'background',
+          option: answers.background,
+          points: (backgroundMatrix[answers.background][path] ?? 0) * weights.background,
+        },
+      ];
+      const points = contributions.reduce((sum, item) => sum + item.points, 0);
+      const maximum =
+        weights.interest +
+        Math.max(...Object.values(strengthMatrix).map((row) => row[path] ?? 0)) * weights.strength +
+        Math.max(...Object.values(backgroundMatrix).map((row) => row[path] ?? 0)) *
+          weights.background;
+      return {
+        path,
+        points,
+        match: Math.round((points / maximum) * 100),
+        contributions: contributions
+          .filter((item) => item.points > 0)
+          .sort((a, b) => b.points - a.points),
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.match - a.match ||
+        b.points - a.points ||
+        pathIds.indexOf(a.path) - pathIds.indexOf(b.path),
+    );
+  return {
+    top: scores[0],
+    second: scores[1],
+    scores,
+    strength: answers.strength,
+    preferences: {
+      level: answers.level,
+      language: answers.language,
+      device: answers.device,
+      style: answers.style,
+      time: answers.time,
+      goal: answers.goal,
+      confidence: answers.confidence,
+    },
+  };
+}
+export const attemptSchema = z.object({
+  answers: answersSchema,
+  completedAt: z.string(),
+  chosenPath: z.enum(pathIds),
+});
+const storageSchema = z.object({
+  version: z.literal(1),
+  draft: draftSchema,
+  attempts: z.array(attemptSchema).check(z.maxLength(25)),
+});
+export type QuizStorage = z.infer<typeof storageSchema>;
+export const emptyQuiz: QuizStorage = { version: 1, draft: {}, attempts: [] };
+export function readQuiz(raw: string | null): QuizStorage {
+  try {
+    const parsed = storageSchema.safeParse(raw ? JSON.parse(raw) : emptyQuiz);
+    return parsed.success ? parsed.data : emptyQuiz;
+  } catch {
+    return emptyQuiz;
+  }
+}
+export function completeQuiz(
+  state: QuizStorage,
+  answers: unknown,
+  completedAt: string,
+): QuizStorage {
+  const validAnswers = answersSchema.parse(answers);
+  return {
+    version: 1,
+    draft: validAnswers,
+    attempts: [
+      ...state.attempts,
+      {
+        answers: validAnswers,
+        completedAt,
+        chosenPath: scoreQuiz(validAnswers).top.path,
+      },
+    ].slice(-25),
+  };
+}
