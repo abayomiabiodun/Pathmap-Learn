@@ -13,9 +13,13 @@ test('community opens from home, preserves question drafts and gates disconnecte
   await page.getByRole('link', { name: en.comm_title + ' →', exact: true }).click();
   await expect(page).toHaveURL('/circles');
   await expect(page.getByRole('heading', { name: en.comm_title, exact: true })).toBeVisible();
+  await page.getByRole('link', { name: en.comm_join, exact: true }).click();
+  await expect(page).toHaveURL('/circles/join');
   await expect(page.getByText(en.comm_unconfigured)).toBeVisible();
   await expect(page.getByRole('button', { name: en.comm_join })).toBeDisabled();
-  await page.getByRole('link', { name: en.comm_ask_mentor, exact: true }).click();
+  await page.getByRole('link', { name: en.comm_title, exact: true }).click();
+  await page.getByRole('link', { name: en.comm_mentors, exact: true }).click();
+  await expect(page).toHaveURL('/circles/mentors');
   await page
     .getByLabel(en.comm_question)
     .fill('How can I make my page accessible to keyboard users?');
@@ -42,15 +46,15 @@ test('community opens from home, preserves question drafts and gates disconnecte
 test('circle and mentor controls translate fully and remain accessible in dark mode', async ({
   page,
 }) => {
-  await page.goto('/circles');
+  await page.goto('/circles/mentors');
   for (const [locale, messages] of Object.entries({ pcm, yo, ha, ig, fr, en })) {
     await page.locator('#locale').selectOption(locale);
     await expect(
-      page.getByRole('heading', { name: messages.comm_title, exact: true }),
+      page.getByRole('heading', { name: messages.comm_mentors, exact: true }),
     ).toBeVisible();
     await expect(page.getByLabel(messages.comm_question)).toBeVisible();
     await expect(page.getByText(messages.comm_unconfigured)).toBeVisible();
-    await expect(page.getByRole('button', { name: messages.comm_apply })).toBeDisabled();
+    await expect(page.getByRole('button', { name: messages.comm_request })).toBeDisabled();
     await expect(page.locator('body')).toHaveJSProperty(
       'scrollWidth',
       await page.evaluate(() => document.documentElement.clientWidth),

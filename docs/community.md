@@ -51,3 +51,11 @@ The current computer has no configured Supabase keys. Local Docker/Supabase setu
 Lint, TypeScript, the production build, formatting, 85 unit/component tests and both clean PostgreSQL/RLS gates passed. Pure community validation has 100% coverage. All 52 desktop/mobile browser scenarios passed across the full run and a focused rerun of the corrected mobile theme test. They cover six-language controls, light/dark accessibility, 360px layouts, question-draft persistence, account gating, navigation and exclusion of private pages from offline caches. Connected UI flows use isolated mocked accounts; actual SQL permissions and transitions are tested against fresh PostgreSQL.
 
 The production Lighthouse audit passed all nine routes with three runs per route, 4G throttling and 4× CPU slowdown. The community page's median LCP was 1.713 seconds, accessibility was 100, and script transfer was 197,493 bytes, within the 200 KB budget. These measurements use the current unconfigured account state; live Supabase Auth/PostgREST and connected-data performance still need verification after setup.
+
+# Community navigation
+
+`/circles` is a navigation hub. Each activity has a focused page: `/circles/join` for membership and matching, `/circles/check-in` for the weekly prompt and message board, `/circles/mentors` for the mentor directory and private questions, and `/circles/become-mentor` for applications. Mentor pages also retain private guidance conversations. Direct links and reloads work; returning to the hub does not delete device question drafts. `/showcase` remains linked from the hub and feature navigation. All pages reuse the existing translations and account privacy controls.
+
+The page split passes TypeScript, lint, the production build, all 16 affected component/translation checks, and eight affected desktop/mobile browser cases. The six community navigation cases were rerun after simplifying the phone header and passed again. Browser coverage checks direct links, reloads, focused forms, returning to the hub, saved questions, all languages, accessibility, and horizontal overflow. The hub and four feature routes are included in the three-run Lighthouse configuration.
+
+All five routes passed fifteen Lighthouse runs: accessibility 100, median LCP below 2.5 seconds, and JavaScript below 200 KiB on the configured mobile throttling profile.

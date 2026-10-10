@@ -71,7 +71,7 @@ beforeEach(() => {
 function mount() {
   render(
     <NextIntlClientProvider locale="en" messages={en} timeZone="Africa/Lagos">
-      <Community />
+      <Community view="all" />
     </NextIntlClientProvider>,
   );
   return userEvent.setup();

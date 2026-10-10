@@ -48,3 +48,23 @@
 .community .eng-grid > .eng-card:first-child {
   content-visibility: visible;
 }
+.community-page-content {
+  margin: 24px 0;
+  max-width: 760px;
+}
+.community-page-content > .eng-card {
+  content-visibility: visible;
+}
+.community-destination {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.community-destination:hover {
+  border-color: var(--green);
+}
+.community-destination:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 4px;
+}
