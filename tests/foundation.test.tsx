@@ -7,6 +7,11 @@ import { Home } from '@/components/home';
 import { AuthForm } from '@/components/auth-form';
 import { Button } from '@/components/ui/button';
 import { LearningProviders } from '@/components/learning-providers';
+import fr from '../messages/fr.json';
+import pcm from '../messages/pcm.json';
+import yo from '../messages/yo.json';
+import ha from '../messages/ha.json';
+import ig from '../messages/ig.json';
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 function app(children: React.ReactNode) {
   return render(
@@ -16,6 +21,16 @@ function app(children: React.ReactNode) {
   );
 }
 describe('foundation', () => {
+  it('loads each language pack and updates all home sections', async () => {
+    app(<Home />);
+    for (const [locale, messages] of Object.entries({ fr, pcm, yo, ha, ig })) {
+      fireEvent.change(document.getElementById('locale')!, { target: { value: locale } });
+      await waitFor(() =>
+        expect(screen.getByText(messages.ui_big_dreams_small_data)).toBeInTheDocument(),
+      );
+      expect(document.documentElement.lang).toBe(locale);
+    }
+  });
   it('provides isolated query and motion scaffolding for learning routes', () => {
     app(
       <LearningProviders>
@@ -44,7 +59,9 @@ describe('foundation', () => {
     await waitFor(() => expect(document.documentElement.dataset.theme).toBe('dark'));
     fireEvent.click(screen.getByRole('button', { name: 'Use light mode' }));
     fireEvent.change(screen.getByLabelText('Language'), { target: { value: 'fr' } });
-    expect(screen.getByRole('link', { name: 'Trouver ma voie' })).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByRole('link', { name: 'Trouver ma voie' })).toBeInTheDocument(),
+    );
   });
   it('shows offline notice', async () => {
     app(<Home />);

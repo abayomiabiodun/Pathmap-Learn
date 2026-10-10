@@ -1,19 +1,16 @@
 'use client';
-import { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import en from '../../messages/en.json';
-import pcm from '../../messages/pcm.json';
-import yo from '../../messages/yo.json';
-import ha from '../../messages/ha.json';
-import ig from '../../messages/ig.json';
-import fr from '../../messages/fr.json';
-import {
-  readPreferences,
-  shouldSuggestLite,
-  type Preferences,
-  type Locale,
-} from '@/lib/preferences';
-const translations = { en, pcm, yo, ha, ig, fr };
+import { readPreferences, shouldSuggestLite, type Preferences } from '@/lib/preferences';
+const loadMessages = {
+  en: () => Promise.resolve(en),
+  pcm: () => import('../../messages/pcm.json').then((module) => module.default),
+  yo: () => import('../../messages/yo.json').then((module) => module.default),
+  ha: () => import('../../messages/ha.json').then((module) => module.default),
+  ig: () => import('../../messages/ig.json').then((module) => module.default),
+  fr: () => import('../../messages/fr.json').then((module) => module.default),
+};
 const defaults: Preferences = { locale: 'en', lite: false, dark: false };
 const Context = createContext<{
   preferences: Preferences;
@@ -50,24 +47,34 @@ export const usePreferences = () => useContext(Context);
 export function Providers({ children }: { children: React.ReactNode }) {
   const preferences = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
   const suggestLite = useSyncExternalStore(subscribe, connectionSnapshot, noSuggestion);
+  const [translation, setTranslation] = useState({ locale: defaults.locale, messages: en });
+  useEffect(() => {
+    let active = true;
+    loadMessages[preferences.locale]().then((messages) => {
+      if (active) setTranslation({ locale: preferences.locale, messages });
+    });
+    return () => {
+      active = false;
+    };
+  }, [preferences.locale]);
   useEffect(() => {
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
   }, []);
   useEffect(() => {
     document.documentElement.dataset.theme = preferences.dark ? 'dark' : 'light';
     document.documentElement.dataset.lite = String(preferences.lite);
-    document.documentElement.lang = preferences.locale;
-  }, [preferences]);
+    document.documentElement.lang = translation.locale;
+    document.title = `PathMap Learn — ${translation.messages.start}`;
+  }, [preferences, translation]);
   const update = (next: Partial<Preferences>) => {
     localStorage.setItem('pathmap-preferences', JSON.stringify({ ...preferences, ...next }));
     listeners.forEach((listener) => listener());
   };
-  const messages = { ...en, ...translations[preferences.locale as Locale] };
   return (
     <Context.Provider value={{ preferences, update, suggestLite }}>
       <NextIntlClientProvider
-        locale={preferences.locale}
-        messages={messages}
+        locale={translation.locale}
+        messages={translation.messages}
         timeZone="Africa/Lagos"
       >
         {children}

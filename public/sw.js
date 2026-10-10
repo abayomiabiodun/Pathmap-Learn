@@ -1,5 +1,5 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v3';
+const SHELL = 'pathmap-shell-v5';
 const LESSONS = 'pathmap-lessons-v1';
 const PUBLIC_PAGES = ['/', '/offline', '/paths', '/icon.svg', '/manifest.webmanifest'];
 self.addEventListener('install', (event) => {

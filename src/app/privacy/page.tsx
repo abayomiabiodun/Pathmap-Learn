@@ -1,34 +1,40 @@
+'use client';
+import { useTranslations } from 'next-intl';
 export default function Page() {
+  const t = useTranslations();
   return (
     <article className="page-container narrow">
-      <span className="eyebrow">YOUR LEARNING, YOUR CHOICE</span>
-      <h1>Privacy comes first.</h1>
-      <h2>What we store</h2>
+      <span className="eyebrow">{t('ui_your_learning_your_choice')}</span>
+      <h1>{t('ui_privacy_comes_first')}</h1>
+      <h2>{t('ui_what_we_store')}</h2>
       <p>
-        PathMap Learn uses your quiz answers, learning progress and preferences to tailor your
-        learning. In the local demo, preferences are stored on your device. When live accounts are
-        configured, your email and learning records are held in Supabase.
+        {t(
+          'ui_pathmap_learn_uses_your_quiz_answers_learning_progress_and_preferences_to_tailor_your_learning_in_the_local_demo_preferences_are_stored_on_your_device_when_live_accounts_are_configured_your_email_and_learning_records_are_held_in_supabase',
+        )}
       </p>
-      <h2>You control your visibility</h2>
+      <h2>{t('ui_you_control_your_visibility')}</h2>
       <p>
-        Public portfolios, recruiter visibility and leaderboards are opt-in. We never send email,
-        SMS or WhatsApp reminders without your recorded permission.
+        {t(
+          'ui_public_portfolios_recruiter_visibility_and_leaderboards_are_opt_in_we_never_send_email_sms_or_whatsapp_reminders_without_your_recorded_permission',
+        )}
       </p>
-      <h2>Your data rights</h2>
+      <h2>{t('ui_your_data_rights')}</h2>
       <p>
-        You can request an export or deletion of your account data through settings when signed in.
-        Clearing this site’s browser storage removes local demo data. Sign-in links are handled by
-        Supabase; Google sign-in shares the profile information you approve.
+        {t(
+          'ui_you_can_request_an_export_or_deletion_of_your_account_data_through_settings_when_signed_in_clearing_this_site_s_browser_storage_removes_local_demo_data_sign_in_links_are_handled_by_supabase_google_sign_in_shares_the_profile_information_you_approve',
+        )}
       </p>
-      <h2>Offline learning</h2>
+      <h2>{t('ui_offline_learning')}</h2>
       <p>
-        Saved lessons may be cached on this device. Avoid saving personal information on a shared
-        device and remove downloads when you finish using it.
+        {t(
+          'ui_saved_lessons_may_be_cached_on_this_device_avoid_saving_personal_information_on_a_shared_device_and_remove_downloads_when_you_finish_using_it',
+        )}
       </p>
-      <h2>Third-party learning resources</h2>
+      <h2>{t('ui_third_party_learning_resources')}</h2>
       <p>
-        External learning providers have their own privacy policies. Opening a resource takes you to
-        that provider’s website. PathMap does not load videos until you choose to open them.
+        {t(
+          'ui_external_learning_providers_have_their_own_privacy_policies_opening_a_resource_takes_you_to_that_provider_s_website_pathmap_does_not_load_videos_until_you_choose_to_open_them',
+        )}
       </p>
     </article>
   );

@@ -40,10 +40,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <a className="skip-link" href="#main">
-        Skip to content
+        {t('ui_skip_to_content')}
       </a>
       <header className="header">
-        <Link prefetch={false} href="/" className="brand" aria-label="PathMap Learn home">
+        <Link prefetch={false} href="/" className="brand" aria-label={t('ui_pathmap_learn_home')}>
           <span className="brand-icon">
             <Map size={23} />
           </span>
@@ -51,7 +51,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             pathmap<span className="brand-sub">LEARN</span>
           </span>
         </Link>
-        <nav aria-label="Main navigation" className="desktop-nav">
+        <nav aria-label={t('ui_main_navigation')} className="desktop-nav">
           {nav.map(({ href, key }) => (
             <Link
               prefetch={false}
@@ -77,7 +77,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </button>
           <button
             className="icon-button theme-toggle"
-            aria-label={preferences.dark ? 'Use light mode' : 'Use dark mode'}
+            aria-label={preferences.dark ? t('ui_use_light_mode') : t('ui_use_dark_mode')}
             onClick={() => update({ dark: !preferences.dark })}
           >
             {preferences.dark ? <Sun size={19} /> : <Moon size={19} />}
@@ -103,7 +103,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       )}
       <main id="main">{children}</main>
       <footer className="footer">
-        <span>Made for your pace. Built for your possibilities.</span>
+        <span>{t('ui_made_for_your_pace_built_for_your_possibilities')}</span>
         <div>
           <label className="sr-only" htmlFor="locale">
             {t('language')}
@@ -125,7 +125,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <span>© {new Date().getFullYear()} PathMap Learn</span>
         </div>
       </footer>
-      <nav aria-label="Mobile navigation" className="mobile-nav">
+      <nav aria-label={t('ui_mobile_navigation')} className="mobile-nav">
         {nav.map(({ href, key, icon: Icon }) => (
           <Link
             prefetch={false}
