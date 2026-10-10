@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Créer votre première page HTML",
+    "body": "HTML décrit la structure d’une page. <h1> crée un titre, <p> un paragraphe et <a href=\"...\"> un lien. Les balises ouvrantes et fermantes entourent le contenu. L’attribut href indique la destination du lien.\nCommencez par un titre clair et un court paragraphe. Donnez au lien un texte descriptif. La page doit rester compréhensible sans couleurs ni images.",
+    "practice": "Écrivez une page HTML sur vous : un h1, un p sur vos intérêts et un a vers un site utile. Expliquez href.",
+    "statement": "HTML décrit la structure d’une page web.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>J’aime apprendre.</p>\n<a href=\"https://example.com\">Site d’exemple</a>"
+  },
+  "css": {
+    "title": "Mettre une page en forme avec CSS",
+    "body": "CSS contrôle les couleurs, l’espacement et la disposition. Un sélecteur choisit un élément ; les déclarations entre accolades définissent ses propriétés. Dans h1 { color: green; }, h1 est le sélecteur et color la propriété.\nUtilisez du texte lisible et un contraste suffisant. Une largeur fixe de 900px peut déborder sur un téléphone. max-width: 100% aide le contenu à tenir dans l’écran.",
+    "practice": "Écrivez du CSS pour colorer votre titre et ajouter du padding au paragraphe. Expliquez pourquoi la page doit tenir sur un petit écran.",
+    "statement": "CSS remplace la structure HTML.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Ajouter une interaction avec JavaScript",
+    "body": "JavaScript réagit aux actions. querySelector trouve un élément ; addEventListener exécute une fonction lorsqu’un événement survient. textContent modifie le texte sans l’interpréter comme du HTML.\nUn vrai bouton fonctionne aussi au clavier. Gardez la page utile avant le chargement du script.",
+    "practice": "Écrivez un bouton et un écouteur click qui remplace un paragraphe par un message de bienvenue. Expliquez l’événement déclencheur.",
+    "statement": "Un écouteur click peut réagir à l’activation d’un bouton.",
+    "answer": true,
+    "code": "<button id=\"welcome\">Bienvenue</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"Bienvenue!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Poser une question utile aux données",
+    "body": "Les données sont des informations enregistrées. Commencez par une question, puis placez les observations en lignes et les champs en colonnes. Une valeur manquante n’est pas zéro. Vérifiez les unités et les doublons. La moyenne est la somme divisée par le nombre de valeurs.",
+    "practice": "Avec les ventes 10, 20, 30, calculez la moyenne, indiquez l’unité et posez une question sans réponse dans ces nombres.",
+    "statement": "La moyenne de 10, 20 et 30 est 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Protéger un compte",
+    "body": "Utilisez un mot de passe unique par service et un gestionnaire pour les conserver. L’authentification multifacteur ajoute une vérification. Un message inattendu demandant un mot de passe ou un code peut être du phishing. Ouvrez directement le service pour vérifier la demande.",
+    "practice": "Décrivez comment vérifier un message de connexion inattendu. Donnez deux protections pour un compte de test, sans saisir de vrai mot de passe.",
+    "statement": "On peut envoyer un code de connexion à toute personne prétendant travailler au support.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Comprendre une prédiction",
+    "body": "Un modèle apprend des régularités à partir d’exemples. Les données d’entraînement influencent ses prédictions. Il peut se tromper, surtout avec des exemples différents. Évaluez-le avec des exemples séparés et examinez les erreurs.",
+    "practice": "Pour un modèle reconnaissant des fruits, décrivez des exemples d’entraînement et de test distincts. Nommez un risque d’erreur.",
+    "statement": "Une prédiction de modèle est toujours correcte.",
+    "answer": false
+  },
+  "design": {
+    "title": "Concevoir pour un besoin",
+    "body": "L’expérience utilisateur commence par une personne et un objectif. Décrivez le problème avant de dessiner les écrans. Un libellé clair aide à choisir une action. Testez un croquis avant de construire. Observez les difficultés au lieu de supposer les besoins.",
+    "practice": "Dessinez trois étapes pour enregistrer une leçon. Indiquez le but de l’utilisateur et une question de test.",
+    "statement": "Tester un croquis peut révéler des problèmes avant la construction d’une application.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Préparer un message utile",
+    "body": "Le marketing relie une offre utile à un public. Définissez votre public, son problème et l’action souhaitée. Mesurez un résultat pertinent, comme les demandes, plutôt que les seules vues. Évitez les promesses sans preuve.",
+    "practice": "Écrivez un message pour un service local. Précisez son public, son bénéfice, une action et une mesure de réussite.",
+    "statement": "Davantage de vues signifie toujours davantage de clients.",
+    "answer": false
+  },
+  "business": {
+    "title": "Tester une idée commerciale",
+    "body": "Une idée commerciale doit répondre à un problème client avec une offre réalisable. Parlez aux clients avant d’investir beaucoup. Le chiffre d’affaires est l’argent reçu ; le bénéfice tient aussi compte des coûts. Un petit test révèle la valeur perçue.",
+    "practice": "Un produit se vend 100 et coûte 70 à fournir. Calculez la différence avant les autres coûts et proposez un petit test client.",
+    "statement": "Les coûts doivent être pris en compte pour estimer le bénéfice.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Écrire pour un lecteur",
+    "body": "Un texte clair a un objectif et un public. Placez l’essentiel au début, utilisez des mots concrets et proposez une prochaine étape. Révisez les phrases qui mélangent trop d’idées. Vérifiez que le lecteur peut agir.",
+    "practice": "Écrivez quatre phrases pour inviter un ami à étudier. Incluez le but, l’heure, le lieu et la prochaine action.",
+    "statement": "Connaître son public aide à choisir les détails utiles.",
+    "answer": true
+  },
+  "project": {
+    "title": "Découper un projet en tâches",
+    "body": "Un projet a un résultat, des tâches et des contraintes. Découpez le travail, attribuez les responsabilités et repérez les dépendances. Une tâche peut devoir attendre une autre. Suivez les progrès et adaptez le plan.",
+    "practice": "Planifiez une rencontre d’étude avec quatre tâches, leurs responsables et une dépendance. Définissez le résultat attendu.",
+    "statement": "Toutes les tâches d’un projet peuvent toujours commencer en même temps.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Aider quelqu’un à apprendre",
+    "body": "Une leçon a un objectif, un exemple, une pratique et un retour. Montrer un savoir-faire ne suffit pas. Demandez à l’apprenant d’essayer et d’expliquer son raisonnement. Utilisez sa réponse pour choisir la suite.",
+    "practice": "Planifiez dix minutes d’enseignement d’un savoir-faire. Écrivez l’objectif, l’exercice et une question de compréhension.",
+    "statement": "La pratique et les retours aident à vérifier la compréhension.",
+    "answer": true
+  }
+}

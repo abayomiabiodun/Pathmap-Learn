@@ -1,0 +1,127 @@
+.learning {
+  max-width: 1050px;
+}
+.learning-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+.learning-card,
+.learning-lesson {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+}
+.learning-card h2 {
+  font-size: 23px;
+}
+.learning-card .button {
+  margin-top: 12px;
+}
+.learning progress {
+  width: 100%;
+  accent-color: var(--green);
+  height: 12px;
+}
+.learning-workspace {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.learning-outline {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.learning-outline button {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  white-space: normal;
+  text-align: left;
+  justify-content: flex-start;
+  height: auto;
+}
+.learning-outline button[aria-current] {
+  background: var(--soft-green);
+  border-color: var(--green);
+}
+.learning-lesson p {
+  white-space: pre-line;
+}
+.learning textarea {
+  display: block;
+  width: 100%;
+  min-height: 150px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 10px 0 24px;
+}
+.learning pre {
+  overflow-x: auto;
+  background: var(--bg);
+  padding: 16px;
+  border-radius: 10px;
+}
+.learning fieldset {
+  border: 0;
+  padding: 0;
+  margin: 20px 0;
+}
+.learning fieldset label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-right: 22px;
+}
+.learning input[type='radio'] {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  flex-shrink: 0;
+  padding: 0;
+  accent-color: var(--green);
+}
+.learning-feedback {
+  border-left: 4px solid var(--green);
+  background: var(--soft-green);
+  padding: 16px;
+}
+.learning-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+@media (max-width: 650px) {
+  .learning-grid,
+  .learning-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .learning-outline {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .learning-outline button {
+    min-width: 150px;
+  }
+  .learning-lesson {
+    padding: 20px;
+  }
+}

@@ -1,6 +1,6 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v7';
-const LESSONS = 'pathmap-lessons-v1';
+const SHELL = 'pathmap-shell-v8';
+const LESSONS = 'pathmap-lessons-v2';
 const PUBLIC_PAGES = [
   '/',
   '/offline',
@@ -8,6 +8,8 @@ const PUBLIC_PAGES = [
   '/quiz',
   '/quiz?skip=true',
   '/quiz/results',
+  '/learn',
+  '/library',
   '/icon.svg',
   '/manifest.webmanifest',
 ];
@@ -16,7 +18,16 @@ self.addEventListener('install', (event) => {
     caches.open(SHELL).then(async (cache) => {
       await cache.addAll(PUBLIC_PAGES);
       const assets = new Set();
-      for (const path of ['/', '/offline', '/paths', '/quiz', '/quiz?skip=true', '/quiz/results']) {
+      for (const path of [
+        '/',
+        '/offline',
+        '/paths',
+        '/quiz',
+        '/quiz?skip=true',
+        '/quiz/results',
+        '/learn',
+        '/library',
+      ]) {
         const response = await cache.match(path);
         const html = await response.text();
         for (const match of html.matchAll(/(?:src|href)="([^" ]+)"/g)) {
@@ -65,7 +76,13 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          if (PUBLIC_PAGES.includes(url.pathname) && response.ok) {
+          if (
+            (PUBLIC_PAGES.includes(url.pathname) ||
+              /^\/learn\/(data|web|cyber|ai|design|marketing|business|writing|project|teaching)$/.test(
+                url.pathname,
+              )) &&
+            response.ok
+          ) {
             const copy = response.clone();
             event.waitUntil(caches.open(SHELL).then((cache) => cache.put(event.request, copy)));
           }
@@ -82,6 +99,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.startsWith('/_next/static/') ||
     url.pathname.startsWith('/fonts/') ||
     url.pathname.startsWith('/lessons/') ||
+    url.pathname.startsWith('/learn/') ||
     url.pathname.endsWith('.svg')
   ) {
     event.respondWith(

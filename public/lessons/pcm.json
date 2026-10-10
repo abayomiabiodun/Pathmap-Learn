@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Build your first HTML page",
+    "body": "HTML dey describe how page arrange. <h1> na heading, <p> na paragraph, and <a href=\"...\"> na link. Opening and closing tags dey hold content. href dey show where link go.\nStart with one clear heading and short paragraph. Make link text explain where e go. Page suppose make sense even without colour or picture.",
+    "practice": "Write HTML about yourself: one h1, p about wetin you like, and a link to useful website. Explain wetin href do.",
+    "statement": "HTML dey describe how web page arrange.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>I like to learn.</p>\n<a href=\"https://example.com\">Example website</a>"
+  },
+  "css": {
+    "title": "Style page with CSS",
+    "body": "CSS dey control colour, spacing and layout. Selector dey choose element; declarations inside braces dey set properties. For h1 { color: green; }, h1 na selector and color na property.\nMake text easy to read. Fixed width of 900px fit pass phone screen. max-width: 100% fit help content fit screen.",
+    "practice": "Write CSS to give heading colour and paragraph padding. Explain why page suppose fit small screen.",
+    "statement": "CSS mean say you no need HTML structure again.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Add interaction with JavaScript",
+    "body": "JavaScript dey respond to actions. querySelector dey find element; addEventListener dey run function when event happen. textContent dey change text without treating am as HTML.\nUse real button so keyboard fit work. Make page useful before script load.",
+    "practice": "Write button and click listener wey go change paragraph to welcome message. Explain event wey start am.",
+    "statement": "Click event listener fit respond when person activate button.",
+    "answer": true,
+    "code": "<button id=\"welcome\">You welcome</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"You welcome!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Ask useful question with data",
+    "body": "Data na information wey person record. Start with question. Put observations for rows and fields for columns. Missing value no be zero. Check units and duplicate rows. Average na sum divide by number of values.",
+    "practice": "Sales na 10, 20, 30. Calculate average, write unit, and one question wey numbers no fit answer.",
+    "statement": "Average of 10, 20 and 30 na 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Protect account",
+    "body": "Use different password for each service and password manager to keep dem. Multi-factor authentication dey add another check. Unexpected message wey ask password or code fit be phishing. Open service directly to check request.",
+    "practice": "Explain how you go check unexpected login message. Write two protection steps for test account; no put real password here.",
+    "statement": "E safe to send login code to anybody wey claim say dem be support.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Understand model prediction",
+    "body": "Machine learning model dey learn patterns from examples. Training data dey affect prediction. Prediction fit wrong, especially if new examples different. Test with separate examples and check mistakes too.",
+    "practice": "For model wey recognise fruit, describe training examples and separate test examples. Name one way e fit fail.",
+    "statement": "Model prediction must always correct.",
+    "answer": false
+  },
+  "design": {
+    "title": "Design for user need",
+    "body": "User experience start with person and goal. Explain problem before you draw screen. Clear label dey help person choose action. Test simple sketch before you build. Watch where person get stuck.",
+    "practice": "Sketch three steps to save lesson. Write user goal and one question for test.",
+    "statement": "Testing sketch fit show problems before app build.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Plan useful message",
+    "body": "Marketing dey connect useful offer with audience. Choose who you wan reach, problem you solve and action dem suppose take. Measure useful result like enquiries, no be only views. No make claim wey you no fit prove.",
+    "practice": "Write short message for local service. Name audience, benefit, action and how you go measure success.",
+    "statement": "More views always mean more customers.",
+    "answer": false
+  },
+  "business": {
+    "title": "Test business idea",
+    "body": "Business idea need customer problem and offer wey fit work. Talk to customers before you spend plenty. Revenue na money wey enter; profit dey count costs too. Small test fit show if people value offer.",
+    "practice": "Item sell for 100 and cost 70 to provide. Calculate difference before other costs, then describe small customer test.",
+    "statement": "You need count costs when you estimate profit.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Write for reader",
+    "body": "Clear writing get purpose and audience. Put main point early, use clear words and give next step. Edit sentence wey carry too many ideas. Make sure reader get enough information to act.",
+    "practice": "Write four sentences to invite friend for study session. Put purpose, time, place and next action.",
+    "statement": "Knowing audience dey help you choose useful details.",
+    "answer": true
+  },
+  "project": {
+    "title": "Break project into tasks",
+    "body": "Project get outcome, tasks and limits. Split work small, choose who go do each, and find dependencies. Some task need another finish first. Check progress and adjust plan.",
+    "practice": "Plan study event with four tasks, owner for each and one dependency. Write wetin success go look like.",
+    "statement": "Every project task fit always start same time.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Help person learn",
+    "body": "Lesson need clear goal, example, practice and feedback. Showing skill no mean person don learn am. Let learner try and explain reasoning. Use answer choose wetin to teach next.",
+    "practice": "Plan ten-minute lesson on skill you know. Write goal, practice and question to check understanding.",
+    "statement": "Practice and feedback dey help teacher check understanding.",
+    "answer": true
+  }
+}

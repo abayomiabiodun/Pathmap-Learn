@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Wuo ibe HTML mbụ gị",
+    "body": "HTML na-akọwa nhazi ibe. <h1> bụ isiokwu, <p> bụ paragraf, <a href=\"...\"> bụ njikọ. Tags mmeghe na mmechi na-agba ọdịnaya gburugburu. href na-egosi ebe njikọ na-aga.\nMalite na isiokwu doro anya na paragraf dị mkpirikpi. Okwu njikọ kwesịrị ịkọwa ebe ọ na-aga. Ibe kwesịrị doo anya n’enweghị agba ma ọ bụ foto.",
+    "practice": "Dee HTML gbasara onwe gị: otu h1, p gbasara mmasị gị na a gaa na weebụsaịtị bara uru. Kọwaa href.",
+    "statement": "HTML na-akọwa nhazi ibe weebụ.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>Ịmụ ihe na-amasị m.</p>\n<a href=\"https://example.com\">Weebụsaịtị ihe atụ</a>"
+  },
+  "css": {
+    "title": "Jiri CSS chọọ ibe mma",
+    "body": "CSS na-achịkwa agba, oghere na nhazi anya. Selector na-ahọrọ element; declarations dị n’ime {} na-edobe properties. Na h1 { color: green; }, h1 bụ selector, color bụ property.\nMee ka ederede dị mfe ịgụ. Obosara 900px nwere ike gafee ekwentị. max-width: 100% na-enyere ọdịnaya dabara na ihuenyo.",
+    "practice": "Dee CSS nye isiokwu agba na paragraf padding. Kọwaa ihe mere ibe ga-eji dabara na obere ihuenyo.",
+    "statement": "CSS na-ewepụ mkpa nhazi HTML.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Tinye mmekọrịta na JavaScript",
+    "body": "JavaScript na-aza omume. querySelector na-achọta element; addEventListener na-eme function mgbe event mere. textContent na-agbanwe ederede n’enweghị ịgụ ya dịka HTML.\nJiri button n’ezie ka keyboard nwee ike iji ya. Mee ka ibe bara uru tupu script abịa.",
+    "practice": "Dee button na click listener nke na-agbanwe paragraf gaa na ozi nnabata. Kọwaa event na-amalite mgbanwe ahụ.",
+    "statement": "Click event listener nwere ike ịza mgbe a na-eji button.",
+    "answer": true,
+    "code": "<button id=\"welcome\">Nnọọ</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"Nnọọ!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Jụọ ajụjụ bara uru banyere data",
+    "body": "Data bụ ozi edekọtara. Malite na ajụjụ, tinye observations na rows na fields na columns. Ihe efu abụghị zero. Lelee units na rows ugboro abụọ. Average bụ nchikota kewara n’ọnụọgụ values.",
+    "practice": "Ahịa kwa ụbọchị bụ 10, 20, 30. Gbakọọ average, dee unit na otu ajụjụ ọnụọgụ ndị a enweghị ike ịza.",
+    "statement": "Average nke 10, 20 na 30 bụ 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Chebe akaụntụ",
+    "body": "Jiri paswọọdụ dị iche maka ọrụ ọ bụla na password manager iji chekwaa ha. Multi-factor authentication na-agbakwunye nyocha. Ozi na-atụghị anya ya na-arịọ paswọọdụ ma ọ bụ code nwere ike ịbụ phishing. Mepee ọrụ ahụ n’onwe gị ka ị nyochaa.",
+    "practice": "Kọwaa otu ị ga-esi lelee ozi nbanye na-atụghị anya ya. Dee ụzọ abụọ ichebe akaụntụ ule; etinyela paswọọdụ n’ezie.",
+    "statement": "Ọ dị mma iziga code nbanye nye onye ọ bụla sị na ọ bụ onye nkwado.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Ghọta amụma model",
+    "body": "Machine learning model na-amụta patterns site na ihe atụ. Data ọzụzụ na-emetụta amụma ya. Ọ nwere ike mehie, karịsịa mgbe ihe atụ ọhụrụ dị iche. Nyochaa ya na ihe atụ dị iche, lelee mmejọkwa.",
+    "practice": "Maka model na-amata mkpụrụ osisi, kọwaa ihe atụ ọzụzụ na ule dị iche. Kwuo otu ebe ọ nwere ike ịda.",
+    "statement": "Amụma model na-adị ziri ezi mgbe niile.",
+    "answer": false
+  },
+  "design": {
+    "title": "Mee nhazi maka mkpa onye ọrụ",
+    "body": "Ahụmịhe onye ọrụ na-amalite na mmadụ na ebumnuche. Kọwaa nsogbu tupu ị see ihuenyo. Label doro anya na-enyere ịhọrọ omume. Nwalee obere sketch tupu iwulite. Lelee ebe mmadụ na-enwe nsogbu.",
+    "practice": "See usoro atọ iji chekwaa nkuzi. Dee ebumnuche onye ọrụ na otu ajụjụ ule.",
+    "statement": "Nnwale sketch nwere ike igosi nsogbu tupu iwulite app.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Hazie ozi bara uru",
+    "body": "Marketing na-ejikọta onyinye bara uru na ndị chọrọ ya. Kọwaa ndị ị chọrọ iru, nsogbu ị na-edozi na omume ha ga-eme. Tụọ nsonaazụ dịka ajụjụ ndị ahịa, ọ bụghị naanị views. Emela nkwa ị na-enweghị ihe akaebe.",
+    "practice": "Dee ozi mkpirikpi maka ọrụ obodo. Kwuo ndị ọ bụ maka, uru, otu omume na ụzọ ịtụ ihe ịga nke ọma.",
+    "statement": "Views ka ukwuu na-apụta ndị ahịa ka ukwuu mgbe niile.",
+    "answer": false
+  },
+  "business": {
+    "title": "Nwalee echiche azụmahịa",
+    "body": "Echiche azụmahịa chọrọ nsogbu onye ahịa na onyinye ga-arụ ọrụ. Gwa ndị ahịa okwu tupu itinye ego buru ibu. Revenue bụ ego batara; profit na-agụkọ expenses. Obere ule na-egosi uru mmadụ na-ahụ.",
+    "practice": "A na-ere ihe 100, ọ na-efu 70 ịnye ya. Gbakọọ ọdịiche tupu expenses ndị ọzọ, kọwaa obere ule ndị ahịa.",
+    "statement": "A ga-agụkọ expenses mgbe a na-atụ atụmatụ profit.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Dee maka onye na-agụ",
+    "body": "Ederede doro anya nwere ebumnuche na ndị na-agụ. Tinye isi okwu na mbido, jiri okwu doro anya ma nye nzọụkwụ ọzọ. Gbanwee ahịrịokwu nwere ọtụtụ echiche. Lelee na onye na-agụ nwere ozi iji mee ihe.",
+    "practice": "Dee ahịrịokwu anọ kpọọ enyi ka unu mụọ ihe. Tinye ebumnuche, oge, ebe na omume ọzọ.",
+    "statement": "Ịmara ndị na-agụ na-enyere ịhọrọ nkọwa kwesịrị ekwesị.",
+    "answer": true
+  },
+  "project": {
+    "title": "Kewaa project n’ọrụ nta",
+    "body": "Project nwere nsonaazụ, ọrụ na oke. Kewaa ọrụ, họrọ ndị ga-eme ya na dependencies. Ụfọdụ ọrụ ga-echere ọzọ ka ọ gwụ. Lelee ọganihu ma gbanwee atụmatụ.",
+    "practice": "Hazie nzukọ ọmụmụ na ọrụ anọ, onye ga-eme nke ọ bụla na dependency otu. Kọwaa ihe ịga nke ọma ga-abụ.",
+    "statement": "Ọrụ project niile nwere ike ịmalite n’otu oge mgbe niile.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Nyere mmadụ ịmụta",
+    "body": "Nkuzi chọrọ ebumnuche doro anya, ihe atụ, omume na nzaghachi. Igosi nka apụtaghị na mmadụ amụtala ya. Ka onye mmụta nwalee ma kọwaa echiche ya. Jiri azịza họrọ ihe ọzọ ị ga-akụzi.",
+    "practice": "Hazie nkuzi nkeji iri gbasara nka ị maara. Dee ebumnuche, omume na ajụjụ ịlele nghọta.",
+    "statement": "Omume na nzaghachi na-enyere onye nkuzi ịlele nghọta.",
+    "answer": true
+  }
+}

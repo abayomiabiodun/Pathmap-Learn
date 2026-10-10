@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Build your first HTML page",
+    "body": "HTML describes the structure of a page. A heading uses <h1>, a paragraph uses <p>, and a link uses <a href=\"...\">. Opening and closing tags wrap the content. The href attribute tells the browser where a link goes.\nStart with one clear heading and a short paragraph. Use descriptive link text so people know where it leads. Your page should still make sense without colours or images.",
+    "practice": "Write HTML for a page about yourself: one h1, a p about your interests, and an a linking to a useful website. Explain what href does.",
+    "statement": "HTML describes the structure of a web page.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>I enjoy learning.</p>\n<a href=\"https://example.com\">Example website</a>"
+  },
+  "css": {
+    "title": "Style a page with CSS",
+    "body": "CSS controls presentation: colour, spacing and layout. A selector chooses an element; declarations inside braces set properties. In h1 { color: green; }, h1 is the selector and color is the property.\nUse readable text, enough contrast and flexible widths. A fixed width of 900px can overflow a phone screen. max-width: 100% helps content fit. Keep the heading structure from your HTML.",
+    "practice": "Write CSS to give your heading a colour and your paragraph some padding. Explain why a page should fit a small screen.",
+    "statement": "CSS replaces the need for HTML page structure.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Add interaction with JavaScript",
+    "body": "JavaScript responds to actions and changes page behaviour. querySelector finds an element; addEventListener runs a function when an event occurs. textContent changes text without treating it as HTML.\nA button already supports keyboard interaction. Use a real button rather than a clickable paragraph. Keep the page useful before the script loads.",
+    "practice": "Write a button and a JavaScript click listener that changes a paragraph to a welcome message. Explain which event starts the change.",
+    "statement": "A click event listener can respond when a button is activated.",
+    "answer": true,
+    "code": "<button id=\"welcome\">Welcome</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"Welcome!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Turn data into a useful question",
+    "body": "Data is recorded information. Start with a question, then organise observations into rows and fields into columns. Missing values are not the same as zero. Check units and repeated rows before calculating. An average is the sum divided by the number of values.",
+    "practice": "Use these daily sales: 10, 20, 30. Calculate the average, label the unit, and write one question the numbers cannot answer.",
+    "statement": "The average of 10, 20 and 30 is 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Protect an account",
+    "body": "A password protects access to an account. Use a unique password for each service and a password manager to store it. Multi-factor authentication adds another check. Unexpected messages asking for a password or code may be phishing. Open the service directly to verify a request.",
+    "practice": "Describe how you would check an unexpected login message. List two steps to protect a test account; do not enter any real passwords here.",
+    "statement": "It is safe to send a sign-in code to anyone who claims to be support.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Understand a model prediction",
+    "body": "A machine learning model learns patterns from examples. Training data influences its predictions. A prediction can be wrong, especially when new examples differ from the training data. Evaluate on separate examples and compare errors, not just successes.",
+    "practice": "Imagine a model recognising fruit. Describe examples for training and separate examples for testing. Name one situation where it might fail.",
+    "statement": "A model prediction is guaranteed to be correct.",
+    "answer": false
+  },
+  "design": {
+    "title": "Design around a user need",
+    "body": "User experience starts with a person and a goal. Describe the problem before drawing screens. A clear label helps people choose the right action. A simple sketch can be tested before building. Observe where someone gets stuck rather than assuming what they need.",
+    "practice": "Sketch a three-step flow for saving a lesson. Name the user goal and one question you would ask during a test.",
+    "statement": "Testing a sketch can reveal problems before an app is built.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Plan a useful message",
+    "body": "Marketing connects a useful offer with an audience. Define who you want to reach, what problem you solve and what action you want them to take. Measure a relevant outcome, such as enquiries, rather than relying only on views. Avoid claims you cannot support.",
+    "practice": "Write a short message for a local service. Identify its audience, benefit and one clear action. Choose a measure of success.",
+    "statement": "More views always mean more customers.",
+    "answer": false
+  },
+  "business": {
+    "title": "Test a business idea",
+    "body": "A business idea needs a customer problem and a workable offer. Talk to potential customers before investing heavily. Revenue is money received; profit also accounts for costs. A small test can reveal whether people value your offer.",
+    "practice": "An item sells for 100 and costs 70 to provide. Calculate the difference before other costs, then describe a small customer test.",
+    "statement": "Costs need to be considered when estimating profit.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Write for a reader",
+    "body": "Clear writing has a purpose and an audience. Put the main point early, use concrete words and give the reader a next step. Revise sentences that combine too many ideas. Check whether the reader has enough context to act.",
+    "practice": "Write a four-sentence message inviting a friend to a study session. Include the purpose, time, place and next action.",
+    "statement": "Knowing your audience helps you decide what details to include.",
+    "answer": true
+  },
+  "project": {
+    "title": "Break a project into tasks",
+    "body": "A project has an outcome, tasks and constraints. Break work into small tasks, assign responsibility and identify dependencies. A task that needs another task first cannot start freely. Review progress and adjust the plan when circumstances change.",
+    "practice": "Plan a small study event with four tasks, an owner for each and one dependency. State what a successful event would achieve.",
+    "statement": "Every project task can always start at the same time.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Help someone learn",
+    "body": "A lesson needs a clear learning goal, an example, practice and feedback. Demonstrating a skill is not the same as learning it. Ask the learner to try the skill and explain their reasoning. Use the response to decide what to teach next.",
+    "practice": "Plan a ten-minute lesson on a skill you know. Write its goal, a practice activity and one question to check understanding.",
+    "statement": "Practice and feedback help a teacher check understanding.",
+    "answer": true
+  }
+}

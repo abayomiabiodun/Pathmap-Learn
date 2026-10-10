@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Ṣẹ̀dá ojú-ìwé HTML àkọ́kọ́ rẹ",
+    "body": "HTML ń ṣàpèjúwe ìṣètò ojú-ìwé. Lo <h1> fún àkọlé, <p> fún ìpínrọ̀ àti <a href=\"...\"> fún ìjápọ̀. Àmì ìbẹ̀rẹ̀ àti ìparí yí àkóónú ká. href sọ ibi tí ìjápọ̀ ń lọ.\nBẹ̀rẹ̀ pẹ̀lú àkọlé kan àti ìpínrọ̀ kúkúrú. Ọ̀rọ̀ ìjápọ̀ gbọ́dọ̀ ṣàlàyé ibi tí ó ń lọ. Ojú-ìwé gbọ́dọ̀ yé ènìyàn láìsí àwọ̀ tàbí àwòrán.",
+    "practice": "Kọ HTML nípa ara rẹ: h1 kan, p nípa ohun tí o fẹ́ràn, àti a sí ojú-òpó tó wúlò. Ṣàlàyé iṣẹ́ href.",
+    "statement": "HTML ń ṣàpèjúwe ìṣètò ojú-ìwé ayélujára.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>Mo fẹ́ràn kíkẹ́kọ̀ọ́.</p>\n<a href=\"https://example.com\">Ojú-òpó àpẹẹrẹ</a>"
+  },
+  "css": {
+    "title": "Ṣe ojú-ìwé rẹ lẹ́wà pẹ̀lú CSS",
+    "body": "CSS ń ṣàkóso àwọ̀, àyè àti bí ojú-ìwé ṣe rí. Selector yan ẹ̀yà; àwọn declaration inú àmì {} sọ ohun tí a fẹ́ yí padà. Nínú h1 { color: green; }, h1 ni selector, color sì ni property.\nLo ọ̀rọ̀ tó rọrùn láti kà àti àwọ̀ tó yàtọ̀ dáadáa. Ìwọ̀n 900px lè kọjá ojú-ìwé fóònù. max-width: 100% ń ran àkóónú lọ́wọ́ láti wọ inú ojú-ìwé.",
+    "practice": "Kọ CSS tó fún àkọlé rẹ ní àwọ̀, tó sì fi padding sí ìpínrọ̀. Ṣàlàyé ìdí tí ojú-ìwé fi gbọ́dọ̀ bá fóònù kékeré mu.",
+    "statement": "CSS mú kí ìṣètò HTML má ṣe pàtàkì mọ́.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Fi ìbáṣepọ̀ kún un pẹ̀lú JavaScript",
+    "body": "JavaScript ń dáhùn sí ohun tí ènìyàn ṣe. querySelector ń wá ẹ̀yà kan; addEventListener ń ṣiṣẹ́ nígbà tí ìṣẹ̀lẹ̀ bá ṣẹlẹ̀. textContent ń yí ọ̀rọ̀ padà láìka a sí HTML.\nLo button gidi kí ènìyàn lè lò ó pẹ̀lú keyboard. Jẹ́ kí ojú-ìwé ṣì wúlò kí script tó dé.",
+    "practice": "Kọ button àti JavaScript click listener tó yí ìpínrọ̀ padà sí ọ̀rọ̀ ìkíni. Ṣàlàyé ìṣẹ̀lẹ̀ tó bẹ̀rẹ̀ ìyípadà.",
+    "statement": "Click event listener lè dáhùn nígbà tí a bá lo button.",
+    "answer": true,
+    "code": "<button id=\"welcome\">Káàbọ̀</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"Káàbọ̀!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Béèrè ìbéèrè tó wúlò nípa dátà",
+    "body": "Dátà jẹ́ ìsọfúnni tí a kọ sílẹ̀. Bẹ̀rẹ̀ pẹ̀lú ìbéèrè; ṣètò ohun tí a rí sí rows àti fields sí columns. Iye tí kò sí kì í ṣe òdo. Ṣàyẹ̀wò ẹyọ ìwọ̀n àti àkọsílẹ̀ tó tún ara rẹ ṣe. Àpapọ̀ pín ní iye àwọn nọ́ńbà ni average.",
+    "practice": "Lo títà ọjọ́ mẹ́ta: 10, 20, 30. Ṣírò average, kọ ẹyọ ìwọ̀n, kí o sì kọ ìbéèrè kan tí nọ́ńbà náà kò lè dáhùn.",
+    "statement": "Average ti 10, 20 àti 30 jẹ́ 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Dáàbò bo àkọọ́lẹ̀",
+    "body": "Ọ̀rọ̀ aṣínà ń dáàbò bo àkọọ́lẹ̀. Lo ọ̀rọ̀ aṣínà tó yàtọ̀ fún iṣẹ́ kọ̀ọ̀kan àti password manager láti tọ́jú wọn. Multi-factor authentication ń fi àyẹ̀wò mìíràn kún un. Ìfiránṣẹ́ àìròtẹ́lẹ̀ tó ń béèrè fún aṣínà tàbí code lè jẹ́ ẹ̀tàn. Ṣí iṣẹ́ náà fúnra rẹ láti ṣàyẹ̀wò.",
+    "practice": "Ṣàlàyé bí o ṣe máa ṣàyẹ̀wò ìfiránṣẹ́ wọlé àìròtẹ́lẹ̀. Kọ ọ̀nà méjì láti dáàbò bo àkọọ́lẹ̀ àdánwò; má kọ aṣínà gidi.",
+    "statement": "Ó dáa láti fi code wọlé ránṣẹ́ sí ẹnikẹ́ni tó sọ pé òun ń ṣe ìrànlọ́wọ́.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Lóye àsọtẹ́lẹ̀ model",
+    "body": "Model ẹ̀kọ́ ẹ̀rọ ń kọ́ àpẹẹrẹ láti dátà. Dátà ìdánilẹ́kọ̀ọ́ ń ní ipa lórí àsọtẹ́lẹ̀ rẹ. Ó lè ṣàṣìṣe, pàápàá tí àpẹẹrẹ tuntun bá yàtọ̀. Ṣàyẹ̀wò rẹ pẹ̀lú àpẹẹrẹ mìíràn, kí o sì wo àṣìṣe pẹ̀lú àṣeyọrí.",
+    "practice": "Ronú nípa model tó ń dá èso mọ̀. Ṣàpèjúwe àpẹẹrẹ fún ẹ̀kọ́ àti àpẹẹrẹ mìíràn fún àyẹ̀wò. Darúkọ ibi kan tí ó lè ṣàṣìṣe.",
+    "statement": "Àsọtẹ́lẹ̀ model máa ń péye ní gbogbo ìgbà.",
+    "answer": false
+  },
+  "design": {
+    "title": "Ṣe àpẹrẹ fún ohun tí olùlò nílò",
+    "body": "Ìrírí olùlò bẹ̀rẹ̀ pẹ̀lú ènìyàn àti ète. Ṣàlàyé ìṣòro kí o tó ya ojú-ìwé. Àkọlé tó ṣe kedere ń ran ènìyàn lọ́wọ́ láti yan ìgbésẹ̀. A lè dán àwòrán kékeré wò kí a tó kọ́ app. Wo ibi tí ènìyàn ti ní ìṣòro.",
+    "practice": "Ya ìgbésẹ̀ mẹ́ta láti fi ẹ̀kọ́ pamọ́. Kọ ète olùlò àti ìbéèrè kan fún àdánwò.",
+    "statement": "Àdánwò àwòrán lè fi ìṣòro hàn kí a tó kọ́ app.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Ṣètò ìfiránṣẹ́ tó wúlò",
+    "body": "Titaja so iṣẹ́ tó wúlò pọ̀ mọ́ àwọn tó nílò rẹ. Sọ ẹni tí o fẹ́ bá sọ̀rọ̀, ìṣòro tí o ń yanjú àti ìgbésẹ̀ tí o fẹ́ kí wọ́n gbé. Ṣe ìwọ̀n àbájáde tó yẹ bí ìbéèrè oníbàárà, kì í ṣe wíwo nìkan. Má ṣe ìlérí tí o kò lè fi ẹ̀rí múlẹ̀.",
+    "practice": "Kọ ìfiránṣẹ́ kúkúrú fún iṣẹ́ agbègbè kan. Sọ àwọn tí ó jẹ́ fún, àǹfààní àti ìgbésẹ̀ kan. Yan bí o ṣe máa wọn àṣeyọrí.",
+    "statement": "Wíwo púpọ̀ túmọ̀ sí oníbàárà púpọ̀ ní gbogbo ìgbà.",
+    "answer": false
+  },
+  "business": {
+    "title": "Dán èrò òwò wò",
+    "body": "Èrò òwò nílò ìṣòro oníbàárà àti iṣẹ́ tó lè yanjú rẹ. Bá àwọn oníbàárà sọ̀rọ̀ kí o tó ná owó púpọ̀. Revenue jẹ́ owó tó wọlé; profit tún ka ìnáwó. Àdánwò kékeré lè fi ohun tí ènìyàn fẹ́ hàn.",
+    "practice": "Ohun kan ń ta fún 100, ó sì ná 70 láti pèsè. Ṣírò ìyàtọ̀ kí ìnáwó mìíràn tó wọlé, kí o sì ṣàpèjúwe àdánwò oníbàárà kékeré.",
+    "statement": "A gbọ́dọ̀ ka ìnáwó nígbà tí a bá ń ṣírò èrè.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Kọ fún ẹni tó máa kà á",
+    "body": "Ìkọ̀wé tó ṣe kedere ní ète àti olùkà. Fi kókó pàtàkì sí ìbẹ̀rẹ̀, lo ọ̀rọ̀ tó ṣe kedere, kí o sì fún olùkà ní ìgbésẹ̀ tó kàn. Ṣàtúnṣe gbólóhùn tó ní èrò púpọ̀. Ṣàyẹ̀wò pé olùkà ní ìsọfúnni tó tó láti ṣe ohun tí o fẹ́.",
+    "practice": "Kọ gbólóhùn mẹ́rin láti pe ọ̀rẹ́ sí ìpàdé ẹ̀kọ́. Fi ète, àkókò, ibi àti ìgbésẹ̀ tó kàn sí i.",
+    "statement": "Mímọ ẹni tí o ń kọ fún ń ran ọ́ lọ́wọ́ láti yan àlàyé tó yẹ.",
+    "answer": true
+  },
+  "project": {
+    "title": "Pín iṣẹ́ àkànṣe sí ìgbésẹ̀",
+    "body": "Iṣẹ́ àkànṣe ní àbájáde, àwọn iṣẹ́ àti ìdíwọ́. Pín iṣẹ́ sí kéékèèké, yan ẹni tó máa ṣe wọn, kí o sì mọ ohun tí iṣẹ́ kọ̀ọ̀kan ń dúró de. Iṣẹ́ kan lè nílò kí òmíràn parí kọ́kọ́. Ṣàyẹ̀wò ìlọsíwájú, kí o sì yí ètò padà bí ó ṣe yẹ.",
+    "practice": "Ṣètò ìpàdé ẹ̀kọ́ kékeré pẹ̀lú iṣẹ́ mẹ́rin, ẹni tó máa ṣe kọ̀ọ̀kan àti ohun kan tí iṣẹ́ mìíràn ń dúró de. Sọ ète àṣeyọrí.",
+    "statement": "Gbogbo iṣẹ́ àkànṣe lè bẹ̀rẹ̀ ní àkókò kan ní gbogbo ìgbà.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Ran ènìyàn lọ́wọ́ láti kọ́",
+    "body": "Ẹ̀kọ́ nílò ète kedere, àpẹẹrẹ, ìṣe àti àtúnṣe. Fífi ọgbọ́n hàn nìkan kì í ṣe kí ènìyàn ti kọ́ ọ. Jẹ́ kí akẹ́kọ̀ọ́ gbìyànjú, kí ó sì ṣàlàyé èrò rẹ. Lo ìdáhùn rẹ láti yan ẹ̀kọ́ tó kàn.",
+    "practice": "Ṣètò ẹ̀kọ́ ìṣẹ́jú mẹ́wàá lórí ọgbọ́n tí o mọ̀. Kọ ète, ìṣe kan àti ìbéèrè láti ṣàyẹ̀wò òye.",
+    "statement": "Ìṣe àti àtúnṣe ń ran olùkọ́ lọ́wọ́ láti ṣàyẹ̀wò òye.",
+    "answer": true
+  }
+}

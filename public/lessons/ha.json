@@ -1,0 +1,89 @@
+{
+  "html": {
+    "title": "Gina shafin HTML na farko",
+    "body": "HTML yana bayyana tsarin shafi. <h1> kanun labari ne, <p> sakin layi ne, <a href=\"...\"> mahaɗi ne. Alamomin buɗewa da rufewa suna kewaye da abun ciki. href yana nuna inda mahaɗin zai kai.\nFara da kanun labari da gajeren sakin layi. Rubutun mahaɗi ya bayyana inda zai kai. Shafi ya kasance mai fahimta ba tare da launi ko hoto ba.",
+    "practice": "Rubuta HTML game da kanka: h1, p game da abubuwan da kake so, da a zuwa shafi mai amfani. Bayyana aikin href.",
+    "statement": "HTML yana bayyana tsarin shafin yanar gizo.",
+    "answer": true,
+    "code": "<h1>Ada</h1>\n<p>Ina son koyo.</p>\n<a href=\"https://example.com\">Shafin misali</a>"
+  },
+  "css": {
+    "title": "Yi wa shafi ado da CSS",
+    "body": "CSS yana sarrafa launi, tazara da shimfiɗa. Selector yana zaɓar sashe; declarations a cikin {} suna saita properties. A h1 { color: green; }, h1 selector ne, color kuwa property ne.\nYi rubutu mai sauƙin karantawa. Faɗin 900px na iya wuce allo na waya. max-width: 100% yana taimaka wa abun ciki ya dace da allo.",
+    "practice": "Rubuta CSS don launin kanun labari da padding na sakin layi. Bayyana dalilin dacewa da ƙaramin allo.",
+    "statement": "CSS yana kawar da buƙatar tsarin HTML.",
+    "answer": false,
+    "code": "h1 { color: green; }\np { padding: 16px; max-width: 100%; }"
+  },
+  "javascript": {
+    "title": "Ƙara hulɗa da JavaScript",
+    "body": "JavaScript yana amsa ayyuka. querySelector yana gano sashe; addEventListener yana gudanar da function idan event ya faru. textContent yana canza rubutu ba tare da ɗaukarsa HTML ba.\nYi amfani da button na gaske don keyboard ya yi aiki. Shafi ya kasance mai amfani kafin script ya zo.",
+    "practice": "Rubuta button da click listener wanda zai canza sakin layi zuwa saƙon maraba. Bayyana event ɗin da ke fara canjin.",
+    "statement": "Click event listener na iya amsa idan an kunna button.",
+    "answer": true,
+    "code": "<button id=\"welcome\">Barka da zuwa</button>\n<p id=\"message\"></p>\n<script>\ndocument.querySelector(\"#welcome\").addEventListener(\"click\", () => {\n  document.querySelector(\"#message\").textContent = \"Barka da zuwa!\";\n});\n</script>"
+  },
+  "data": {
+    "title": "Yi tambaya mai amfani da bayanai",
+    "body": "Bayanai su ne abubuwan da aka rubuta. Fara da tambaya, tsara abubuwan da aka gani a rows da fields a columns. Abin da ya ɓace ba sifili ba ne. Duba ma’auni da maimaitawa. Average shi ne jimilla raba da yawan ƙimomi.",
+    "practice": "Tallace-tallace: 10, 20, 30. Lissafa average, rubuta ma’auni, da tambayar da lambobin ba za su amsa ba.",
+    "statement": "Average na 10, 20 da 30 shi ne 20.",
+    "answer": true
+  },
+  "cyber": {
+    "title": "Kare asusu",
+    "body": "Yi kalmar sirri daban ga kowane sabis, ka adana da password manager. Multi-factor authentication yana ƙara bincike. Saƙon bazata mai neman sirri ko code na iya zama phishing. Buɗe sabis kai tsaye don tabbatarwa.",
+    "practice": "Bayyana yadda za ka binciki saƙon shiga na bazata. Rubuta hanyoyi biyu na kare asusun gwaji; kada ka saka sirri na gaske.",
+    "statement": "Aika code na shiga ga duk mai cewa shi ma’aikacin taimako ne yana da aminci.",
+    "answer": false
+  },
+  "ai": {
+    "title": "Fahimci hasashen model",
+    "body": "Model na machine learning yana koyon tsari daga misalai. Bayanan horo suna shafar hasashe. Yana iya yin kuskure, musamman da sabbin misalai daban. Gwada da misalai dabam, ka duba kurakurai ma.",
+    "practice": "Ga model mai gane ’ya’yan itace, bayyana misalan horo da na gwaji daban. Faɗi inda zai iya kuskure.",
+    "statement": "Hasashen model yana daidai koyaushe.",
+    "answer": false
+  },
+  "design": {
+    "title": "Zana don buƙatar mai amfani",
+    "body": "Ƙwarewar mai amfani tana farawa da mutum da buri. Bayyana matsala kafin zana allo. Lakabi mai kyau yana sauƙaƙa zaɓi. Gwada zane mai sauƙi kafin gini. Lura da inda mutum ya makale.",
+    "practice": "Zana matakai uku don adana darasi. Rubuta burin mai amfani da tambayar gwaji.",
+    "statement": "Gwada zane na iya gano matsaloli kafin gina app.",
+    "answer": true
+  },
+  "marketing": {
+    "title": "Tsara saƙo mai amfani",
+    "body": "Talla tana haɗa abu mai amfani da masu buƙatarsa. Bayyana masu sauraro, matsalar da kake warwarewa da aikin da za su yi. Auna sakamako kamar tambayoyin saye, ba kallo kaɗai ba. Kada ka yi da’awa marar hujja.",
+    "practice": "Rubuta saƙon sabis na unguwa. Faɗi masu sauraro, amfani, aiki ɗaya da ma’aunin nasara.",
+    "statement": "Ƙarin kallo yana nufin ƙarin kwastomomi koyaushe.",
+    "answer": false
+  },
+  "business": {
+    "title": "Gwada ra’ayin kasuwanci",
+    "body": "Ra’ayin kasuwanci yana buƙatar matsalar kwastoma da tayin da zai yi aiki. Yi magana da kwastomomi kafin kashe kuɗi da yawa. Revenue kuɗin shiga ne; profit yana la’akari da tsada. Ƙaramin gwaji yana nuna darajar tayin.",
+    "practice": "Ana sayar da abu 100, tsadar samarwa 70. Lissafa bambanci kafin sauran tsada, sannan bayyana ƙaramin gwajin kwastoma.",
+    "statement": "Dole a la’akari da tsada wajen ƙiyasta riba.",
+    "answer": true
+  },
+  "writing": {
+    "title": "Rubuta don mai karatu",
+    "body": "Rubutu mai kyau yana da buri da masu karatu. Fara da muhimmin batu, yi kalmomi bayyanannu, ka ba da mataki na gaba. Gyara jimlar da ke haɗa ra’ayoyi da yawa. Duba ko mai karatu yana da bayanan yin aiki.",
+    "practice": "Rubuta jimloli huɗu don gayyatar aboki zuwa karatu. Saka buri, lokaci, wuri da aikin gaba.",
+    "statement": "Sanin masu karatu yana taimaka wajen zaɓar bayanai.",
+    "answer": true
+  },
+  "project": {
+    "title": "Raba aiki zuwa ƙananan ayyuka",
+    "body": "Aikin project yana da sakamako, ayyuka da iyaka. Raba aiki, sanya masu alhaki da gano dependencies. Wani aiki na iya jiran wani ya ƙare. Duba ci gaba, ka daidaita shiri.",
+    "practice": "Tsara taron karatu da ayyuka huɗu, masu alhaki da dependency ɗaya. Bayyana nasarar da ake so.",
+    "statement": "Dukkan ayyukan project suna iya farawa lokaci guda koyaushe.",
+    "answer": false
+  },
+  "teaching": {
+    "title": "Taimaka wa mutum ya koya",
+    "body": "Darasi yana buƙatar buri bayyananne, misali, gwaji da ra’ayin gyara. Nuna fasaha kaɗai ba koyarwa cikakke ba ne. Bari ɗalibi ya gwada kuma ya bayyana tunaninsa. Yi amfani da amsarsa don darasi na gaba.",
+    "practice": "Tsara darasin minti goma kan fasaha da ka sani. Rubuta buri, aikin gwaji da tambayar fahimta.",
+    "statement": "Gwaji da ra’ayin gyara suna taimaka wa malami ya duba fahimta.",
+    "answer": true
+  }
+}

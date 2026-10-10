@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { ArrowRight, ArrowLeft, Check, Compass, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
+import { usePreferences } from './providers';
 import { localeNames, type Locale } from '@/lib/preferences';
 import {
   answerOptions,
@@ -163,6 +164,7 @@ export function Quiz() {
 
 export function KnownPath() {
   const t = useTranslations();
+  const { update } = usePreferences();
   const { state, save, saveFailed } = useQuizStorage();
   const [position, setPosition] = useState<number | null>(null);
   const steps = ['interest', 'level', 'language'] as const;
@@ -224,8 +226,13 @@ export function KnownPath() {
             >
               {t('known_edit')}
             </Button>
-            <Link href="/quiz" className="button button-primary">
-              {t('start')}
+            <Link
+              href={`/learn/${latest!.path}`}
+              prefetch={false}
+              onClick={() => update({ locale: latest!.language })}
+              className="button button-primary"
+            >
+              {t('learn_start')}
             </Link>
           </div>
         </>
@@ -299,6 +306,7 @@ export function KnownPath() {
 
 export function QuizResults() {
   const t = useTranslations();
+  const { update } = usePreferences();
   const router = useRouter();
   const { state, save, saveFailed } = useQuizStorage();
   const attempt = state.attempts.at(-1);
@@ -406,7 +414,15 @@ export function QuizResults() {
         >
           {t('quiz_retake')}
         </Button>
-        <Link href="/paths" className="button button-primary">
+        <Link
+          href={`/learn/${attempt.chosenPath}`}
+          prefetch={false}
+          onClick={() => update({ locale: attempt.answers.language })}
+          className="button button-primary"
+        >
+          {t('learn_start')} <ArrowRight size={18} aria-hidden="true" />
+        </Link>
+        <Link href="/paths" prefetch={false} className="button button-outline">
           {t('ui_explore_all_10_paths')}
           <ArrowRight size={18} />
         </Link>

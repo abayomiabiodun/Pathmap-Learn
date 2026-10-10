@@ -7,6 +7,8 @@ module.exports = {
         'http://localhost:3100/auth',
         'http://localhost:3100/quiz',
         'http://localhost:3100/quiz?skip=true',
+        'http://localhost:3100/library',
+        'http://localhost:3100/learn/web',
       ],
       numberOfRuns: 3,
       settings: {

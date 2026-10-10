@@ -71,7 +71,7 @@ test('public shell works without a connection and account pages are never cached
   await page.getByRole('button', { name: 'Lite mode' }).click();
   await page.getByRole('button', { name: 'Lite mode' }).click();
   await context.setOffline(true);
-  await page.goto('/library');
+  await page.goto('/page-that-does-not-exist');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('A pause in connection');
   await page.getByRole('link', { name: 'Back to home' }).click();
   await expect(page).toHaveURL('/');
@@ -81,16 +81,17 @@ test('public shell works without a connection and account pages are never cached
   await context.setOffline(false);
 });
 
-test('library navigation explains availability and offers a working next step', async ({
-  page,
-}) => {
+test('library navigation opens actual starter courses', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'My library', exact: true }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Your learning library is coming soon.',
-  );
-  await page.getByRole('link', { name: 'Explore learning paths' }).click();
-  await expect(page).toHaveURL('/paths');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your learning space');
+  await page
+    .locator('article')
+    .filter({ has: page.getByRole('heading', { name: 'Web Development' }) })
+    .getByRole('link', { name: 'Open course' })
+    .click();
+  await expect(page).toHaveURL('/learn/web');
+  await expect(page.getByRole('heading', { name: 'Build your first HTML page' })).toBeVisible();
 });
 
 for (const [locale, messages] of Object.entries({ fr, pcm, yo, ha, ig })) {
@@ -107,7 +108,7 @@ for (const [locale, messages] of Object.entries({ fr, pcm, yo, ha, ig })) {
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
     for (const [route, heading] of [
       ['/paths', messages.ui_what_could_your_next_chapter_look_like],
-      ['/library', messages.ui_your_learning_library_is_coming_soon],
+      ['/library', messages.learn_heading],
       ['/privacy', messages.ui_privacy_comes_first],
       ['/offline', messages.ui_a_pause_in_connection_keep_your_momentum],
       ['/auth', messages.ui_your_journey_starts_here],

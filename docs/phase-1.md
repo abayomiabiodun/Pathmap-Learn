@@ -37,4 +37,4 @@ Docker Desktop and WSL installation succeeded. Firmware virtualization is enable
 4. Open sign-in, submit an invalid email, then demonstrate the configuration notice without provider keys.
 5. With the installed service worker ready, disconnect and reload home to show the offline notice and working controls.
 
-Quiz and other learning navigation items are scaffolding for later phases, not completed product flows.
+Quiz and learning navigation were scaffolding at the original foundation gate. Subsequent work implemented the local quiz, known-path onboarding and [starter learning space](learning.md). Other unfinished product areas still require later phases.

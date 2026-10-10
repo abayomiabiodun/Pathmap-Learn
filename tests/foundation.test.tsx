@@ -29,7 +29,7 @@ describe('foundation', () => {
       await waitFor(() =>
         expect(screen.getByText(messages.ui_big_dreams_small_data)).toBeInTheDocument(),
       );
-      expect(document.documentElement.lang).toBe(locale);
+      await waitFor(() => expect(document.documentElement.lang).toBe(locale));
     }
   });
   it('provides isolated query and motion scaffolding for learning routes', () => {
