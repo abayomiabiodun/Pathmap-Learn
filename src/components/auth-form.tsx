@@ -1,14 +1,24 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type Resolver, type FieldErrors } from 'react-hook-form';
 import { authSchema, emailSchema } from '@/lib/auth';
 import { getSupabase } from '@/lib/supabase/client';
 import { Button } from './ui/button';
 import { ArrowRight, Mail } from 'lucide-react';
 import Link from 'next/link';
 type Credentials = { email: string; password: string };
+const resolveCredentials: Resolver<Credentials> = (values) => {
+  const parsed = authSchema.safeParse(values);
+  if (parsed.success) return { values: parsed.data, errors: {} };
+  const errors: FieldErrors<Credentials> = {};
+  for (const issue of parsed.error.issues) {
+    const field = issue.path[0];
+    if (field === 'email' || field === 'password')
+      errors[field] = { type: issue.code, message: issue.message };
+  }
+  return { values: {}, errors };
+};
 export function AuthForm() {
   const t = useTranslations();
   const [signup, setSignup] = useState(false);
@@ -19,7 +29,7 @@ export function AuthForm() {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<Credentials>({ resolver: zodResolver(authSchema) });
+  } = useForm<Credentials>({ resolver: resolveCredentials });
   async function submit(values: Credentials) {
     const client = await getSupabase();
     if (!client) {
@@ -159,7 +169,7 @@ export function AuthForm() {
       </Link>
       <p style={{ fontSize: 12 }}>
         {t('ui_by_creating_an_account_you_agree_to_our')}{' '}
-        <Link href="/privacy" className="page-link">
+        <Link prefetch={false} href="/privacy" className="page-link">
           {t('ui_privacy_policy')}
         </Link>
         .

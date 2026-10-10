@@ -13,12 +13,16 @@ import {
   ArrowUpRight,
   WifiOff,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { usePreferences } from './providers';
 import { locales, localeNames, type Locale } from '@/lib/preferences';
+const subscribeReady = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 export function Shell({ children }: { children: React.ReactNode }) {
   const t = useTranslations();
   const pathname = usePathname();
+  const ready = useSyncExternalStore(subscribeReady, clientReady, serverReady);
   const { preferences, update, suggestLite } = usePreferences();
   const [offline, setOffline] = useState(false);
   useEffect(() => {
@@ -110,6 +114,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </label>
           <select
             id="locale"
+            disabled={!ready}
             value={preferences.locale}
             onChange={(e) => update({ locale: e.target.value as Locale })}
           >

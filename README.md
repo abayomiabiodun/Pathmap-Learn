@@ -21,7 +21,7 @@ On this Windows computer, Node and pnpm are available through the Codex bundled 
 
 ## Checks
 
-`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm exec playwright install chromium`, `pnpm build`, `pnpm test:e2e`. Run `pnpm check` for all gates in order, stopping on the first failure.
+`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm test:db`, `pnpm exec playwright install chromium`, `pnpm build`, `pnpm test:e2e`. Run `pnpm check` for all gates in order, stopping on the first failure.
 
 Unit coverage is enforced at 80% overall and 90% on pure `src/lib` modules. GitHub Actions runs the same checks plus Lighthouse budgets against production pages.
 
@@ -45,8 +45,8 @@ Service worker caches only explicitly public pages and static assets, never acco
 
 ## Status
 
-Phase 1 foundation, the local quiz flow and a starter learning space are implemented. See [validation and continuation notes](docs/phase-1.md), [quiz scoring and storage](docs/quiz.md) and [learning content and progress](docs/learning.md). The app includes home, the ten-path catalog, auth, a ten-question quiz, strengths and path recommendations, privacy, offline fallback, appearance/language controls and the PWA shell. Known-path confirmation and quiz recommendations lead into real lessons. The library lists ten starter courses: three Web Development lessons and one introductory lesson for each other path, with practice and knowledge checks in all six languages. Quiz history, lesson drafts and progress stay on the current device; account syncing is pending the database phase. Full career curricula, games, dashboards, database-backed community and guidance features remain unfinished; other future navigation destinations are reserved.
+Phase 1 foundation, the local quiz flow, a starter learning space, and learning commitment dashboards are implemented. See [validation and continuation notes](docs/phase-1.md), [quiz scoring and storage](docs/quiz.md), [learning content and progress](docs/learning.md), and [streaks and recruiter access](docs/engagement.md). Known-path confirmation and quiz recommendations lead into real lessons. The library lists ten starter courses: three Web Development lessons and one introductory lesson for each other path, with practice and knowledge checks in all six languages. The learning dashboard records device streaks, weekly goals and points immediately. Supabase migrations and adapters implement an opt-in top-ten board, approved recruiter searches, and learner-controlled opportunity requests. Shared account features require database configuration; no fake live learners are displayed. Full career curricula, games, the remaining community and guidance features, and full database integration remain unfinished.
 
-Docker Desktop and WSL were installed for Phase 2. Windows Virtual Machine Platform was enabled, but Windows reports a pending restart and WSL2 cannot start yet. Restart Windows, open Docker Desktop, and wait for its engine to start before continuing with database migrations and RLS tests. No database phase has been marked complete.
+Docker Desktop and WSL were installed for Phase 2. Windows Virtual Machine Platform was enabled, but Windows reports a pending restart and the Docker engine cannot start yet. Restart Windows and open Docker Desktop to continue the local Supabase setup. The engagement migration and real RLS tests pass in an isolated PGlite PostgreSQL database; full Supabase Auth/PostgREST integration is still pending. No database phase has been marked complete.
 
 CI is configured; remote GitHub Actions and Vercel deployment have not run. For deployment, import this repository into Vercel as a Next.js project, set the public environment variables listed above, and configure Supabase redirect URLs. Complete the remaining phases and database gates before launching the full product.

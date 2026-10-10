@@ -222,6 +222,19 @@ export function Home() {
         </div>
       </section>
       <section className="bottom-banner">
+        <div>
+          <h2>{t('eng_eyebrow')}</h2>
+          <p>{t('eng_top')}</p>
+          <Link prefetch={false} href="/dashboard" className="button button-primary">
+            {t('eng_dashboard')} →
+          </Link>
+          <br />
+          <Link prefetch={false} href="/recruiter" className="button button-outline">
+            {t('eng_recruiter')} →
+          </Link>
+        </div>
+      </section>
+      <section className="bottom-banner">
         <div className="banner-icon">
           <ShieldCheck size={30} />
         </div>

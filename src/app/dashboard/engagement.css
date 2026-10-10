@@ -1,0 +1,170 @@
+.engagement {
+  max-width: 1100px;
+  margin: auto;
+  padding: 48px 24px;
+}
+.engagement h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 12px 0;
+}
+.engagement h2 {
+  font-size: 23px;
+}
+.eng-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.eng-nav a {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.eng-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  margin: 24px 0;
+}
+.eng-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 440px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  min-width: 0;
+}
+.eng-card p {
+  color: var(--muted);
+}
+.eng-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.eng-metrics div {
+  padding: 18px 12px;
+  border-radius: 16px;
+  background: var(--soft-green);
+  overflow-wrap: anywhere;
+}
+.eng-metrics strong {
+  display: block;
+  font-size: 30px;
+  color: var(--green);
+}
+.engagement label {
+  display: block;
+  margin: 14px 0;
+}
+.engagement input,
+.engagement select,
+.engagement textarea {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 10px;
+}
+.engagement textarea {
+  min-height: 100px;
+}
+.engagement .eng-check {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  min-height: 44px;
+}
+.eng-check input {
+  width: 20px;
+  min-height: 20px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.eng-button {
+  display: inline-block;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--green);
+  color: var(--bg);
+  min-height: 44px;
+  margin: 6px 8px 6px 0;
+}
+.eng-button.secondary {
+  background: var(--soft-green);
+  color: var(--text);
+}
+.eng-ranks {
+  padding: 0;
+  list-style: none;
+}
+.eng-ranks li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.eng-ranks .rank {
+  font-size: 24px;
+  color: var(--green);
+  width: 32px;
+  flex-shrink: 0;
+}
+.eng-ranks strong {
+  display: block;
+}
+.eng-ranks small {
+  color: var(--muted);
+}
+.eng-goal-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.eng-goal-ring::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+.eng-goal-ring strong {
+  position: relative;
+  font-size: 24px;
+}
+.eng-status {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--soft-green);
+  overflow-wrap: anywhere;
+}
+.engagement form,
+.engagement article {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 650px) {
+  .engagement {
+    padding: 28px 16px;
+  }
+  .eng-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .eng-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .eng-card {
+    padding: 18px;
+  }
+}

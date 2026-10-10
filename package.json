@@ -9,6 +9,7 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage",
+    "test:db": "node scripts/test-engagement-db.mjs",
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
+    "@electric-sql/pglite": "^0.5.8",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.55.1",
     "@tailwindcss/postcss": "^4.1.13",

@@ -9,6 +9,8 @@ module.exports = {
         'http://localhost:3100/quiz?skip=true',
         'http://localhost:3100/library',
         'http://localhost:3100/learn/web',
+        'http://localhost:3100/dashboard',
+        'http://localhost:3100/recruiter',
       ],
       numberOfRuns: 3,
       settings: {

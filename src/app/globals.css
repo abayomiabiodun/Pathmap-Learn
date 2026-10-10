@@ -541,6 +541,12 @@ p {
   right: 12px;
   color: var(--muted);
 }
+.paths-section,
+.how-section,
+.bottom-banner {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
 .bottom-banner {
   display: flex;
   align-items: center;

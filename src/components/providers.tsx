@@ -70,7 +70,24 @@ export function Providers({
     };
   }, [preferences.locale, initialMessages]);
   useEffect(() => {
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+    if (!('serviceWorker' in navigator)) return;
+    let idle: number | undefined;
+    let timer: number | undefined;
+    const register = () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    };
+    const schedule = () => {
+      if (typeof window.requestIdleCallback === 'function')
+        idle = window.requestIdleCallback(register, { timeout: 5000 });
+      else timer = window.setTimeout(register, 0);
+    };
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
+    return () => {
+      window.removeEventListener('load', schedule);
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
   }, []);
   useEffect(() => {
     document.documentElement.dataset.theme = preferences.dark ? 'dark' : 'light';

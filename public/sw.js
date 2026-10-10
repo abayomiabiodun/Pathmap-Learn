@@ -1,5 +1,5 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v8';
+const SHELL = 'pathmap-shell-v11';
 const LESSONS = 'pathmap-lessons-v2';
 const PUBLIC_PAGES = [
   '/',
@@ -10,6 +10,7 @@ const PUBLIC_PAGES = [
   '/quiz/results',
   '/learn',
   '/library',
+  '/dashboard',
   '/icon.svg',
   '/manifest.webmanifest',
 ];
@@ -27,6 +28,7 @@ self.addEventListener('install', (event) => {
         '/quiz/results',
         '/learn',
         '/library',
+        '/dashboard',
       ]) {
         const response = await cache.match(path);
         const html = await response.text();
@@ -69,10 +71,27 @@ self.addEventListener('fetch', (event) => {
     url.origin !== self.location.origin ||
     url.pathname.startsWith('/api') ||
     url.pathname.startsWith('/auth') ||
+    url.pathname.startsWith('/recruiter') ||
     event.request.headers.has('rsc')
   )
     return;
-  if (event.request.mode === 'navigate') {
+  if (event.request.mode === 'navigate' && url.pathname === '/dashboard') {
+    // The dashboard document is a public shell; progress and account data load at runtime.
+    // Serve the installed shell before attempting network revalidation during a reload.
+    event.respondWith(
+      (async () => {
+        const cached = await caches.match(event.request, { ignoreVary: true });
+        if (cached) return cached;
+        try {
+          const response = await fetch(event.request);
+          if (response.ok) await (await caches.open(SHELL)).put(event.request, response.clone());
+          return response;
+        } catch {
+          return (await caches.match('/offline', { ignoreVary: true })) || Response.error();
+        }
+      })(),
+    );
+  } else if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -90,7 +109,8 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(
           async () =>
-            (await caches.match(event.request)) ||
+            // These entries contain public HTML only, never RSC or account data.
+            (await caches.match(event.request, { ignoreVary: true })) ||
             (await caches.match('/offline')) ||
             Response.error(),
         ),

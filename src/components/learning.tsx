@@ -1,42 +1,20 @@
 'use client';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { BookOpen, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import {
   courseProgress,
-  emptyProgress,
   lessonIds,
   lessonKey,
-  readProgress,
-  type LearningProgress,
+  markLessonComplete,
   type Lesson,
 } from '@/lib/learning';
 import { pathIds, pathNameKeys, type PathId } from '@/lib/quiz';
 import { localeNames, type Locale } from '@/lib/preferences';
-
-const storageKey = 'pathmap-learning-v1';
-const listeners = new Set<() => void>();
-let cachedRaw: string | null | undefined;
-let cachedProgress = emptyProgress;
-function subscribe(listener: () => void) {
-  listeners.add(listener);
-  window.addEventListener('storage', listener);
-  return () => {
-    listeners.delete(listener);
-    window.removeEventListener('storage', listener);
-  };
-}
-function snapshot() {
-  const raw = localStorage.getItem(storageKey);
-  if (raw !== cachedRaw) {
-    cachedRaw = raw;
-    cachedProgress = readProgress(raw);
-  }
-  return cachedProgress;
-}
-const serverSnapshot = () => emptyProgress;
+import { useLearningProgress } from './learning-progress';
+import { recordActivity } from '@/lib/supabase/engagement';
 
 export function Learning({
   path,
@@ -47,7 +25,7 @@ export function Learning({
 }) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
-  const progress = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
+  const { progress, save, saveFailed } = useLearningProgress();
   const [catalog, setCatalog] = useState<{
     locale: string;
     lessons: Record<string, Lesson>;
@@ -57,7 +35,6 @@ export function Learning({
   const [selected, setSelected] = useState<string | null>(null);
   const [answer, setAnswer] = useState<boolean | null>(null);
   const [feedback, setFeedback] = useState<'required' | 'incorrect' | 'success' | null>(null);
-  const [saveFailed, setSaveFailed] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     // Save the public course document too: client navigation otherwise fetches only RSC.
@@ -87,17 +64,6 @@ export function Learning({
       });
     return () => controller.abort();
   }, [path, locale, retry, initialLessons]);
-  function save(next: LearningProgress) {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(next));
-      setSaveFailed(false);
-      listeners.forEach((listener) => listener());
-      return true;
-    } catch {
-      setSaveFailed(true);
-      return false;
-    }
-  }
   const summary = path ? courseProgress(path, progress) : null;
   const id = path ? (selected ?? summary!.next) : null;
   const key = path && id ? lessonKey(path, id) : '';
@@ -266,7 +232,7 @@ export function Learning({
                 </fieldset>
                 <Button
                   onClick={() => {
-                    if (draft.trim().length < 20 || answer === null) {
+                    if ([...draft.trim()].length < 20 || answer === null) {
                       setFeedback('required');
                       return;
                     }
@@ -275,13 +241,10 @@ export function Learning({
                       return;
                     }
                     setSelected(id);
-                    if (
-                      save({
-                        ...progress,
-                        lessons: { ...progress.lessons, [key]: { draft, completed: true } },
-                      })
-                    )
+                    if (save(markLessonComplete(progress, path, id!))) {
                       setFeedback('success');
+                      void recordActivity(key, draft, answer);
+                    }
                   }}
                 >
                   {t('learn_complete')}
@@ -315,6 +278,9 @@ export function Learning({
         </p>
       )}
       <p>{t('learn_storage')}</p>
+      <Link href="/dashboard" prefetch={false} className="button button-outline">
+        {t('eng_dashboard')}
+      </Link>
       {path && <p>{t('learn_offline')}</p>}
     </div>
   );
