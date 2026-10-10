@@ -45,3 +45,6 @@
 .community .eng-card {
   contain-intrinsic-size: auto 350px;
 }
+.community .eng-grid > .eng-card:first-child {
+  content-visibility: visible;
+}
