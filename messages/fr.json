@@ -266,7 +266,7 @@
   "learn_incorrect": "Relisez la leçon et essayez de nouveau.",
   "learn_success": "Leçon terminée. Votre progression est enregistrée.",
   "learn_next": "Leçon suivante",
-  "learn_back": "Retour aux cours",
+  "learn_back": "Retour à mon cours",
   "learn_finished": "Vous avez terminé ce cours de découverte ! Relisez votre travail et continuez à pratiquer.",
   "learn_storage": "Votre progression et vos exercices restent sur cet appareil, sans synchronisation entre appareils.",
   "learn_save_error": "Impossible d’enregistrer votre travail. Vérifiez le stockage du navigateur avant de partir.",
@@ -454,5 +454,8 @@
   "show_comments": "Commentaires",
   "show_no_comments": "Aucun commentaire.",
   "show_comment": "Votre commentaire",
-  "show_remove": "Retirer ma publication"
+  "show_remove": "Retirer ma publication",
+  "learn_focused": "Poursuivez le cours correspondant à votre évaluation ou à votre choix. Vos travaux enregistrés et votre prochaine leçon restent réunis.",
+  "learn_assess_first": "Terminez d’abord votre évaluation pour découvrir votre cours.",
+  "learn_matched_only": "Ce cours appartient à un autre parcours. Poursuivez le cours qui vous correspond ci-dessous."
 }

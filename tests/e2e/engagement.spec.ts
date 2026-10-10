@@ -11,6 +11,19 @@ test('learning completion builds a local streak, retains weekly goals, and dashb
   page,
   context,
 }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'pathmap-quiz-v1',
+      JSON.stringify({
+        version: 1,
+        draft: {},
+        attempts: [],
+        selections: [
+          { path: 'web', level: 'new', language: 'en', completedAt: '2026-10-11T09:00:00Z' },
+        ],
+      }),
+    ),
+  );
   await page.goto('/learn/web');
   await page
     .getByRole('textbox')

@@ -125,3 +125,31 @@
     padding: 20px;
   }
 }
+.learning-access-course[data-ready='false'] {
+  display: none;
+}
+html[data-learning-path='web'] .learning-access-course[data-course='web'],
+html[data-learning-path='data'] .learning-access-course[data-course='data'],
+html[data-learning-path='cyber'] .learning-access-course[data-course='cyber'],
+html[data-learning-path='ai'] .learning-access-course[data-course='ai'],
+html[data-learning-path='design'] .learning-access-course[data-course='design'],
+html[data-learning-path='marketing'] .learning-access-course[data-course='marketing'],
+html[data-learning-path='business'] .learning-access-course[data-course='business'],
+html[data-learning-path='writing'] .learning-access-course[data-course='writing'],
+html[data-learning-path='project'] .learning-access-course[data-course='project'],
+html[data-learning-path='teaching'] .learning-access-course[data-course='teaching'],
+.learning-access-course[data-ready='true'] {
+  display: block;
+}
+html[data-learning-path='web'] .learning-access-pending[data-course='web'],
+html[data-learning-path='data'] .learning-access-pending[data-course='data'],
+html[data-learning-path='cyber'] .learning-access-pending[data-course='cyber'],
+html[data-learning-path='ai'] .learning-access-pending[data-course='ai'],
+html[data-learning-path='design'] .learning-access-pending[data-course='design'],
+html[data-learning-path='marketing'] .learning-access-pending[data-course='marketing'],
+html[data-learning-path='business'] .learning-access-pending[data-course='business'],
+html[data-learning-path='writing'] .learning-access-pending[data-course='writing'],
+html[data-learning-path='project'] .learning-access-pending[data-course='project'],
+html[data-learning-path='teaching'] .learning-access-pending[data-course='teaching'] {
+  display: none;
+}

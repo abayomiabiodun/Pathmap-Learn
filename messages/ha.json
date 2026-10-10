@@ -266,7 +266,7 @@
   "learn_incorrect": "Sake duba amsar. Karanta darasi ka sake gwadawa.",
   "learn_success": "An kammala darasi. An adana ci gabanka.",
   "learn_next": "Darasi na gaba",
-  "learn_back": "Komawa kwasa-kwasai",
+  "learn_back": "Komawa kwas ɗina",
   "learn_finished": "Ka kammala wannan kwas na farko! Duba aikinka ka ci gaba da gwada sabuwar fasaha.",
   "learn_storage": "Ci gaba da gwajinka suna kan wannan na’ura kawai. Ba sa haɗuwa da wasu na’urori.",
   "learn_save_error": "Ba mu iya adana aikinka ba. Duba ma’ajiyar burauza kafin fita.",
@@ -454,5 +454,8 @@
   "show_comments": "Sharhi",
   "show_no_comments": "Babu sharhi tukuna.",
   "show_comment": "Sharhinka",
-  "show_remove": "Cire wallafa ta"
+  "show_remove": "Cire wallafa ta",
+  "learn_focused": "Ci gaba da kwas na hanyar da tantancewa ta zaɓa maka ko ka zaɓa. Aikin da ka ajiye da darasi na gaba suna tare.",
+  "learn_assess_first": "Kammala tantance hanyar ka tukuna domin mu nuna kwas ɗinka.",
+  "learn_matched_only": "Wannan kwas na wata hanya ne. Ci gaba da kwas da ya dace da kai a ƙasa."
 }

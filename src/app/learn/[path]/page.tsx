@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { Learning } from '@/components/learning';
+import { LearningAccess } from '@/components/learning-access';
 import { lessonIds, validPath, type Lesson } from '@/lib/learning';
 import { pathIds } from '@/lib/quiz';
 import english from '../../../../public/lessons/en.json';
@@ -12,5 +12,5 @@ export default async function Page({ params }: { params: Promise<{ path: string 
   if (!validPath(path)) notFound();
   const content = english as Record<string, Lesson>;
   const initialLessons = Object.fromEntries(lessonIds[path].map((id) => [id, content[id]]));
-  return <Learning key={path} path={path} initialLessons={initialLessons} />;
+  return <LearningAccess key={path} path={path} initialLessons={initialLessons} />;
 }

@@ -90,7 +90,7 @@ it('shows actual local progress, changes the weekly goal and saves unpublished c
   expect(JSON.parse(localStorage.getItem('pathmap-visibility-v1')!).recruiter).toBe(false);
   expect(
     screen.getAllByRole('link', { name: en.eng_continue }).map((link) => link.getAttribute('href')),
-  ).toContain('/learn/data');
+  ).toEqual(['/learn', '/learn']);
 });
 it('loads connected rankings, publishes and withdraws consent, and accepts a request with a learner-controlled reply', async () => {
   const incoming = {

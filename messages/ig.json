@@ -266,7 +266,7 @@
   "learn_incorrect": "Lelee azịza ahụ ọzọ. Gụọ nkuzi ma nwaa ọzọ.",
   "learn_success": "Emechara nkuzi. Echekwara ọganihu gị.",
   "learn_next": "Nkuzi ọzọ",
-  "learn_back": "Laghachi na nkuzi",
+  "learn_back": "Laghachi na nkuzi m",
   "learn_finished": "Ị mechala nkuzi mbido a! Lelee ọrụ gị ma gaa n’ihu na-eme nka ọhụrụ gị.",
   "learn_storage": "Ọganihu na omume gị na-anọ na ngwaọrụ a. Ha anaghị agafe na ngwaọrụ ọzọ.",
   "learn_save_error": "Anyị enweghị ike ichekwa ọrụ gị. Lelee nchekwa burauza tupu ị pụọ.",
@@ -454,5 +454,8 @@
   "show_comments": "Okwu",
   "show_no_comments": "Ọ dịghị okwu ugbu a.",
   "show_comment": "Okwu gị",
-  "show_remove": "Wepụ mbipụta m"
+  "show_remove": "Wepụ mbipụta m",
+  "learn_focused": "Gaa n’ihu na nkuzi nke ụzọ nyocha họpụtara gị ma ọ bụ nke ị họọrọ. Ọrụ ị chekwara na ihe ọmụmụ na-esote dị ọnụ.",
+  "learn_assess_first": "Mechaa nyocha ụzọ gị mbụ ka anyị gosi nkuzi gị.",
+  "learn_matched_only": "Nkuzi a bụ nke ụzọ ọzọ. Gaa n’ihu na nkuzi dabara gị n’okpuru."
 }

@@ -58,6 +58,25 @@ test('known path continues into Yoruba lessons with retained work and offline pr
 test('all ten paths have usable learning content and the web starter course can be completed', async ({
   page,
 }) => {
+  async function choose(path: string) {
+    await page.goto('/learn');
+    await page.evaluate(
+      (path) =>
+        localStorage.setItem(
+          'pathmap-quiz-v1',
+          JSON.stringify({
+            version: 1,
+            draft: {},
+            attempts: [],
+            selections: [
+              { path, level: 'new', language: 'en', completedAt: '2026-10-11T09:00:00Z' },
+            ],
+          }),
+        ),
+      path,
+    );
+    await page.goto(`/learn/${path}`);
+  }
   for (const path of [
     'data',
     'cyber',
@@ -69,12 +88,12 @@ test('all ten paths have usable learning content and the web starter course can 
     'project',
     'teaching',
   ]) {
-    await page.goto(`/learn/${path}`);
+    await choose(path);
     await expect(page.locator('.learning-lesson h2')).toBeVisible();
     await expect(page.getByRole('textbox')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Check and complete lesson' })).toBeVisible();
   }
-  await page.goto('/learn/web');
+  await choose('web');
   for (const [index, answer] of ['True', 'False', 'True'].entries()) {
     await page
       .getByRole('textbox')

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Providers } from '@/components/providers';
 import { Shell } from '@/components/shell';
 import en from '../../messages/en.json';
+import { learningBootstrapScript } from '@/lib/learning-bootstrap';
 import './globals.css';
 import './fonts.css';
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: learningBootstrapScript }} />
         <link
           rel="preload"
           href="/fonts/manrope-latin.woff2"

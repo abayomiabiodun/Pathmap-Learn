@@ -266,7 +266,7 @@
   "learn_incorrect": "Check that answer again. Read lesson and try again.",
   "learn_success": "Lesson don finish. Your progress don save.",
   "learn_next": "Next lesson",
-  "learn_back": "Back to courses",
+  "learn_back": "Back to my course",
   "learn_finished": "You don finish this starter course! Review your work and keep practising your new skill.",
   "learn_storage": "Your progress and practice stay for this device. Dem no sync between devices.",
   "learn_save_error": "We no fit save your work. Check browser storage before you leave.",
@@ -454,5 +454,8 @@
   "show_comments": "Comments",
   "show_no_comments": "No comments yet.",
   "show_comment": "Your comment",
-  "show_remove": "Remove my post"
+  "show_remove": "Remove my post",
+  "learn_focused": "Continue the course for the path wey assessment match you with or wey you choose. Your saved work and next lesson dey together.",
+  "learn_assess_first": "Finish your path assessment first make we fit show your course.",
+  "learn_matched_only": "This course na for another path. Continue your matched course below."
 }

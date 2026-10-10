@@ -2,12 +2,14 @@ module.exports = {
   ci: {
     collect: {
       startServerCommand: 'pnpm start --port 3100',
+      puppeteerScript: 'scripts/lighthouse-learning.cjs',
       url: [
         'http://localhost:3100/',
         'http://localhost:3100/auth',
         'http://localhost:3100/quiz',
         'http://localhost:3100/quiz?skip=true',
         'http://localhost:3100/library',
+        'http://localhost:3100/learn',
         'http://localhost:3100/learn/web',
         'http://localhost:3100/dashboard',
         'http://localhost:3100/recruiter',

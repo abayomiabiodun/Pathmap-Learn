@@ -211,6 +211,13 @@ export function readQuiz(raw: string | null): QuizStorage {
     return emptyQuiz;
   }
 }
+export function learningPathFromQuiz(raw: string | null): PathId | null {
+  const quiz = readQuiz(raw);
+  const known = quiz.selections.at(-1);
+  const attempt = quiz.attempts.at(-1);
+  if (known && (!attempt || known.completedAt >= attempt.completedAt)) return known.path;
+  return attempt?.chosenPath ?? null;
+}
 export function completeQuiz(
   state: QuizStorage,
   answers: unknown,

@@ -82,13 +82,26 @@ test('public shell works without a connection and account pages are never cached
 });
 
 test('library navigation opens actual starter courses', async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'pathmap-quiz-v1',
+      JSON.stringify({
+        version: 1,
+        draft: {},
+        attempts: [],
+        selections: [
+          { path: 'web', level: 'new', language: 'en', completedAt: '2026-10-11T09:00:00Z' },
+        ],
+      }),
+    ),
+  );
   await page.goto('/');
   await page.getByRole('link', { name: 'My library', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your learning space');
   await page
     .locator('article')
     .filter({ has: page.getByRole('heading', { name: 'Web Development' }) })
-    .getByRole('link', { name: 'Open course' })
+    .getByRole('link', { name: 'Continue learning' })
     .click();
   await expect(page).toHaveURL('/learn/web');
   await expect(page.getByRole('heading', { name: 'Build your first HTML page' })).toBeVisible();

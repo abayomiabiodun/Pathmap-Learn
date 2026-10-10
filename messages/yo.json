@@ -266,7 +266,7 @@
   "learn_incorrect": "Wo ìdáhùn náà lẹ́ẹ̀kan sí i. Ka ẹ̀kọ́ kí o sì tún gbìyànjú.",
   "learn_success": "Ẹ̀kọ́ ti parí. A ti fi ìlọsíwájú rẹ pamọ́.",
   "learn_next": "Ẹ̀kọ́ tó kàn",
-  "learn_back": "Padà sí àwọn ẹ̀kọ́",
+  "learn_back": "Padà sí ẹ̀kọ́ mi",
   "learn_finished": "O ti parí ẹ̀kọ́ ìbẹ̀rẹ̀ yìí! Ṣàyẹ̀wò iṣẹ́ rẹ kí o sì máa ṣe ọgbọ́n tuntun rẹ.",
   "learn_storage": "Ìlọsíwájú àti ìṣe rẹ wà lórí ẹ̀rọ yìí. Wọn kò lọ sí ẹ̀rọ mìíràn.",
   "learn_save_error": "A kò lè fi iṣẹ́ rẹ pamọ́. Ṣàyẹ̀wò ibi ìpamọ́ browser kí o tó jáde.",
@@ -454,5 +454,8 @@
   "show_comments": "Àwọn ọ̀rọ̀",
   "show_no_comments": "Kò tíì sí ọ̀rọ̀.",
   "show_comment": "Ọ̀rọ̀ rẹ",
-  "show_remove": "Yọ àtẹ̀jáde mi"
+  "show_remove": "Yọ àtẹ̀jáde mi",
+  "learn_focused": "Tẹ̀síwájú nínú ẹ̀kọ́ fún ọ̀nà tí ìdánwò bá ọ mu tàbí tí o yàn. Iṣẹ́ tí o fipamọ́ àti ẹ̀kọ́ tó kàn wà papọ̀.",
+  "learn_assess_first": "Parí ìdánwò ọ̀nà rẹ kọ́kọ́ kí a lè fi ẹ̀kọ́ rẹ hàn.",
+  "learn_matched_only": "Ẹ̀kọ́ yìí jẹ́ ti ọ̀nà mìíràn. Tẹ̀síwájú nínú ẹ̀kọ́ tí ó bá ọ mu ní ìsàlẹ̀."
 }

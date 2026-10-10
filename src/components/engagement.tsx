@@ -265,7 +265,7 @@ export function Dashboard() {
           <p>
             {t('eng_best', { days: stats.best })} {stats.freezeUsed && t('eng_freeze_used')}
           </p>
-          <Link className="eng-button" prefetch={false} href={`/learn/${profile.path}`}>
+          <Link className="eng-button" prefetch={false} href="/learn">
             {t('eng_continue')}
           </Link>
         </section>
