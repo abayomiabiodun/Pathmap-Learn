@@ -1,0 +1,25 @@
+.show-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+.show-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 20px 0;
+  min-height: 44px;
+}
+.show-consent input {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.eng-field input[type='file'] {
+  max-width: 100%;
+  overflow: hidden;
+}

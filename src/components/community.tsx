@@ -285,6 +285,9 @@ export function Community() {
           {t('eng_continue')}
         </Link>
         <a href="#mentors">{t('comm_mentors')}</a>
+        <Link prefetch={false} href="/showcase">
+          {t('show_title')}
+        </Link>
       </nav>
       <span className="eyebrow">{t('comm_eyebrow')}</span>
       <h1>{t('comm_title')}</h1>

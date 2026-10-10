@@ -12,6 +12,7 @@ module.exports = {
         'http://localhost:3100/dashboard',
         'http://localhost:3100/recruiter',
         'http://localhost:3100/circles',
+        'http://localhost:3100/showcase',
       ],
       numberOfRuns: 3,
       settings: {
