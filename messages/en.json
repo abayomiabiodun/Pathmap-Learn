@@ -512,5 +512,7 @@
   "course_strength_note": "Your preferred activities suggest this strength to explore. This is an interest match, not a test of your ability.",
   "course_reason": "Activity: {activity} Your rating: {rating}",
   "course_match_note": "Each course uses its own activity rating: love to try = 100%, interested = 67%, curious = 33%, not interested = 0%. Equal ratings share a score; course order breaks ties. These scores measure interest, not ability or guaranteed success.",
-  "course_no_match": "None of these activities interested you yet. Review your ratings or choose a path directly; we will not invent a match."
+  "course_no_match": "None of these activities interested you yet. Review your ratings or choose a path directly; we will not invent a match.",
+  "nav_menu": "Navigation menu",
+  "nav_close": "Close menu"
 }

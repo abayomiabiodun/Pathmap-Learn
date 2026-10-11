@@ -512,5 +512,7 @@
   "course_strength_note": "Àwọn iṣẹ́ tí o fẹ́ tọ́ka sí agbára yìí fún ìṣàwárí. Ìbámu ìfẹ́ ni, kì í ṣe ìdánwò agbára.",
   "course_reason": "Iṣẹ́: {activity} Ìwọ̀n rẹ: {rating}",
   "course_match_note": "Ẹ̀kọ́ kọ̀ọ̀kan lo ìwọ̀n iṣẹ́ rẹ: fẹ́ gan-an = 100%, wù mí = 67%, fẹ́ mọ̀ sí i = 33%, kò wù mí = 0%. Ìwọ̀n kan náà ní àmì kan náà; ètò ẹ̀kọ́ yanjú dọ́gba. Ìfẹ́ ni a ń wọ́n, kì í ṣe agbára tàbí àṣeyọrí tó dájú.",
-  "course_no_match": "Kò sí iṣẹ́ tó wù ọ́ nínú àwọn wọ̀nyí síbẹ̀. Ṣàyẹ̀wò ìwọ̀n rẹ tàbí yan ọ̀nà fúnra rẹ; a kò ní dá ìbámu sílẹ̀ láìsí ẹ̀rí."
+  "course_no_match": "Kò sí iṣẹ́ tó wù ọ́ nínú àwọn wọ̀nyí síbẹ̀. Ṣàyẹ̀wò ìwọ̀n rẹ tàbí yan ọ̀nà fúnra rẹ; a kò ní dá ìbámu sílẹ̀ láìsí ẹ̀rí.",
+  "nav_menu": "Àkójọ aṣayan ìrìnàjò",
+  "nav_close": "Pa àkójọ aṣayan"
 }

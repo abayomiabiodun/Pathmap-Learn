@@ -512,5 +512,7 @@
   "course_strength_note": "Vos activités préférées suggèrent cette force à explorer. Il s’agit de vos intérêts, pas d’un test de compétences.",
   "course_reason": "Activité : {activity} Votre appréciation : {rating}",
   "course_match_note": "Chaque cours utilise l’appréciation de son activité : beaucoup envie = 100 %, intérêt = 67 %, curiosité = 33 %, aucun intérêt = 0 %. Les appréciations identiques ont le même score ; l’ordre des cours départage les égalités. Ces scores mesurent l’intérêt, pas les compétences ni une réussite garantie.",
-  "course_no_match": "Aucune activité ne vous intéresse pour le moment. Revoyez vos appréciations ou choisissez directement un parcours ; nous n’inventerons pas de correspondance."
+  "course_no_match": "Aucune activité ne vous intéresse pour le moment. Revoyez vos appréciations ou choisissez directement un parcours ; nous n’inventerons pas de correspondance.",
+  "nav_menu": "Menu de navigation",
+  "nav_close": "Fermer le menu"
 }

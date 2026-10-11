@@ -512,5 +512,7 @@
   "course_strength_note": "Ọrụ ndị masịrị gị na-atụ aka n’ike a ị nwere ike ịchọpụta. Ọ bụ mmasị ka a tụlere, ọ bụghị ikike gị.",
   "course_reason": "Ọrụ: {activity} Ntụle gị: {rating}",
   "course_match_note": "Nkuzi ọ bụla na-eji ntụle ọrụ ya: mmasị ukwuu = 100%, mmasị = 67%, ịchọ ịmata = 33%, enweghị mmasị = 0%. Ntụle nhata nwere akara nhata; usoro nkuzi na-ekpebi nhata. Anyị na-atụ mmasị, ọ bụghị ikike ma ọ bụ nkwa ịga nke ọma.",
-  "course_no_match": "Ọ dịghị ọrụ masịrị gị ugbu a. Lelee ntụle gị ọzọ ma ọ bụ họrọ ụzọ n’onwe gị; anyị agaghị echepụta nkuzi dabara gị."
+  "course_no_match": "Ọ dịghị ọrụ masịrị gị ugbu a. Lelee ntụle gị ọzọ ma ọ bụ họrọ ụzọ n’onwe gị; anyị agaghị echepụta nkuzi dabara gị.",
+  "nav_menu": "Ndepụta njem",
+  "nav_close": "Mechie ndepụta"
 }

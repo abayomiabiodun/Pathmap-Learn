@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Providers } from '@/components/providers';
 import { Shell } from '@/components/shell';
+import { navigationLinks, menuIcon, closeIcon, themeIcon } from '@/components/navigation-content';
 import en from '../../messages/en.json';
 import { learningBootstrapScript } from '@/lib/learning-bootstrap';
 import './globals.css';
@@ -36,7 +37,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Providers initialMessages={en}>
-          <Shell>{children}</Shell>
+          <Shell
+            features={navigationLinks}
+            menuIcon={menuIcon}
+            closeIcon={closeIcon}
+            themeIcon={themeIcon}
+          >
+            {children}
+          </Shell>
         </Providers>
       </body>
     </html>

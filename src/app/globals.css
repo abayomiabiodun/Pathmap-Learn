@@ -173,6 +173,52 @@ p {
   gap: 14px;
   align-items: center;
 }
+.menu-toggle {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.feature-menu {
+  inset: 86px 24px auto auto;
+  margin: 0;
+  width: min(390px, calc(100vw - 32px));
+  max-height: calc(100dvh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px #0002;
+}
+.feature-menu-heading {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.feature-menu:popover-open {
+  display: block !important;
+}
+.feature-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.feature-menu a:hover,
+.feature-menu a[aria-current='page'] {
+  background: var(--soft-green);
+  color: var(--green);
+}
 .lite-toggle {
   display: flex;
   gap: 7px;
@@ -214,6 +260,15 @@ p {
   height: 44px;
   display: grid;
   place-items: center;
+}
+.theme-sun {
+  display: none;
+}
+[data-theme='dark'] .theme-sun {
+  display: inline;
+}
+[data-theme='dark'] .theme-moon {
+  display: none;
 }
 .signin {
   display: flex;
@@ -795,13 +850,15 @@ textarea {
     padding: 20px 32px;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .desktop-nav {
     display: none;
   }
   .header-actions {
     margin-left: auto;
   }
+}
+@media (max-width: 800px) {
   .hero {
     grid-template-columns: 1fr;
     gap: 25px;
@@ -877,6 +934,13 @@ textarea {
   }
   .lite-toggle svg {
     display: none;
+  }
+  .lite-toggle > span:not(.toggle-track) {
+    display: none;
+  }
+  .feature-menu {
+    inset: 76px 16px auto auto;
+    max-height: calc(100dvh - 96px);
   }
   .home {
     padding: 0 22px;
@@ -1026,5 +1090,20 @@ textarea {
   }
   .path-catalog {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 360px) {
+  .header {
+    padding-inline: 12px;
+    gap: 6px;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .signin svg {
+    display: none;
   }
 }

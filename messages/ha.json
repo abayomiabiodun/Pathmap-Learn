@@ -512,5 +512,7 @@
   "course_strength_note": "Ayyukan da ka fi so sun nuna wannan ƙarfin don bincike. Wannan daidaituwar sha’awa ce, ba gwajin iyawa ba.",
   "course_reason": "Aiki: {activity} Kimarka: {rating}",
   "course_match_note": "Kowane darasi yana amfani da kimar aikinsa: so sosai = 100%, sha’awa = 67%, son sani = 33%, babu sha’awa = 0%. Kimomi iri ɗaya suna da maki iri ɗaya; tsarin darussa yana warware kunnen doki. Sha’awa ake aunawa, ba iyawa ko tabbacin nasara ba.",
-  "course_no_match": "Babu aikin da ya burge ka tukuna. Sake duba kimominka ko zaɓi hanya da kanka; ba za mu ƙirƙiri daidaituwa ba."
+  "course_no_match": "Babu aikin da ya burge ka tukuna. Sake duba kimominka ko zaɓi hanya da kanka; ba za mu ƙirƙiri daidaituwa ba.",
+  "nav_menu": "Jerin kewayawa",
+  "nav_close": "Rufe jerin"
 }

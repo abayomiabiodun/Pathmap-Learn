@@ -2,29 +2,32 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import {
-  BookOpen,
-  Compass,
-  Leaf,
-  Map,
-  Users,
-  Sun,
-  Moon,
-  ArrowUpRight,
-  WifiOff,
-} from 'lucide-react';
+import { BookOpen, Compass, Leaf, Map, Users, ArrowUpRight, WifiOff } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { usePreferences } from './providers';
 import { locales, localeNames, type Locale } from '@/lib/preferences';
 const subscribeReady = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
-export function Shell({ children }: { children: React.ReactNode }) {
+export function Shell({
+  children,
+  features = [],
+  menuIcon,
+  closeIcon,
+  themeIcon,
+}: {
+  children: React.ReactNode;
+  features?: readonly (readonly [string, string])[];
+  menuIcon?: React.ReactNode;
+  closeIcon?: React.ReactNode;
+  themeIcon?: React.ReactNode;
+}) {
   const t = useTranslations();
   const pathname = usePathname();
   const ready = useSyncExternalStore(subscribeReady, clientReady, serverReady);
   const { preferences, update, suggestLite } = usePreferences();
   const [offline, setOffline] = useState(false);
+  const [menuReady, setMenuReady] = useState(false);
   useEffect(() => {
     const sync = () => setOffline(!navigator.onLine);
     sync();
@@ -38,7 +41,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const nav = [
     { href: '/', key: 'home', icon: Compass },
     { href: '/library', key: 'library', icon: BookOpen },
-    { href: '/roadmap', key: 'roadmap', icon: Map },
+    { href: '/learn', key: 'eng_continue', icon: Map },
     { href: '/circles', key: 'community', icon: Users },
   ];
   return (
@@ -70,6 +73,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <div className="header-actions">
           <button
             className="lite-toggle"
+            aria-label={t('lite')}
             aria-pressed={preferences.lite}
             onClick={() => update({ lite: !preferences.lite })}
           >
@@ -84,14 +88,58 @@ export function Shell({ children }: { children: React.ReactNode }) {
             aria-label={preferences.dark ? t('ui_use_light_mode') : t('ui_use_dark_mode')}
             onClick={() => update({ dark: !preferences.dark })}
           >
-            {preferences.dark ? <Sun size={19} /> : <Moon size={19} />}
+            {themeIcon}
           </button>
           <Link prefetch={false} href="/auth" className="signin">
             {t('signIn')}
             <ArrowUpRight size={16} />
           </Link>
+          <button
+            type="button"
+            className="icon-button menu-toggle"
+            popoverTarget="feature-menu"
+            aria-controls="feature-menu"
+            aria-label={t('nav_menu')}
+            onClick={() => setMenuReady(true)}
+          >
+            {menuIcon}
+          </button>
         </div>
       </header>
+      <nav
+        id="feature-menu"
+        popover="auto"
+        className="feature-menu"
+        style={{ display: 'none' }}
+        aria-label={t('nav_menu')}
+      >
+        <div className="feature-menu-heading">
+          <strong>{t('nav_menu')}</strong>
+          <button
+            type="button"
+            className="icon-button"
+            popoverTarget="feature-menu"
+            popoverTargetAction="hide"
+            aria-label={t('nav_close')}
+          >
+            {closeIcon}
+          </button>
+        </div>
+        {menuReady &&
+          features.map(([href, key]) => (
+            <Link
+              key={href}
+              href={href}
+              prefetch={false}
+              aria-current={href !== '/quiz' && pathname === href ? 'page' : undefined}
+              onClick={(event) =>
+                event.currentTarget.closest<HTMLElement>('#feature-menu')?.hidePopover()
+              }
+            >
+              {t(key)}
+            </Link>
+          ))}
+      </nav>
       {offline && (
         <div className="notice" role="status">
           <WifiOff size={17} />

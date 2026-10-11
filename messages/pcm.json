@@ -512,5 +512,7 @@
   "course_strength_note": "The activities wey you like suggest this strength. Na interest match, e no be ability test.",
   "course_reason": "Activity: {activity} Your rating: {rating}",
   "course_match_note": "Each course use im activity rating: love try = 100%, interest = 67%, curious = 33%, no interest = 0%. Same ratings get same score; course order break tie. Na interest we dey measure, no be ability or sure success.",
-  "course_no_match": "None of these activities interest you yet. Check your ratings or choose path yourself; we no go invent match."
+  "course_no_match": "None of these activities interest you yet. Check your ratings or choose path yourself; we no go invent match.",
+  "nav_menu": "Navigation menu",
+  "nav_close": "Close menu"
 }
