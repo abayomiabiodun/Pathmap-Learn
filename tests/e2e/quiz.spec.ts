@@ -1,18 +1,14 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fr from '../../messages/fr.json';
-import { questionIds } from '../../src/lib/quiz';
+import en from '../../messages/en.json';
+import { pathIds } from '../../src/lib/quiz';
 const options = [
-  'Finding patterns in numbers',
-  'Finding patterns and solving problems',
-  'I have never started',
-  'Student',
-  'English',
-  'I need to keep data use low',
-  'Reading short explanations',
-  'About 1 hour a week',
-  'Find a job',
-  'Curious, but not sure where to start',
+  'I would love to try this',
+  'This does not interest me',
+  'This does not interest me',
+  'This interests me',
+  ...Array(6).fill('This does not interest me'),
 ];
 test('find my path opens a working quiz, resumes answers and reveals recommendations', async ({
   page,
@@ -31,7 +27,7 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
     if (index === 1) {
       await page.getByRole('button', { name: 'Back', exact: true }).click();
       await expect(
-        page.getByRole('radio', { name: 'Finding patterns in numbers', exact: true }),
+        page.getByRole('radio', { name: 'I would love to try this', exact: true }),
       ).toBeChecked();
       await page.getByRole('button', { name: 'Next question' }).click();
       await expect(page.getByRole('radio', { name: options[index], exact: true })).toBeChecked();
@@ -43,9 +39,7 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
       .click();
     if (index === 1) {
       await page.reload();
-      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-        'Where are you starting from?',
-      );
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(en.course_question_cyber);
     }
   }
   await expect(page).toHaveURL('/quiz/results');
@@ -57,7 +51,12 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
     'AI and Machine Learning',
   );
   await expect(
-    page.getByText('You chose an interest in Finding patterns in numbers.', { exact: true }),
+    page.getByText(
+      en.course_reason
+        .replace('{activity}', en.course_question_data)
+        .replace('{rating}', en.course_rating_love),
+      { exact: true },
+    ),
   ).toBeVisible();
   await page.screenshot({
     path: `test-results/quiz-results-${testInfo.project.name}.png`,
@@ -84,9 +83,7 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
   ).toBeVisible();
   await page.goto('/quiz/results');
   await page.getByRole('button', { name: 'Retake the quiz' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Which kind of work interests you most?',
-  );
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(en.course_question_data);
   expect(
     await page.evaluate(() => JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts.length),
   ).toBe(1);
@@ -114,20 +111,15 @@ test('quiz questions, options and results follow the selected language', async (
   await page.goto('/quiz');
   await page.locator('#locale').selectOption('fr');
   const labels = [
-    fr.quiz_interest_data,
-    fr.quiz_strength_logic,
-    fr.quiz_level_new,
-    fr.quiz_background_student,
-    'Français',
-    fr.quiz_device_low,
-    fr.quiz_style_reading,
-    fr.quiz_time_one,
-    fr.quiz_goal_job,
-    fr.quiz_confidence_unsure,
+    fr.course_rating_love,
+    fr.course_rating_no,
+    fr.course_rating_no,
+    fr.course_rating_interested,
+    ...Array(6).fill(fr.course_rating_no),
   ];
   for (let index = 0; index < labels.length; index++) {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      fr[`quiz_question_${questionIds[index]}`],
+      fr[`course_question_${pathIds[index]}`],
     );
     await page.getByRole('radio', { name: labels[index], exact: true }).check();
     await page
@@ -138,7 +130,7 @@ test('quiz questions, options and results follow the selected language', async (
   }
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(fr.quiz_results_heading);
   await expect(page.locator('.quiz-result-card.primary h2')).toHaveText(fr.ui_data);
-  await expect(page.getByText(fr.quiz_strength_description_logic, { exact: true })).toBeVisible();
+  await expect(page.getByText(fr.course_strength_note, { exact: true })).toBeVisible();
 });
 
 test('switching from a known path back to an earlier assessment uses the displayed course', async ({

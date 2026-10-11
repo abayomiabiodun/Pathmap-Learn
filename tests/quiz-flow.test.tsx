@@ -7,6 +7,8 @@ import { KnownPath, Quiz, QuizResults } from '@/components/quiz';
 import {
   completeKnownPath,
   completeQuiz,
+  completeCourseQuiz,
+  type CourseAnswers,
   emptyQuiz,
   learningPathFromQuiz,
   type QuizAnswers,
@@ -24,6 +26,18 @@ const answers: QuizAnswers = {
   time: 'one',
   goal: 'job',
   confidence: 'unsure',
+};
+const activities: CourseAnswers = {
+  data: 'love',
+  web: 'no',
+  cyber: 'no',
+  ai: 'interested',
+  design: 'no',
+  marketing: 'no',
+  business: 'no',
+  writing: 'no',
+  project: 'no',
+  teaching: 'no',
 };
 function app(component: React.ReactNode) {
   return render(<Providers initialMessages={en}>{component}</Providers>);
@@ -51,24 +65,19 @@ it('selects a known path in three steps, restores it and allows edits without sc
 it('requires an answer, supports back, restores progress and completes the quiz', () => {
   const view = app(<Quiz />);
   expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();
-  fireEvent.click(screen.getByRole('radio', { name: 'Finding patterns in numbers' }));
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which kind of work');
+  fireEvent.click(screen.getByRole('radio', { name: 'I would love to try this' }));
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('cleaning a shop');
   fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
   fireEvent.click(screen.getByRole('button', { name: 'Back' }));
-  expect(screen.getByRole('radio', { name: 'Finding patterns in numbers' })).toBeChecked();
+  expect(screen.getByRole('radio', { name: 'I would love to try this' })).toBeChecked();
   fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
   view.unmount();
   app(<Quiz />);
   const labels = [
-    'Finding patterns and solving problems',
-    'I have never started',
-    'Student',
-    'English',
-    'I need to keep data use low',
-    'Reading short explanations',
-    'About 1 hour a week',
-    'Find a job',
-    'Curious, but not sure where to start',
+    'This does not interest me',
+    'This does not interest me',
+    'This interests me',
+    ...Array(6).fill('This does not interest me'),
   ];
   labels.forEach((label, index) => {
     fireEvent.click(screen.getByRole('radio', { name: label }));
@@ -79,7 +88,9 @@ it('requires an answer, supports back, restores progress and completes the quiz'
     );
   });
   expect(push).toHaveBeenCalledWith('/quiz/results');
-  expect(JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts[0].answers).toEqual(answers);
+  expect(JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts[0].courseAnswers).toEqual(
+    activities,
+  );
 });
 it('shows empty results, recommendations, explanations, path switching and a safe retake', () => {
   const empty = app(<QuizResults />);
@@ -105,7 +116,7 @@ it('explains a storage failure rather than claiming the answer was saved', () =>
   const spy = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
     throw new Error('quota');
   });
-  fireEvent.click(screen.getByRole('radio', { name: 'Finding patterns in numbers' }));
+  fireEvent.click(screen.getByRole('radio', { name: 'I would love to try this' }));
   expect(screen.getByRole('alert')).toHaveTextContent('could not save');
   spy.mockRestore();
 });
@@ -113,7 +124,7 @@ it('explains a storage failure rather than claiming the answer was saved', () =>
 it('reopens completed assessments with review and retake actions instead of the last question', () => {
   localStorage.setItem(
     'pathmap-quiz-v1',
-    JSON.stringify(completeQuiz(emptyQuiz, answers, '2026-01-01')),
+    JSON.stringify(completeCourseQuiz(emptyQuiz, activities, '2026-01-01', 'en')),
   );
   app(<Quiz />);
   expect(screen.getByRole('link', { name: 'See my strengths and paths' })).toHaveAttribute(
@@ -122,7 +133,7 @@ it('reopens completed assessments with review and retake actions instead of the 
   );
   expect(screen.queryByRole('radio')).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: 'Retake the quiz' }));
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which kind of work');
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('cleaning a shop');
   expect(JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts).toHaveLength(1);
 });
 
@@ -152,4 +163,35 @@ it('does not present an older manual selection as the current path after a newer
   expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which path would you like');
   expect(screen.queryByRole('link', { name: 'Start learning' })).not.toBeInTheDocument();
   expect(learningPathFromQuiz(localStorage.getItem('pathmap-quiz-v1'))).toBe('data');
+});
+
+it('shows curriculum evidence for the recommendation and never invents an uninterested alternative', () => {
+  localStorage.setItem(
+    'pathmap-quiz-v1',
+    JSON.stringify(completeCourseQuiz(emptyQuiz, { ...activities, ai: 'no' }, 'now', 'en')),
+  );
+  app(<QuizResults />);
+  expect(screen.getByText(/Activity: How interested are you in cleaning/)).toBeVisible();
+  expect(screen.getByRole('heading', { name: 'A strength to explore' })).toBeVisible();
+  expect(
+    screen.queryByRole('button', { name: 'Choose this path instead' }),
+  ).not.toBeInTheDocument();
+  expect(screen.queryByText(/About 1 hour/)).not.toBeInTheDocument();
+});
+
+it('keeps an all-uninterested draft editable without creating a recommendation', () => {
+  localStorage.setItem(
+    'pathmap-quiz-v1',
+    JSON.stringify({
+      ...emptyQuiz,
+      courseDraft: Object.fromEntries(Object.keys(activities).map((path) => [path, 'no'])),
+    }),
+  );
+  app(<Quiz />);
+  fireEvent.click(screen.getByRole('button', { name: 'See my strengths and paths' }));
+  expect(screen.getByRole('alert')).toHaveTextContent('will not invent a match');
+  expect(JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts).toHaveLength(0);
+  fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+  fireEvent.click(screen.getByRole('radio', { name: 'This interests me' }));
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 });

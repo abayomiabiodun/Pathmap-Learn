@@ -114,6 +114,7 @@ export function Taster() {
         {t('taster_title')}
       </h1>
       <p>{t('taster_intro')}</p>
+      {!started && !finished && <p>{t('taster_plan')}</p>}
       <Link href="/quiz" prefetch={false} className="button button-outline">
         {t('taster_quiz')}
       </Link>
@@ -151,7 +152,7 @@ export function Taster() {
                   <Button
                     variant="outline"
                     onClick={() => {
-                      if (save({ ...state, draft: {} })) router.push('/quiz');
+                      if (save({ ...state, draft: {}, courseDraft: {} })) router.push('/quiz');
                     }}
                   >
                     {t('quiz_retake')}
@@ -178,7 +179,6 @@ export function Taster() {
             <p role="status">{t('learn_loading')}</p>
           ) : !started ? (
             <>
-              <p>{t('taster_plan')}</p>
               <p>{t('taster_rules')}</p>
               <Button
                 onClick={() => {

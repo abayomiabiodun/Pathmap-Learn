@@ -5,6 +5,7 @@ import {
   emptyQuiz,
   completeKnownPath,
   completeQuiz,
+  completeCourseQuiz,
   learningPathFromQuiz,
 } from '../src/lib/quiz';
 afterEach(() => {
@@ -39,6 +40,23 @@ it('reveals the same path as the full assessment reader before hydration', () =>
     { ...known, attempts: attempted.attempts },
     { ...known, attempts: [{ ...attempted.attempts[0], completedAt: '2026-10-12T09:00:00Z' }] },
     emptyQuiz,
+    completeCourseQuiz(
+      emptyQuiz,
+      {
+        data: 'love',
+        web: 'no',
+        cyber: 'no',
+        ai: 'interested',
+        design: 'no',
+        marketing: 'no',
+        business: 'no',
+        writing: 'no',
+        project: 'no',
+        teaching: 'no',
+      },
+      'now',
+      'en',
+    ),
     { version: 1, draft: {}, attempts: [] },
   ]) {
     const raw = JSON.stringify(value);
@@ -53,6 +71,9 @@ it('keeps every course hidden for malformed or unfinished assessment data', () =
     [],
     { ...known, version: 2 },
     { ...known, draft: null },
+    { ...known, courseDraft: null },
+    { ...known, courseDraft: { data: 'bad' } },
+    { ...attempted, attempts: [{ ...attempted.attempts[0], courseAnswers: {} }] },
     { ...known, draft: { interest: 'unknown' } },
     { ...known, attempts: null },
     { ...known, attempts: Array(26).fill(attempted.attempts[0]) },

@@ -15,6 +15,50 @@ export const pathIds = [
   'teaching',
 ] as const;
 export type PathId = (typeof pathIds)[number];
+export const courseRatings = ['love', 'interested', 'curious', 'no'] as const;
+const courseShape = {
+  data: z.enum(courseRatings),
+  web: z.enum(courseRatings),
+  cyber: z.enum(courseRatings),
+  ai: z.enum(courseRatings),
+  design: z.enum(courseRatings),
+  marketing: z.enum(courseRatings),
+  business: z.enum(courseRatings),
+  writing: z.enum(courseRatings),
+  project: z.enum(courseRatings),
+  teaching: z.enum(courseRatings),
+};
+export const courseAnswersSchema = z.object(courseShape);
+const courseDraftSchema = z.partial(courseAnswersSchema);
+export type CourseAnswers = z.infer<typeof courseAnswersSchema>;
+const courseStrengths = {
+  data: 'logic',
+  web: 'building',
+  cyber: 'detail',
+  ai: 'logic',
+  design: 'creativity',
+  marketing: 'people',
+  business: 'building',
+  writing: 'creativity',
+  project: 'detail',
+  teaching: 'people',
+} as const;
+export function scoreCourseQuiz(input: unknown) {
+  const answers = courseAnswersSchema.parse(input);
+  const points = { love: 3, interested: 2, curious: 1, no: 0 };
+  const scores = pathIds
+    .map((path) => ({
+      path,
+      points: points[answers[path]],
+      match: Math.round((points[answers[path]] / 3) * 100),
+      contributions:
+        points[answers[path]] > 0
+          ? [{ question: path, option: answers[path], points: points[answers[path]] }]
+          : [],
+    }))
+    .sort((a, b) => b.points - a.points || pathIds.indexOf(a.path) - pathIds.indexOf(b.path));
+  return { top: scores[0], second: scores[1], scores, strength: courseStrengths[scores[0].path] };
+}
 export const pathNameKeys: Record<PathId, string> = {
   data: 'ui_data',
   web: 'ui_web_development',
@@ -150,12 +194,14 @@ export function scoreQuiz(input: unknown) {
 }
 export const attemptSchema = z.object({
   answers: answersSchema,
+  courseAnswers: z.optional(courseAnswersSchema),
   completedAt: z.string(),
   chosenPath: z.enum(pathIds),
 });
 const storageSchema = z.object({
   version: z.literal(1),
   draft: draftSchema,
+  courseDraft: z._default(courseDraftSchema, {}),
   attempts: z.array(attemptSchema).check(z.maxLength(25)),
   knownDraft: z._default(
     z.partial(z.pick(answersSchema, { interest: true, level: true, language: true })),
@@ -179,6 +225,7 @@ export type QuizStorage = z.infer<typeof storageSchema>;
 export const emptyQuiz: QuizStorage = {
   version: 1,
   draft: {},
+  courseDraft: {},
   attempts: [],
   knownDraft: {},
   selections: [],
@@ -237,4 +284,40 @@ export function completeQuiz(
       },
     ].slice(-25),
   };
+}
+
+export function completeCourseQuiz(
+  state: QuizStorage,
+  input: unknown,
+  completedAt: string,
+  language: QuizAnswers['language'],
+): QuizStorage {
+  const courseAnswers = courseAnswersSchema.parse(input);
+  const result = scoreCourseQuiz(courseAnswers);
+  if (result.top.points === 0) throw new Error('No course interests');
+  const answers: QuizAnswers = {
+    interest: result.top.path,
+    strength: result.strength,
+    level: 'new',
+    background: 'other',
+    language,
+    device: 'low',
+    style: 'projects',
+    time: 'one',
+    goal: 'growth',
+    confidence: 'unsure',
+  };
+  return {
+    ...state,
+    courseDraft: courseAnswers,
+    attempts: [
+      ...state.attempts,
+      { answers, courseAnswers, completedAt, chosenPath: result.top.path },
+    ].slice(-25),
+  };
+}
+export function scoreAttempt(attempt: z.infer<typeof attemptSchema>) {
+  return attempt.courseAnswers
+    ? scoreCourseQuiz(attempt.courseAnswers)
+    : scoreQuiz(attempt.answers);
 }

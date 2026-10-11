@@ -1,5 +1,5 @@
 import * as z from 'zod/mini';
-import { learningPathFromQuiz, pathIds, readQuiz, scoreQuiz, type QuizStorage } from './quiz';
+import { learningPathFromQuiz, pathIds, readQuiz, scoreAttempt, type QuizStorage } from './quiz';
 
 export const tasterRatings = ['loved', 'okay', 'not-for-me'] as const;
 const tasterSchema = z.object({
@@ -34,10 +34,11 @@ export function tasterChoices(raw: string | null) {
   const known = quiz.selections.at(-1);
   // A known-path choice has no assessment ranking: never invent a second-best match.
   const assessed = !!attempt && (!known || attempt.completedAt > known.completedAt);
-  const ranking = assessed ? scoreQuiz(attempt!.answers) : null;
+  const ranking = assessed ? scoreAttempt(attempt!) : null;
   return {
     path: selected,
-    alternative: ranking?.scores.find((item) => item.path !== selected)?.path ?? null,
+    alternative:
+      ranking?.scores.find((item) => item.path !== selected && item.points > 0)?.path ?? null,
     language: assessed ? attempt!.answers.language : known!.language,
     level: assessed ? attempt!.answers.level : known!.level,
   };

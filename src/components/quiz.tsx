@@ -9,17 +9,17 @@ import { usePreferences } from './providers';
 import { localeNames, type Locale } from '@/lib/preferences';
 import {
   answerOptions,
-  answersSchema,
-  completeQuiz,
+  courseAnswersSchema,
+  completeCourseQuiz,
+  courseRatings,
   completeKnownPath,
   knownPathSchema,
   emptyQuiz,
   pathIds,
   pathNameKeys,
-  questionIds,
   readQuiz,
-  scoreQuiz,
-  type QuestionId,
+  scoreAttempt,
+  scoreCourseQuiz,
   type QuizStorage,
 } from '@/lib/quiz';
 
@@ -65,38 +65,46 @@ export function useQuizStorage() {
   };
   return { state, save, saveFailed };
 }
-function optionKey(question: QuestionId, option: string) {
+function optionKey(question: string, option: string) {
   return `quiz_${question}_${option}`;
 }
 export function Quiz() {
   const t = useTranslations();
   const router = useRouter();
+  const { preferences } = usePreferences();
+  const [noMatch, setNoMatch] = useState(false);
   const { state, save, saveFailed } = useQuizStorage();
   const [position, setPosition] = useState<number | null>(null);
-  const nextUnanswered = questionIds.findIndex((id) => !state.draft[id]);
-  const index = position ?? (nextUnanswered < 0 ? questionIds.length - 1 : nextUnanswered);
-  const question = questionIds[index];
-  const selected = state.draft[question];
+  const nextUnanswered = pathIds.findIndex((id) => !state.courseDraft[id]);
+  const index = position ?? (nextUnanswered < 0 ? pathIds.length - 1 : nextUnanswered);
+  const question = pathIds[index];
+  const selected = state.courseDraft[question];
   const heading = useRef<HTMLHeadingElement>(null);
   const previous = state.attempts.at(-1);
   const completed =
     position === null &&
-    !!previous &&
-    questionIds.every((id) => state.draft[id] === previous.answers[id]);
+    !!previous?.courseAnswers &&
+    pathIds.every((id) => state.courseDraft[id] === previous.courseAnswers?.[id]);
   useEffect(() => {
     heading.current?.focus();
   }, [index, completed]);
   function next() {
-    if (index < questionIds.length - 1) {
+    if (index < pathIds.length - 1) {
       setPosition(index + 1);
       return;
     }
-    const parsed = answersSchema.safeParse(state.draft);
+    const parsed = courseAnswersSchema.safeParse(state.courseDraft);
     if (!parsed.success) {
-      setPosition(questionIds.findIndex((id) => !state.draft[id]));
+      setPosition(pathIds.findIndex((id) => !state.courseDraft[id]));
       return;
     }
-    if (save(completeQuiz(state, parsed.data, new Date().toISOString()))) {
+    if (scoreCourseQuiz(parsed.data).top.points === 0) {
+      setNoMatch(true);
+      return;
+    }
+    if (
+      save(completeCourseQuiz(state, parsed.data, new Date().toISOString(), preferences.locale))
+    ) {
       if (!navigator.onLine) {
         // Offline navigation needs cached HTML; the worker excludes Next.js RSC requests.
         // eslint-disable-next-line @next/next/no-location-assign-relative-destination
@@ -111,7 +119,7 @@ export function Quiz() {
         <h1 ref={heading} tabIndex={-1}>
           {t('quiz_results_heading')}
         </h1>
-        <p>{t('quiz_results_intro')}</p>
+        <p>{t('course_results_intro')}</p>
         <div className="quiz-actions">
           <Link href="/quiz/results" className="button button-primary">
             {t('quiz_show_results')}
@@ -119,7 +127,7 @@ export function Quiz() {
           <Button
             variant="outline"
             onClick={() => {
-              if (save({ ...state, draft: {} })) setPosition(0);
+              if (save({ ...state, draft: {}, courseDraft: {} })) setPosition(0);
             }}
           >
             {t('quiz_retake')}
@@ -128,6 +136,11 @@ export function Quiz() {
             {t('ui_i_already_know_my_path')}
           </Link>
         </div>
+        {noMatch && (
+          <p role="alert" className="form-error">
+            {t('course_no_match')}
+          </p>
+        )}
         {saveFailed && (
           <p role="alert" className="form-error">
             {t('quiz_save_error')}
@@ -140,32 +153,23 @@ export function Quiz() {
     <div className="page-container quiz-container">
       <span className="eyebrow">{t('quiz_eyebrow')}</span>
       <div className="quiz-progress-label">
-        <span>{t('quiz_question_count', { current: index + 1, total: questionIds.length })}</span>
-        {!saveFailed && Object.keys(state.draft).length > 0 && <span>{t('quiz_saved')}</span>}
+        <span>{t('quiz_question_count', { current: index + 1, total: pathIds.length })}</span>
+        {!saveFailed && Object.keys(state.courseDraft).length > 0 && <span>{t('quiz_saved')}</span>}
       </div>
       <progress
         className="quiz-progress"
         value={index + 1}
-        max={questionIds.length}
+        max={pathIds.length}
         aria-label={t('quiz_progress')}
       />
       <h1 ref={heading} tabIndex={-1}>
-        {t(`quiz_question_${question}`)}
+        {t(`course_question_${question}`)}
       </h1>
-      <p>
-        {t(
-          question === 'interest' || question === 'strength'
-            ? 'quiz_choose_hint'
-            : 'quiz_tailoring_hint',
-        )}
-      </p>
+      <p>{t('course_hint')}</p>
       <fieldset className="quiz-options" key={question}>
-        <legend className="sr-only">{t(`quiz_question_${question}`)}</legend>
-        {answerOptions[question].map((option) => {
-          const label =
-            question === 'language'
-              ? localeNames[option as Locale]
-              : t(optionKey(question, option));
+        <legend className="sr-only">{t(`course_question_${question}`)}</legend>
+        {courseRatings.map((option) => {
+          const label = t(`course_rating_${option}`);
           return (
             <label className={`quiz-option ${selected === option ? 'selected' : ''}`} key={option}>
               <input
@@ -174,8 +178,9 @@ export function Quiz() {
                 value={option}
                 checked={selected === option}
                 onChange={() => {
+                  setNoMatch(false);
                   setPosition(index);
-                  save({ ...state, draft: { ...state.draft, [question]: option } });
+                  save({ ...state, courseDraft: { ...state.courseDraft, [question]: option } });
                 }}
               />
               <span>{label}</span>
@@ -184,6 +189,11 @@ export function Quiz() {
           );
         })}
       </fieldset>
+      {noMatch && (
+        <p role="alert" className="form-error">
+          {t('course_no_match')}
+        </p>
+      )}
       {saveFailed && (
         <p role="alert" className="form-error">
           {t('quiz_save_error')}
@@ -195,7 +205,7 @@ export function Quiz() {
           {t('quiz_back')}
         </Button>
         <Button disabled={!selected} onClick={next}>
-          {t(index === questionIds.length - 1 ? 'quiz_show_results' : 'quiz_next')}
+          {t(index === pathIds.length - 1 ? 'quiz_show_results' : 'quiz_next')}
           <ArrowRight size={18} />
         </Button>
       </div>
@@ -384,11 +394,13 @@ export function QuizResults() {
         </Link>
       </div>
     );
-  const result = scoreQuiz(attempt.answers);
+  const result = scoreAttempt(attempt);
   const known = state.selections.at(-1);
   const outdated = !!known && known.completedAt >= attempt.completedAt;
   const primary = result.scores.find((item) => item.path === attempt.chosenPath)!;
-  const other = result.scores.find((item) => item.path !== primary.path)!;
+  const other = result.scores.find(
+    (item) => item.path !== primary.path && (!attempt.courseAnswers || item.points > 0),
+  );
   function choose(path: (typeof pathIds)[number]) {
     const attempts = [...state.attempts];
     attempts[attempts.length - 1] = {
@@ -405,17 +417,25 @@ export function QuizResults() {
         {t('quiz_results_eyebrow')}
       </span>
       <h1>{t('quiz_results_heading')}</h1>
-      <p>{t('quiz_results_intro')}</p>
+      <p>{t(attempt.courseAnswers ? 'course_results_intro' : 'quiz_results_intro')}</p>
       {outdated && (
         <p role="status">{t('quiz_outdated', { path: t(pathNameKeys[known!.path]) })}</p>
       )}
       <section className="quiz-strength" aria-labelledby="strength-heading">
-        <h2 id="strength-heading">{t('quiz_strength_heading')}</h2>
+        <h2 id="strength-heading">
+          {t(attempt.courseAnswers ? 'course_strength_heading' : 'quiz_strength_heading')}
+        </h2>
         <h3>{t(`quiz_strength_${result.strength}`)}</h3>
-        <p>{t(`quiz_strength_description_${result.strength}`)}</p>
+        <p>
+          {t(
+            attempt.courseAnswers
+              ? 'course_strength_note'
+              : `quiz_strength_description_${result.strength}`,
+          )}
+        </p>
       </section>
       <div className="quiz-result-grid">
-        {[primary, other].map((item, index) => (
+        {[primary, ...(other ? [other] : [])].map((item, index) => (
           <section className={`quiz-result-card ${index === 0 ? 'primary' : ''}`} key={item.path}>
             <span className="eyebrow">
               {t(index === 0 ? 'quiz_chosen_path' : 'quiz_alternative')}
@@ -426,9 +446,14 @@ export function QuizResults() {
             <ul>
               {item.contributions.map((item) => (
                 <li key={item.question}>
-                  {t(`quiz_reason_${item.question}`, {
-                    answer: t(optionKey(item.question, item.option)),
-                  })}
+                  {attempt.courseAnswers
+                    ? t('course_reason', {
+                        activity: t(`course_question_${item.question}`),
+                        rating: t(`course_rating_${item.option}`),
+                      })
+                    : t(`quiz_reason_${item.question}`, {
+                        answer: t(optionKey(item.question, item.option)),
+                      })}
                 </li>
               ))}
             </ul>
@@ -442,7 +467,7 @@ export function QuizResults() {
       </div>
       <section aria-labelledby="breakdown-heading">
         <h2 id="breakdown-heading">{t('quiz_breakdown')}</h2>
-        <p>{t('quiz_match_note')}</p>
+        <p>{t(attempt.courseAnswers ? 'course_match_note' : 'quiz_match_note')}</p>
         <div className="quiz-breakdown">
           {result.scores.map((item) => (
             <div key={item.path}>
@@ -464,12 +489,17 @@ export function QuizResults() {
         <h2>{t('quiz_next_step')}</h2>
         <p>{t(`quiz_first_step_${attempt.chosenPath}`)}</p>
         <p>
-          {t('quiz_tailoring_summary', {
-            level: t(optionKey('level', attempt.answers.level)),
-            language: localeNames[attempt.answers.language],
-            style: t(optionKey('style', attempt.answers.style)),
-            time: t(optionKey('time', attempt.answers.time)),
-          })}
+          {attempt.courseAnswers
+            ? t('known_summary', {
+                level: t('learn_foundations'),
+                language: localeNames[attempt.answers.language],
+              })
+            : t('quiz_tailoring_summary', {
+                level: t(optionKey('level', attempt.answers.level)),
+                language: localeNames[attempt.answers.language],
+                style: t(optionKey('style', attempt.answers.style)),
+                time: t(optionKey('time', attempt.answers.time)),
+              })}
         </p>
       </section>
       {saveFailed && (
@@ -506,7 +536,7 @@ export function QuizResults() {
         <Button
           variant="outline"
           onClick={() => {
-            if (save({ ...state, draft: {} })) router.push('/quiz');
+            if (save({ ...state, draft: {}, courseDraft: {} })) router.push('/quiz');
           }}
         >
           {t('quiz_retake')}

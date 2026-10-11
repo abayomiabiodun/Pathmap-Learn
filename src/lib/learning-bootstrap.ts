@@ -13,10 +13,18 @@ export function restoreLearningPath(options: Record<string, readonly string[]>) 
       );
     const keys = Object.keys(options);
     const knownKeys = ['interest', 'level', 'language'];
+    const courseFields = (item: unknown, partial = false) =>
+      record(item) &&
+      options.interest.every(
+        (path) =>
+          (partial && item[path] === undefined) ||
+          ['love', 'interested', 'curious', 'no'].includes(item[path] as string),
+      );
     if (
       !record(value) ||
       value.version !== 1 ||
       !fields(value.draft, keys, true) ||
+      (value.courseDraft !== undefined && !courseFields(value.courseDraft, true)) ||
       !Array.isArray(value.attempts) ||
       value.attempts.length > 25 ||
       (value.knownDraft !== undefined && !fields(value.knownDraft, knownKeys, true))
@@ -31,6 +39,7 @@ export function restoreLearningPath(options: Record<string, readonly string[]>) 
         (item) =>
           record(item) &&
           fields(item.answers, keys) &&
+          (item.courseAnswers === undefined || courseFields(item.courseAnswers)) &&
           typeof item.completedAt === 'string' &&
           options.interest.includes(item.chosenPath as string),
       ) ||

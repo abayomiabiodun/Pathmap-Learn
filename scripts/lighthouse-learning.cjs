@@ -18,6 +18,18 @@ module.exports = async (browser, { url }) => {
               {
                 completedAt: '2026-10-11T09:00:00Z',
                 chosenPath: 'data',
+                courseAnswers: {
+                  data: 'love',
+                  web: 'no',
+                  cyber: 'no',
+                  ai: 'interested',
+                  design: 'no',
+                  marketing: 'no',
+                  business: 'no',
+                  writing: 'no',
+                  project: 'no',
+                  teaching: 'no',
+                },
                 answers: {
                   interest: 'data',
                   strength: 'logic',
