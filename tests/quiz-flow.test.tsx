@@ -4,7 +4,13 @@ import { expect, it, vi } from 'vitest';
 import { Providers } from '@/components/providers';
 import en from '../messages/en.json';
 import { KnownPath, Quiz, QuizResults } from '@/components/quiz';
-import { completeQuiz, emptyQuiz, type QuizAnswers } from '@/lib/quiz';
+import {
+  completeKnownPath,
+  completeQuiz,
+  emptyQuiz,
+  learningPathFromQuiz,
+  type QuizAnswers,
+} from '@/lib/quiz';
 const push = vi.hoisted(() => vi.fn());
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 const answers: QuizAnswers = {
@@ -102,4 +108,48 @@ it('explains a storage failure rather than claiming the answer was saved', () =>
   fireEvent.click(screen.getByRole('radio', { name: 'Finding patterns in numbers' }));
   expect(screen.getByRole('alert')).toHaveTextContent('could not save');
   spy.mockRestore();
+});
+
+it('reopens completed assessments with review and retake actions instead of the last question', () => {
+  localStorage.setItem(
+    'pathmap-quiz-v1',
+    JSON.stringify(completeQuiz(emptyQuiz, answers, '2026-01-01')),
+  );
+  app(<Quiz />);
+  expect(screen.getByRole('link', { name: 'See my strengths and paths' })).toHaveAttribute(
+    'href',
+    '/quiz/results',
+  );
+  expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Retake the quiz' }));
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which kind of work');
+  expect(JSON.parse(localStorage.getItem('pathmap-quiz-v1')!).attempts).toHaveLength(1);
+});
+
+it('requires explicitly reactivating an older result so its taster matches the displayed path', () => {
+  const state = completeKnownPath(
+    completeQuiz(emptyQuiz, answers, '2026-01-01'),
+    { interest: 'web', level: 'new', language: 'yo' },
+    '2026-02-01',
+  );
+  localStorage.setItem('pathmap-quiz-v1', JSON.stringify(state));
+  app(<QuizResults />);
+  expect(screen.getByRole('status')).toHaveTextContent('Your current path is Web Development');
+  expect(screen.queryByRole('link', { name: 'Try a taster lesson' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Use this result and try a taster' }));
+  expect(learningPathFromQuiz(localStorage.getItem('pathmap-quiz-v1'))).toBe('data');
+  expect(push).toHaveBeenCalledWith('/taster');
+});
+
+it('does not present an older manual selection as the current path after a newer assessment', () => {
+  const state = completeQuiz(
+    completeKnownPath(emptyQuiz, { interest: 'web', level: 'new', language: 'yo' }, '2026-01-01'),
+    answers,
+    '2026-02-01',
+  );
+  localStorage.setItem('pathmap-quiz-v1', JSON.stringify(state));
+  app(<KnownPath />);
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Which path would you like');
+  expect(screen.queryByRole('link', { name: 'Start learning' })).not.toBeInTheDocument();
+  expect(learningPathFromQuiz(localStorage.getItem('pathmap-quiz-v1'))).toBe('data');
 });

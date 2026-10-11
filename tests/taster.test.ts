@@ -32,6 +32,17 @@ it('offers the genuine second assessment match and never invents one for a known
     language: 'yo',
     level: 'basics',
   });
+  const tied = {
+    ...known,
+    selections: [{ ...known.selections[0], completedAt: assessed.attempts[0].completedAt }],
+  };
+  expect(tasterChoices(JSON.stringify(tied))).toEqual({
+    path: 'web',
+    alternative: null,
+    language: 'yo',
+    level: 'basics',
+  });
+  expect(acceptTaster(tied, 'web', '2026-10-11T12:00:00Z').selections).toHaveLength(2);
   expect(
     tasterChoices(
       JSON.stringify({

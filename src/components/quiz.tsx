@@ -78,9 +78,14 @@ export function Quiz() {
   const question = questionIds[index];
   const selected = state.draft[question];
   const heading = useRef<HTMLHeadingElement>(null);
+  const previous = state.attempts.at(-1);
+  const completed =
+    position === null &&
+    !!previous &&
+    questionIds.every((id) => state.draft[id] === previous.answers[id]);
   useEffect(() => {
     heading.current?.focus();
-  }, [index]);
+  }, [index, completed]);
   function next() {
     if (index < questionIds.length - 1) {
       setPosition(index + 1);
@@ -99,12 +104,44 @@ export function Quiz() {
       } else router.push('/quiz/results');
     }
   }
+  if (completed)
+    return (
+      <div className="page-container quiz-container">
+        <span className="eyebrow">{t('quiz_eyebrow')}</span>
+        <h1 ref={heading} tabIndex={-1}>
+          {t('quiz_results_heading')}
+        </h1>
+        <p>{t('quiz_results_intro')}</p>
+        <div className="quiz-actions">
+          <Link href="/quiz/results" className="button button-primary">
+            {t('quiz_show_results')}
+          </Link>
+          <Button
+            variant="outline"
+            onClick={() => {
+              if (save({ ...state, draft: {} })) setPosition(0);
+            }}
+          >
+            {t('quiz_retake')}
+          </Button>
+          <Link href="/quiz?skip=true" className="button button-outline">
+            {t('ui_i_already_know_my_path')}
+          </Link>
+        </div>
+        {saveFailed && (
+          <p role="alert" className="form-error">
+            {t('quiz_save_error')}
+          </p>
+        )}
+        <p className="quiz-note">{t('quiz_privacy')}</p>
+      </div>
+    );
   return (
     <div className="page-container quiz-container">
       <span className="eyebrow">{t('quiz_eyebrow')}</span>
       <div className="quiz-progress-label">
         <span>{t('quiz_question_count', { current: index + 1, total: questionIds.length })}</span>
-        {!saveFailed && <span>{t('quiz_saved')}</span>}
+        {!saveFailed && Object.keys(state.draft).length > 0 && <span>{t('quiz_saved')}</span>}
       </div>
       <progress
         className="quiz-progress"
@@ -163,6 +200,7 @@ export function Quiz() {
         </Button>
       </div>
       <p className="quiz-note">{t('quiz_privacy')}</p>
+      <Link href="/quiz?skip=true">{t('ui_i_already_know_my_path')}</Link>
     </div>
   );
 }
@@ -174,7 +212,12 @@ export function KnownPath() {
   const [position, setPosition] = useState<number | null>(null);
   const steps = ['interest', 'level', 'language'] as const;
   const latest = state.selections.at(-1);
-  const ready = position === null && !!latest && Object.keys(state.knownDraft).length === 0;
+  const attempt = state.attempts.at(-1);
+  const ready =
+    position === null &&
+    !!latest &&
+    (!attempt || latest.completedAt >= attempt.completedAt) &&
+    Object.keys(state.knownDraft).length === 0;
   const unanswered = steps.findIndex((key) => !state.knownDraft[key]);
   const index = position ?? (unanswered < 0 ? steps.length - 1 : unanswered);
   const question = steps[index];
@@ -189,6 +232,10 @@ export function KnownPath() {
       return;
     }
     const parsed = knownPathSchema.safeParse(state.knownDraft);
+    if (!parsed.success) {
+      setPosition(steps.findIndex((key) => !state.knownDraft[key]));
+      return;
+    }
     if (parsed.success && save(completeKnownPath(state, parsed.data, new Date().toISOString())))
       setPosition(null);
   }
@@ -243,7 +290,7 @@ export function KnownPath() {
               href={`/learn/${latest!.path}`}
               prefetch={false}
               onClick={() => update({ locale: latest!.language })}
-              className="button button-primary"
+              className="button button-outline"
             >
               {t('learn_start')}
             </Link>
@@ -253,7 +300,9 @@ export function KnownPath() {
         <>
           <div className="quiz-progress-label">
             <span>{t('known_count', { current: index + 1, total: steps.length })}</span>
-            {!saveFailed && <span>{t('quiz_saved')}</span>}
+            {!saveFailed && Object.keys(state.knownDraft).length > 0 && (
+              <span>{t('quiz_saved')}</span>
+            )}
           </div>
           <progress
             className="quiz-progress"
@@ -313,6 +362,7 @@ export function KnownPath() {
         </p>
       )}
       <p className="quiz-note">{t('known_privacy')}</p>
+      <Link href="/quiz">{t('start')}</Link>
     </div>
   );
 }
@@ -335,11 +385,17 @@ export function QuizResults() {
       </div>
     );
   const result = scoreQuiz(attempt.answers);
+  const known = state.selections.at(-1);
+  const outdated = !!known && known.completedAt >= attempt.completedAt;
   const primary = result.scores.find((item) => item.path === attempt.chosenPath)!;
   const other = result.scores.find((item) => item.path !== primary.path)!;
   function choose(path: (typeof pathIds)[number]) {
     const attempts = [...state.attempts];
-    attempts[attempts.length - 1] = { ...attempt!, chosenPath: path };
+    attempts[attempts.length - 1] = {
+      ...attempt!,
+      chosenPath: path,
+      completedAt: outdated ? new Date().toISOString() : attempt!.completedAt,
+    };
     save({ ...state, attempts });
   }
   return (
@@ -350,6 +406,9 @@ export function QuizResults() {
       </span>
       <h1>{t('quiz_results_heading')}</h1>
       <p>{t('quiz_results_intro')}</p>
+      {outdated && (
+        <p role="status">{t('quiz_outdated', { path: t(pathNameKeys[known!.path]) })}</p>
+      )}
       <section className="quiz-strength" aria-labelledby="strength-heading">
         <h2 id="strength-heading">{t('quiz_strength_heading')}</h2>
         <h3>{t(`quiz_strength_${result.strength}`)}</h3>
@@ -419,14 +478,31 @@ export function QuizResults() {
         </p>
       )}
       <div className="quiz-actions">
-        <Link
-          href="/taster"
-          prefetch={false}
-          onClick={() => update({ locale: attempt.answers.language })}
-          className="button button-primary"
-        >
-          {t('taster_try')}
-        </Link>
+        {outdated ? (
+          <Button
+            onClick={() => {
+              const attempts = [
+                ...state.attempts.slice(0, -1),
+                { ...attempt, completedAt: new Date().toISOString() },
+              ];
+              if (save({ ...state, attempts })) {
+                update({ locale: attempt.answers.language });
+                router.push('/taster');
+              }
+            }}
+          >
+            {t('quiz_use_result')}
+          </Button>
+        ) : (
+          <Link
+            href="/taster"
+            prefetch={false}
+            onClick={() => update({ locale: attempt.answers.language })}
+            className="button button-primary"
+          >
+            {t('taster_try')}
+          </Link>
+        )}
         <Button
           variant="outline"
           onClick={() => {
@@ -438,6 +514,9 @@ export function QuizResults() {
         <Link href="/paths" prefetch={false} className="button button-outline">
           {t('ui_explore_all_10_paths')}
           <ArrowRight size={18} />
+        </Link>
+        <Link href="/quiz?skip=true" className="button button-outline">
+          {t('ui_i_already_know_my_path')}
         </Link>
       </div>
       <p className="quiz-note">{t('quiz_privacy')}</p>

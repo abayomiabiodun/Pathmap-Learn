@@ -8,11 +8,23 @@ drafts and attempts. Older stored quiz records migrate with empty manual fields.
 
 `/quiz` asks ten questions, one per screen. Answers autosave on the current device;
 reopening the quiz resumes at the first unanswered question. Back revisits an answer.
+Reopening a completed assessment offers its results or a fresh retake. Both
+journeys link to each other, and the saved indicator appears only after an answer
+has actually been stored.
 `/quiz/results` shows a self-reported strength, two recommendations, contributing
 answers, all ten match scores and a practical first step. A learner can choose the
 alternative or retake the quiz. Retakes preserve the latest 25 completed attempts
 and do not touch other app storage. No Supabase connection is required for this
-local flow. Account syncing and the taster/library pipeline remain later work.
+local flow. Results lead to the 10–15 minute `/taster` game and then the focused
+ten-lesson course. Known-path learners can also start their chosen course directly.
+Account syncing remains later work.
+
+The latest completed assessment or manual choice controls the taster and course.
+An older manual choice does not appear as the current selection after a newer
+assessment. Older assessment results remain available for review, but show the
+current path and require an explicit action to use that result again. Choosing an
+alternative from an older result also makes that assessment current. A manual
+choice wins an identical timestamp consistently across learning and tasters.
 
 ## Scoring
 
@@ -43,3 +55,16 @@ cover answer requirements, back, resume, completion, results, switching, retake
 and storage failures. Playwright covers desktop/mobile, accessibility, French
 translation and offline completion. The public service worker caches quiz HTML
 and static assets, never submitted answers or account/API responses.
+
+Validated on 11 October 2026: 112 unit/component tests passed with 100% library
+coverage; lint, TypeScript and the production build passed. Sixteen relevant
+desktop/mobile browser scenarios passed, including completed-result reopening,
+manual selection to older assessment switching, French copy, offline completion,
+tasters and ten-lesson courses. The new switching scenario was rerun after
+correcting its expected learning-link label.
+
+Three Lighthouse runs per page under 4G throttling and 4× CPU slowdown passed
+all assertions. Median LCP: assessment 1,682 ms, known path 1,968 ms, results
+1,509 ms, taster 1,952 ms and sign-in 1,989 ms. Every run scored 100% automated
+accessibility. Script transfer stayed below the 204,800-byte budget for all five
+pages. The public shell cache is version 19 so returning devices get the updates.

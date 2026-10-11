@@ -489,5 +489,7 @@
   "taster_try_second": "Nwaa ụzọ nke abụọ m",
   "taster_reassess": "Mee ajụjụ ụzọ ọzọ ịchọta nhọrọ ọzọ. Ụzọ ị họọrọ n’onwe gị enweghị akara nke abụọ.",
   "taster_replay": "Gwuo obere nkuzi a ọzọ",
-  "taster_storage": "Echiche na omume gị dị na ngwaọrụ a. A naghị ekekọrịta ya na ndị ọrụ ma ọ bụ ndị na-amụ ọzọ. Ibugharị ibe na-amalite egwuregwu ọzọ; echekwara echiche i mechara."
+  "taster_storage": "Echiche na omume gị dị na ngwaọrụ a. A naghị ekekọrịta ya na ndị ọrụ ma ọ bụ ndị na-amụ ọzọ. Ibugharị ibe na-amalite egwuregwu ọzọ; echekwara echiche i mechara.",
+  "quiz_outdated": "Ụzọ gị ugbu a bụ {path}. Ndị a bụ nsonaazụ nyocha gị gara aga. Họrọ iji nsonaazụ a tupu ịnwale obere nkuzi ya.",
+  "quiz_use_result": "Jiri nsonaazụ a wee nwalee obere nkuzi"
 }

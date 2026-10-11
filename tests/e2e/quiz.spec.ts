@@ -71,6 +71,10 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
     'scrollWidth',
     await page.evaluate(() => document.documentElement.clientWidth),
   );
+  await page.goto('/quiz');
+  await expect(page.getByRole('link', { name: 'See my strengths and paths' })).toBeVisible();
+  await expect(page.getByRole('radio')).toHaveCount(0);
+  await page.getByRole('link', { name: 'See my strengths and paths' }).click();
   await page.getByRole('button', { name: 'Choose this path instead' }).click();
   await expect(page.locator('.quiz-result-card.primary h2')).toHaveText('AI and Machine Learning');
   await page.getByRole('link', { name: 'Try a taster lesson', exact: true }).click();
@@ -135,4 +139,39 @@ test('quiz questions, options and results follow the selected language', async (
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(fr.quiz_results_heading);
   await expect(page.locator('.quiz-result-card.primary h2')).toHaveText(fr.ui_data);
   await expect(page.getByText(fr.quiz_strength_description_logic, { exact: true })).toBeVisible();
+});
+
+test('switching from a known path back to an earlier assessment uses the displayed course', async ({
+  page,
+}) => {
+  await page.goto('/quiz');
+  for (let index = 0; index < options.length; index++) {
+    await page.getByRole('radio', { name: options[index], exact: true }).check();
+    await page
+      .getByRole('button', {
+        name: index === options.length - 1 ? 'See my strengths and paths' : 'Next question',
+      })
+      .click();
+  }
+  await page.getByRole('link', { name: 'I already know my path', exact: true }).click();
+  await page.getByRole('radio', { name: 'Web Development', exact: true }).check();
+  await page.getByRole('button', { name: 'Next question' }).click();
+  await page.getByRole('radio', { name: 'I have never started', exact: true }).check();
+  await page.getByRole('button', { name: 'Next question' }).click();
+  await page.getByRole('radio', { name: 'English', exact: true }).check();
+  await page.getByRole('button', { name: 'Save my learning preferences' }).click();
+  await expect(page.getByRole('link', { name: 'Start learning', exact: true })).toHaveAttribute(
+    'href',
+    '/learn/web',
+  );
+  await page.goto('/quiz/results');
+  await expect(page.getByRole('status')).toContainText('Your current path is Web Development');
+  await page.getByRole('button', { name: 'Use this result and try a taster' }).click();
+  await expect(page).toHaveURL('/taster');
+  await expect(page.getByRole('heading', { name: 'Data', exact: true })).toBeVisible();
+  await page.goto('/learn');
+  await expect(page.getByRole('link', { name: 'Continue learning', exact: true })).toHaveAttribute(
+    'href',
+    '/learn/data',
+  );
 });

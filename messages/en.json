@@ -489,5 +489,7 @@
   "taster_try_second": "Try my alternative path",
   "taster_reassess": "Take or revisit the assessment to discover another match. An explicitly chosen path has no second-best score.",
   "taster_replay": "Play this taster again",
-  "taster_storage": "Ratings and your practice response are saved on this device. They are not shared with recruiters or other learners. Reloading restarts the game; completed ratings remain saved."
+  "taster_storage": "Ratings and your practice response are saved on this device. They are not shared with recruiters or other learners. Reloading restarts the game; completed ratings remain saved.",
+  "quiz_outdated": "Your current path is {path}. These are your earlier assessment results. Choose to use this result before trying its taster.",
+  "quiz_use_result": "Use this result and try a taster"
 }

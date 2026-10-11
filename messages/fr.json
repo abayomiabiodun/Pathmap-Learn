@@ -489,5 +489,7 @@
   "taster_try_second": "Essayer ma voie alternative",
   "taster_reassess": "Refaites le questionnaire pour découvrir une autre correspondance. Une voie choisie directement n’a pas de deuxième score.",
   "taster_replay": "Rejouer cette mini-leçon",
-  "taster_storage": "Votre avis et votre exercice restent sur cet appareil, sans partage avec recruteurs ou apprenants. Recharger recommence le jeu ; les avis terminés restent enregistrés."
+  "taster_storage": "Votre avis et votre exercice restent sur cet appareil, sans partage avec recruteurs ou apprenants. Recharger recommence le jeu ; les avis terminés restent enregistrés.",
+  "quiz_outdated": "Votre parcours actuel est {path}. Voici les résultats de votre évaluation précédente. Choisissez ce résultat avant de tester sa mini-leçon.",
+  "quiz_use_result": "Utiliser ce résultat et tester une mini-leçon"
 }

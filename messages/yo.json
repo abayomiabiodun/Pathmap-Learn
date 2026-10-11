@@ -489,5 +489,7 @@
   "taster_try_second": "Dán ọ̀nà kejì mi wò",
   "taster_reassess": "Ṣe ìbéèrè ọ̀nà lẹ́ẹ̀kan sí i láti rí ọ̀nà mìíràn. Ọ̀nà tí o yan fúnra rẹ kò ní iye ìbámu kejì.",
   "taster_replay": "Tún eré ẹ̀kọ́ yìí ṣe",
-  "taster_storage": "Ìdáhùn àti ìṣe rẹ wà lórí ẹrọ yìí. A kò fi hàn sí agbanisíṣẹ́ tàbí akẹ́kọ̀ọ́ mìíràn. Títún ojú-ìwé ṣí bẹ̀rẹ̀ eré padà; ìdáhùn tí o parí wà nípamọ́."
+  "taster_storage": "Ìdáhùn àti ìṣe rẹ wà lórí ẹrọ yìí. A kò fi hàn sí agbanisíṣẹ́ tàbí akẹ́kọ̀ọ́ mìíràn. Títún ojú-ìwé ṣí bẹ̀rẹ̀ eré padà; ìdáhùn tí o parí wà nípamọ́.",
+  "quiz_outdated": "Ọ̀nà rẹ lọwọlọwọ ni {path}. Àwọn wọ̀nyí ni èsì ìdánwò rẹ tẹ́lẹ̀. Yan láti lo èsì yìí kí o tó gbìyànjú ẹ̀kọ́ àdánwò rẹ.",
+  "quiz_use_result": "Lo èsì yìí kí o sì gbìyànjú ẹ̀kọ́ àdánwò"
 }

@@ -489,5 +489,7 @@
   "taster_try_second": "Gwada hanya ta biyu",
   "taster_reassess": "Sake tambayoyin domin gano wani zaɓi. Hanyar da ka zaɓa kai tsaye ba ta da maki na biyu.",
   "taster_replay": "Sake wannan wasan",
-  "taster_storage": "Ra’ayi da aikin gwaji suna nan a wannan na’ura, ba a raba su da masu ɗaukar aiki ko ɗalibai. Sake buɗewa yana fara wasa daga farko; ra’ayin da ka kammala yana nan."
+  "taster_storage": "Ra’ayi da aikin gwaji suna nan a wannan na’ura, ba a raba su da masu ɗaukar aiki ko ɗalibai. Sake buɗewa yana fara wasa daga farko; ra’ayin da ka kammala yana nan.",
+  "quiz_outdated": "Hanyarka ta yanzu ita ce {path}. Waɗannan sakamakon tantancewarka ne na baya. Zaɓi amfani da wannan sakamakon kafin gwada ƙaramin darasinsa.",
+  "quiz_use_result": "Yi amfani da wannan sakamakon ka gwada darasi"
 }

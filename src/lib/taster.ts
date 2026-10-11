@@ -33,7 +33,7 @@ export function tasterChoices(raw: string | null) {
   const attempt = quiz.attempts.at(-1);
   const known = quiz.selections.at(-1);
   // A known-path choice has no assessment ranking: never invent a second-best match.
-  const assessed = !!attempt && (!known || attempt.completedAt >= known.completedAt);
+  const assessed = !!attempt && (!known || attempt.completedAt > known.completedAt);
   const ranking = assessed ? scoreQuiz(attempt!.answers) : null;
   return {
     path: selected,
@@ -53,7 +53,7 @@ export function acceptTaster(
   // Update the active assessment so its ranking remains available for a second taster.
   const latest = quiz.attempts.at(-1);
   const known = quiz.selections.at(-1);
-  if (latest && (!known || latest.completedAt >= known.completedAt)) {
+  if (latest && (!known || latest.completedAt > known.completedAt)) {
     return { ...quiz, attempts: [...quiz.attempts.slice(0, -1), { ...latest, chosenPath: path }] };
   }
   return {
