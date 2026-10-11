@@ -70,6 +70,9 @@ export function LearningAccess({
           <Link className="button button-primary" prefetch={false} href={`/learn/${assigned}`}>
             {t('eng_continue')}
           </Link>
+          <Link className="button button-outline" prefetch={false} href="/taster">
+            {t('taster_try')}
+          </Link>
         </article>
       ) : (
         <div className="learning-card">

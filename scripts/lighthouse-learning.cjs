@@ -7,6 +7,35 @@ module.exports = async (browser, { url }) => {
     await page.evaluate((target) => {
       localStorage.removeItem('pathmap-quiz-v1');
       localStorage.removeItem('pathmap-learning-v1');
+      if (target === '/quiz/results' || target === '/taster') {
+        localStorage.setItem(
+          'pathmap-quiz-v1',
+          JSON.stringify({
+            version: 1,
+            draft: {},
+            selections: [],
+            attempts: [
+              {
+                completedAt: '2026-10-11T09:00:00Z',
+                chosenPath: 'data',
+                answers: {
+                  interest: 'data',
+                  strength: 'logic',
+                  level: 'new',
+                  background: 'student',
+                  language: 'en',
+                  device: 'low',
+                  style: 'games',
+                  time: 'one',
+                  goal: 'job',
+                  confidence: 'unsure',
+                },
+              },
+            ],
+          }),
+        );
+        return;
+      }
       if (target === '/learn' || target === '/library' || target.startsWith('/learn/'))
         localStorage.setItem(
           'pathmap-quiz-v1',

@@ -54,7 +54,7 @@ test('continue learning and library show only the saved path and resume its next
   await page.reload();
   await expect(page.locator('article')).toHaveCount(1);
   await expect(page.getByRole('heading', { name: 'Web Development', exact: true })).toBeVisible();
-  await expect(page.getByText('1 of 3 lessons completed')).toBeVisible();
+  await expect(page.getByText('1 of 10 lessons completed')).toBeVisible();
   expect(
     (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag22aa']).analyze())
       .violations,

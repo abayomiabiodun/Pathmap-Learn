@@ -70,7 +70,7 @@ it('shows only the assigned course, including saved progress', () => {
   show();
   expect(screen.getByRole('heading', { name: 'Web Development' })).toBeVisible();
   expect(screen.queryByRole('heading', { name: 'Data' })).not.toBeInTheDocument();
-  expect(screen.getByText('1 of 3 lessons completed')).toBeVisible();
+  expect(screen.getByText('1 of 10 lessons completed')).toBeVisible();
   expect(screen.getByRole('link', { name: en.eng_continue })).toHaveAttribute('href', '/learn/web');
 });
 it('gates a direct link to another course', () => {

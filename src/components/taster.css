@@ -1,0 +1,68 @@
+.taster {
+  max-width: 900px;
+}
+.taster > .button {
+  margin-block: 1rem;
+}
+.taster-panel {
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface);
+  margin-block: 1.5rem;
+}
+.taster-panel h2,
+.taster-panel h3 {
+  margin-block: 1rem;
+}
+.taster-panel p {
+  line-height: 1.7;
+  white-space: pre-line;
+}
+.taster-panel progress {
+  width: 100%;
+  accent-color: var(--green);
+}
+.taster-panel pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.taster-panel fieldset {
+  border: 0;
+  padding: 0;
+  margin-block: 1.5rem;
+  min-width: 0;
+}
+.taster-panel legend {
+  font-weight: 700;
+}
+.taster-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block: 1rem;
+}
+.taster-panel textarea {
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--bg);
+  color: var(--text);
+}
+.taster-panel > .button {
+  margin-inline-end: 0.75rem;
+  margin-block: 0.5rem;
+}
+.taster-note {
+  color: var(--muted);
+}
+.taster-stars {
+  color: var(--green);
+  font-size: 2rem;
+  letter-spacing: 0.35rem;
+}

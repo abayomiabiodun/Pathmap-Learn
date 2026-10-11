@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import yo from '../../messages/yo.json';
 import yoruba from '../../public/lessons/yo.json';
+import lessons from '../../public/lessons/en.json';
+import { lessonIds } from '../../src/lib/learning';
 
 test('known path continues into Yoruba lessons with retained work and offline progress', async ({
   page,
@@ -52,7 +54,7 @@ test('known path continues into Yoruba lessons with retained work and offline pr
   await expect(page.getByText(yo.learn_success)).toBeVisible();
   await context.setOffline(false);
   await page.goto('/library');
-  await expect(page.getByText('Ẹ̀kọ́ 2 nínú 3 ti parí')).toBeVisible();
+  await expect(page.getByText('Ẹ̀kọ́ 2 nínú 10 ti parí')).toBeVisible();
 });
 
 test('all ten paths have usable learning content and the web starter course can be completed', async ({
@@ -103,7 +105,17 @@ test('all ten paths have usable learning content and the web starter course can 
     await expect(page.getByText('Lesson completed. Your progress is saved.')).toBeVisible();
     if (index < 2) await page.getByRole('button', { name: 'Next lesson' }).click();
   }
-  await expect(page.getByText('3 of 3 lessons completed')).toBeVisible();
+  for (const id of lessonIds.web.slice(3)) {
+    await page.getByRole('button', { name: 'Next lesson' }).click();
+    const lesson = lessons[id as keyof typeof lessons];
+    await expect(page.getByRole('heading', { name: lesson.title })).toBeVisible();
+    await page
+      .getByRole('textbox')
+      .fill(`My practice for ${lesson.title}: I tested the example and explained my decision.`);
+    await page.getByRole('radio', { name: lesson.answer ? 'True' : 'False', exact: true }).check();
+    await page.getByRole('button', { name: 'Check and complete lesson' }).click();
+  }
+  await expect(page.getByText('10 of 10 lessons completed')).toBeVisible();
   await expect(page.getByText(/You completed this starter course/)).toBeVisible();
   await page.screenshot({
     path: `test-results/learning-${test.info().project.name}.png`,

@@ -36,7 +36,12 @@ const subscribe = (listener: () => void) => {
   };
 };
 const snapshot = () => {
-  const raw = localStorage.getItem(storageKey);
+  let raw: string | null;
+  try {
+    raw = localStorage.getItem(storageKey);
+  } catch {
+    raw = null;
+  }
   if (raw !== rawCache) {
     rawCache = raw;
     stateCache = readQuiz(raw);
@@ -44,7 +49,7 @@ const snapshot = () => {
   return stateCache;
 };
 const serverSnapshot = () => emptyQuiz;
-function useQuizStorage() {
+export function useQuizStorage() {
   const state = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
   const [saveFailed, setSaveFailed] = useState(false);
   const save = (next: QuizStorage) => {
@@ -208,6 +213,14 @@ export function KnownPath() {
             <p>{t(`quiz_first_step_${latest!.path}`)}</p>
           </section>
           <div className="quiz-actions">
+            <Link
+              href="/taster"
+              prefetch={false}
+              onClick={() => update({ locale: latest!.language })}
+              className="button button-primary"
+            >
+              {t('taster_try')}
+            </Link>
             <Button
               variant="outline"
               onClick={() => {
@@ -406,6 +419,14 @@ export function QuizResults() {
         </p>
       )}
       <div className="quiz-actions">
+        <Link
+          href="/taster"
+          prefetch={false}
+          onClick={() => update({ locale: attempt.answers.language })}
+          className="button button-primary"
+        >
+          {t('taster_try')}
+        </Link>
         <Button
           variant="outline"
           onClick={() => {
@@ -414,14 +435,6 @@ export function QuizResults() {
         >
           {t('quiz_retake')}
         </Button>
-        <Link
-          href={`/learn/${attempt.chosenPath}`}
-          prefetch={false}
-          onClick={() => update({ locale: attempt.answers.language })}
-          className="button button-primary"
-        >
-          {t('learn_start')} <ArrowRight size={18} aria-hidden="true" />
-        </Link>
         <Link href="/paths" prefetch={false} className="button button-outline">
           {t('ui_explore_all_10_paths')}
           <ArrowRight size={18} />

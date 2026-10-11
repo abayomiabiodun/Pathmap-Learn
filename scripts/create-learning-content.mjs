@@ -753,3 +753,5 @@ for (const [locale, values] of Object.entries(ui)) {
   });
   writeFileSync(file, JSON.stringify(messages, null, 2) + '\n');
 }
+await import('./expand-learning-content.mjs');
+await import('./create-taster-copy.mjs');

@@ -3,6 +3,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { Learning } from '@/components/learning';
+import { lessonIds } from '@/lib/learning';
 import en from '../messages/en.json';
 import yo from '../messages/yo.json';
 import lessons from '../public/lessons/en.json';
@@ -55,6 +56,20 @@ it('requires practice and a correct check, saves drafts and completes all web le
     fireEvent.click(screen.getByRole('button', { name: en.learn_complete }));
     if (answer === 'False') fireEvent.click(screen.getByRole('button', { name: en.learn_next }));
   }
+  for (const id of lessonIds.web.slice(3)) {
+    fireEvent.click(screen.getByRole('button', { name: en.learn_next }));
+    const lesson = lessons[id as keyof typeof lessons];
+    expect(screen.getByRole('heading', { name: lesson.title })).toBeVisible();
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: {
+        value: `My practice for ${lesson.title}: I tested an example and explained my decision.`,
+      },
+    });
+    fireEvent.click(
+      screen.getByRole('radio', { name: lesson.answer ? en.learn_true : en.learn_false }),
+    );
+    fireEvent.click(screen.getByRole('button', { name: en.learn_complete }));
+  }
   expect(screen.getByText(en.learn_finished)).toBeVisible();
   const saved = JSON.parse(localStorage.getItem('pathmap-learning-v1')!);
   expect(
@@ -82,7 +97,7 @@ it('restores unfinished drafts, keeps course progress separate and lists courses
   view.unmount();
   app();
   expect(screen.getAllByRole('link', { name: en.learn_open })).toHaveLength(10);
-  expect(screen.getByText('1 of 3 lessons completed')).toBeVisible();
+  expect(screen.getByText('1 of 10 lessons completed')).toBeVisible();
 });
 it('shows recoverable loading errors and does not claim progress when storage fails', async () => {
   const fetch = vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {

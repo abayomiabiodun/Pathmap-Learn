@@ -50,10 +50,9 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
   }
   await expect(page).toHaveURL('/quiz/results');
   await expect(page.locator('.quiz-result-card.primary h2')).toHaveText('Data');
-  await expect(page.getByRole('link', { name: 'Start learning', exact: true })).toHaveAttribute(
-    'href',
-    '/learn/data',
-  );
+  await expect(
+    page.getByRole('link', { name: 'Try a taster lesson', exact: true }),
+  ).toHaveAttribute('href', '/taster');
   await expect(page.locator('.quiz-result-card:not(.primary) h2')).toHaveText(
     'AI and Machine Learning',
   );
@@ -74,9 +73,11 @@ test('find my path opens a working quiz, resumes answers and reveals recommendat
   );
   await page.getByRole('button', { name: 'Choose this path instead' }).click();
   await expect(page.locator('.quiz-result-card.primary h2')).toHaveText('AI and Machine Learning');
-  await page.getByRole('link', { name: 'Start learning', exact: true }).click();
-  await expect(page).toHaveURL('/learn/ai');
-  await expect(page.getByRole('heading', { name: 'Understand a model prediction' })).toBeVisible();
+  await page.getByRole('link', { name: 'Try a taster lesson', exact: true }).click();
+  await expect(page).toHaveURL('/taster');
+  await expect(
+    page.getByRole('heading', { name: 'AI and Machine Learning', exact: true }),
+  ).toBeVisible();
   await page.goto('/quiz/results');
   await page.getByRole('button', { name: 'Retake the quiz' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(

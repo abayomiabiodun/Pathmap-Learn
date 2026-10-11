@@ -34,6 +34,7 @@ try {
     grant usage on schema auth,public to anon,authenticated; grant execute on function auth.uid() to anon,authenticated;`);
   await db.exec(readFileSync('supabase/migrations/20261010000100_engagement.sql', 'utf8'));
   await db.exec(readFileSync('supabase/migrations/20261010000200_community.sql', 'utf8'));
+  await db.exec(readFileSync('supabase/migrations/20261011000100_ten_lessons.sql', 'utf8'));
   assert.equal(
     (
       await query(
@@ -232,8 +233,43 @@ try {
   // Public catalog answers must match the actual authored lesson checks.
   await as(0, 'postgres');
   const lessons = JSON.parse(readFileSync('public/lessons/en.json', 'utf8'));
-  for (const row of await query('select * from public.lesson_catalog'))
-    assert.equal(row.answer, lessons[row.lesson.split('/')[1]].answer);
+  const catalog = await query('select * from public.lesson_catalog');
+  assert.equal(catalog.length, 100);
+  for (const row of catalog) assert.equal(row.answer, lessons[row.lesson.split('/')[1]].answer);
+  // New lessons use the same verified completion and RLS rules as the original lessons.
+  await as(1);
+  await fails('select public.record_learning_activity($1,$2,$3)', [
+    'web/web-project',
+    practice,
+    false,
+  ]);
+  await query('select public.record_learning_activity($1,$2,$3)', [
+    'web/web-project',
+    practice,
+    true,
+  ]);
+  await query('select public.record_learning_activity($1,$2,$3)', [
+    'data/data-project',
+    practice,
+    true,
+  ]);
+  assert.equal(
+    (
+      await query(
+        "select count(*)::int as n from public.learning_activity where lesson like '%project'",
+      )
+    )[0].n,
+    2,
+  );
+  await as(2);
+  assert.equal(
+    (
+      await query(
+        "select count(*)::int as n from public.learning_activity where lesson like '%project'",
+      )
+    )[0].n,
+    0,
+  );
   console.log(
     'Clean PostgreSQL migration, RLS isolation, ranking, approval, consent withdrawal, contact responses, and rate limits passed.',
   );

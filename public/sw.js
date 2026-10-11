@@ -1,6 +1,6 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v16';
-const LESSONS = 'pathmap-lessons-v2';
+const SHELL = 'pathmap-shell-v18';
+const LESSONS = 'pathmap-lessons-v3';
 const PUBLIC_PAGES = [
   '/',
   '/offline',
@@ -8,6 +8,7 @@ const PUBLIC_PAGES = [
   '/quiz',
   '/quiz?skip=true',
   '/quiz/results',
+  '/taster',
   '/learn',
   '/library',
   '/dashboard',
@@ -26,6 +27,7 @@ self.addEventListener('install', (event) => {
         '/quiz',
         '/quiz?skip=true',
         '/quiz/results',
+        '/taster',
         '/learn',
         '/library',
         '/dashboard',

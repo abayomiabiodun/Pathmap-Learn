@@ -1,18 +1,8 @@
 import * as z from 'zod/mini';
 import { pathIds, type PathId } from './quiz';
+import { courseOutline } from './course-outline';
 
-export const lessonIds = {
-  web: ['html', 'css', 'javascript'],
-  data: ['data'],
-  cyber: ['cyber'],
-  ai: ['ai'],
-  design: ['design'],
-  marketing: ['marketing'],
-  business: ['business'],
-  writing: ['writing'],
-  project: ['project'],
-  teaching: ['teaching'],
-} satisfies Record<PathId, string[]>;
+export const lessonIds = courseOutline satisfies Record<PathId, string[]>;
 export type Lesson = {
   title: string;
   body: string;

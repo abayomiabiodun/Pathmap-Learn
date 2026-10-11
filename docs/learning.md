@@ -1,8 +1,8 @@
 # Local learning space
 
-Both the known-path confirmation and quiz recommendation lead directly to `/learn/<chosen-path>`. Starting a course applies the language chosen during onboarding. `/library` and `/learn` list all ten starter courses and their progress.
+The quiz recommendation offers a game-based taster before starting the matched course. The known-path confirmation also offers a taster or direct start. Starting from either onboarding screen applies the chosen language. `/library` and `/learn` show only the learner’s saved path and progress; see [focused learning](focused-learning.md) and [tasters](taster.md).
 
-Web Development has three beginner lessons: HTML structure, CSS presentation and JavaScript interaction. The other nine paths each have one introductory lesson. These are short foundation courses, not complete career curricula or accredited qualifications. All twelve lessons have authored reading, a practice prompt and a true/false knowledge check in English, Nigerian Pidgin, Yorùbá, Hausa, Igbo and French. Native-speaker review remains a launch requirement.
+Each of the ten paths has ten beginner lessons, ending in a practical project. These are foundation courses, not complete career curricula or accredited qualifications. All 100 lessons have authored reading, a practice prompt and a true/false knowledge check in English, Nigerian Pidgin, Yorùbá, Hausa, Igbo and French. Native-speaker review remains a launch requirement.
 
 Learners write practice notes or code, then answer the knowledge check. A correct answer and a practice response of at least 20 characters allow completion. Practice is self-directed; the system does not execute, grade or assess submitted code. Examples are displayed as text. Lessons can be reviewed freely. Returning to a course opens its first unfinished lesson.
 
@@ -10,7 +10,7 @@ Learners write practice notes or code, then answer the knowledge check. A correc
 
 The ten public course pages are prerendered with their English lesson content, so reading does not wait for JavaScript or a separate content request. Only the chosen course's content is passed from the server. Other languages load their lesson JSON when selected. The service worker caches public course documents and translated lesson JSON after they are opened while connected. Course documents are fetched explicitly because Next client navigation normally requests RSC, which is excluded from offline caching. Lesson content stays out of the home/auth/quiz JavaScript bundles. No private account responses or API data are cached.
 
-Unit and browser tests cover progress recovery, completion requirements, incorrect answers, storage failures, language changes, all ten course routes, phone layout, accessibility and studying offline. Full course expansion, account syncing, richer assessments and instructor management require later product phases.
+Unit and browser tests cover progress recovery, completion requirements, incorrect answers, storage failures, language changes, all ten course routes, phone layout, accessibility and studying offline. Account syncing of local drafts, richer assessments and instructor management require later product phases.
 
 ## Validation
 
