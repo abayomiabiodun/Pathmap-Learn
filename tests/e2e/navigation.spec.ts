@@ -20,6 +20,7 @@ test('hamburger exposes features, supports keyboard dismissal and closes after n
     '/quiz?skip=true',
     '/taster',
     '/learn',
+    '/assistant',
     '/library',
     '/paths',
     '/dashboard',

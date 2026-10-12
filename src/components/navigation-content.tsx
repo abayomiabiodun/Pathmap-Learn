@@ -5,6 +5,7 @@ export const navigationLinks = [
   ['/quiz?skip=true', 'ui_i_already_know_my_path'],
   ['/taster', 'taster_try'],
   ['/learn', 'eng_continue'],
+  ['/assistant', 'assistant_label'],
   ['/library', 'library'],
   ['/paths', 'ui_explore_all_10_paths'],
   ['/dashboard', 'eng_streak'],

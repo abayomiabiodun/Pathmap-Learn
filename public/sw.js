@@ -1,5 +1,5 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v21';
+const SHELL = 'pathmap-shell-v22';
 const LESSONS = 'pathmap-lessons-v3';
 const PUBLIC_PAGES = [
   '/',
@@ -10,6 +10,7 @@ const PUBLIC_PAGES = [
   '/quiz/results',
   '/taster',
   '/learn',
+  '/assistant',
   '/library',
   '/dashboard',
   '/icon.svg',
@@ -29,6 +30,7 @@ self.addEventListener('install', (event) => {
         '/quiz/results',
         '/taster',
         '/learn',
+        '/assistant',
         '/library',
         '/dashboard',
       ]) {
@@ -115,6 +117,8 @@ self.addEventListener('fetch', (event) => {
           async () =>
             // These entries contain public HTML only, never RSC or account data.
             (await caches.match(event.request, { ignoreVary: true })) ||
+            (url.pathname.startsWith('/learn/') &&
+              (await caches.match(url.pathname, { ignoreVary: true }))) ||
             (await caches.match('/offline')) ||
             Response.error(),
         ),

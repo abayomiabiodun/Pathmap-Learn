@@ -154,6 +154,11 @@ export function Shell({
         </div>
       )}
       <main id="main">{children}</main>
+      {pathname !== '/assistant' && (
+        <Link href="/assistant" prefetch={false} className="assistant-launcher">
+          {t('assistant_label')}
+        </Link>
+      )}
       <footer className="footer">
         <span>{t('ui_made_for_your_pace_built_for_your_possibilities')}</span>
         <div>

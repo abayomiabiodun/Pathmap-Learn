@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { BookOpen, CheckCircle2, ArrowRight } from 'lucide-react';
@@ -16,6 +16,12 @@ import { localeNames, type Locale } from '@/lib/preferences';
 import { useLearningProgress } from './learning-progress';
 import { recordActivity } from '@/lib/supabase/engagement';
 
+const subscribeLocation = (listener: () => void) => {
+  window.addEventListener('popstate', listener);
+  return () => window.removeEventListener('popstate', listener);
+};
+const lessonSnapshot = () => new URLSearchParams(window.location.search).get('lesson');
+const noRequestedLesson = () => null;
 export function Learning({
   path,
   initialLessons,
@@ -36,6 +42,7 @@ export function Learning({
   const [answer, setAnswer] = useState<boolean | null>(null);
   const [feedback, setFeedback] = useState<'required' | 'incorrect' | 'success' | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
+  const requested = useSyncExternalStore(subscribeLocation, lessonSnapshot, noRequestedLesson);
   useEffect(() => {
     // Save the public course document too: client navigation otherwise fetches only RSC.
     if (path) fetch(`/learn/${path}`, { headers: { Accept: 'text/html' } }).catch(() => {});
@@ -65,7 +72,9 @@ export function Learning({
     return () => controller.abort();
   }, [path, locale, retry, initialLessons]);
   const summary = path ? courseProgress(path, progress) : null;
-  const id = path ? (selected ?? summary!.next) : null;
+  const id = path
+    ? (selected ?? (requested && lessonIds[path].includes(requested) ? requested : summary!.next))
+    : null;
   const key = path && id ? lessonKey(path, id) : '';
   const activeLessons =
     locale === 'en' && initialLessons

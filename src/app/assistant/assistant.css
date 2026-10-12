@@ -1,0 +1,96 @@
+.assistant-page {
+  max-width: 900px;
+}
+.assistant-intro {
+  max-width: 700px;
+}
+.assistant-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: end;
+  margin: 24px 0;
+}
+.assistant-controls label {
+  display: grid;
+  gap: 8px;
+  flex: 1;
+  min-width: 130px;
+}
+.assistant-controls select,
+.assistant-composer textarea {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font: inherit;
+  width: 100%;
+}
+.assistant-notice {
+  background: var(--soft-green);
+  border-radius: 12px;
+  padding: 16px;
+  line-height: 1.7;
+  margin-top: 24px;
+}
+.assistant-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.assistant-prompts button {
+  white-space: normal;
+  text-align: left;
+}
+.assistant-transcript {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--surface);
+  max-height: 65vh;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+.assistant-question {
+  background: var(--soft-green);
+  padding: 14px;
+  border-radius: 12px;
+}
+.assistant-answer {
+  padding: 0 4px 20px;
+}
+.assistant-answer h2 {
+  font-size: 21px;
+  margin-top: 20px;
+}
+.assistant-answer h3 {
+  font-size: 17px;
+  margin: 16px 0 8px;
+}
+.assistant-material {
+  white-space: pre-line;
+  line-height: 1.8;
+}
+.assistant-answer pre {
+  overflow-x: auto;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+}
+.assistant-composer {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+.assistant-composer textarea {
+  resize: vertical;
+}
+.assistant-composer button {
+  justify-self: end;
+}
+.assistant-footnote {
+  font-size: 14px;
+}
