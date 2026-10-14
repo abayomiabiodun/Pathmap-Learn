@@ -8,6 +8,7 @@ import { courseOutline } from '@/lib/course-outline';
 import { pathNameKeys, learningPathFromQuiz, type PathId } from '@/lib/quiz';
 import { answerQuestion, lessonKnowledge, guides, type Knowledge } from '@/lib/assistant';
 import type { Lesson } from '@/lib/learning';
+import { SpeechInput, ReadAloud } from './assistant-speech';
 
 type Turn = {
   question: string;
@@ -30,6 +31,8 @@ export function Assistant() {
   const [failed, setFailed] = useState(false);
   const [retry, setRetry] = useState(0);
   const [question, setQuestion] = useState('');
+  const [listening, setListening] = useState(false);
+  const [voiceSession, setVoiceSession] = useState(0);
   const [chosenFocus, setPath] = useState<string>();
   const rawQuiz = useSyncExternalStore(subscribeQuiz, quizSnapshot, noQuiz);
   const path = chosenFocus ?? learningPathFromQuiz(rawQuiz) ?? '';
@@ -144,6 +147,7 @@ export function Assistant() {
             setTurns([]);
             setLastId(undefined);
             setQuestion('');
+            setVoiceSession((value) => value + 1);
           }}
         >
           {t('assistant_clear')}
@@ -165,8 +169,20 @@ export function Assistant() {
           onChange={(event) => setQuestion(event.target.value)}
           placeholder={t('assistant_placeholder')}
           required
+          disabled={listening}
         />
-        <button className="button button-primary" disabled={!ready || !question.trim()}>
+        <p className="assistant-footnote">{t('voice_notice')}</p>
+        <SpeechInput
+          key={`${locale}-${voiceSession}`}
+          locale={locale}
+          value={question}
+          onChange={setQuestion}
+          onListening={setListening}
+        />
+        <button
+          className="button button-primary"
+          disabled={!ready || !question.trim() || listening}
+        >
           {t('assistant_send')}
         </button>
       </form>
@@ -197,7 +213,7 @@ export function Assistant() {
           <button
             className="button button-outline"
             key={key}
-            disabled={!ready}
+            disabled={!ready || listening}
             onClick={() => ask(key === 'concept' ? conceptPrompt : t(`assistant_prompt_${key}`))}
           >
             {key === 'concept' ? conceptPrompt : t(`assistant_prompt_${key}`)}
@@ -214,11 +230,31 @@ export function Assistant() {
       >
         {turns.length === 0 && <p>{t('assistant_welcome')}</p>}
         {turns.map((turn, index) => (
-          <article key={index} lang={turn.locale}>
+          <article key={`${index}-${locale}`} lang={turn.locale}>
             <p className="assistant-question">
               <strong>{turn.question}</strong>
             </p>
             <div className="assistant-answer">
+              <ReadAloud
+                disabled={listening}
+                locale={turn.locale}
+                text={
+                  turn.sources.length
+                    ? turn.sources
+                        .map((source) =>
+                          [
+                            source.title,
+                            source.body,
+                            source.practice,
+                            source.practice && turn.copy.coach,
+                          ]
+                            .filter(Boolean)
+                            .join('\n'),
+                        )
+                        .join('\n\n')
+                    : turn.copy.unknown
+                }
+              />
               {!turn.sources.length ? (
                 <>
                   <p>{turn.copy.unknown}</p>

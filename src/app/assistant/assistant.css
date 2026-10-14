@@ -94,3 +94,24 @@
 .assistant-footnote {
   font-size: 14px;
 }
+.assistant-voice-input,
+.assistant-read-aloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.assistant-voice-input p,
+.assistant-read-aloud p {
+  flex: 1;
+  min-width: 160px;
+  font-size: 14px;
+}
+.assistant-read-aloud {
+  margin: 16px 0;
+}
+.assistant-voice-input button,
+.assistant-read-aloud button {
+  white-space: normal;
+  text-align: left;
+}

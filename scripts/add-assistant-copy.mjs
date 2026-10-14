@@ -325,6 +325,7 @@ for (const [locale, values] of Object.entries(copy)) {
   const file = `messages/${locale}.json`;
   const messages = JSON.parse(fs.readFileSync(file, 'utf8'));
   keys.forEach((key, index) => {
+    if (key === 'private' && messages.voice_notice) return;
     messages[`assistant_${key}`] =
       locale === 'yo' ? values[index].replaceAll('olùtọ́nisọ́nà', 'olùtọ́sọ́nà') : values[index];
   });

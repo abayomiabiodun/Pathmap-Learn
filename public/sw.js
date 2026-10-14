@@ -1,5 +1,5 @@
 /* Cache only public shell pages; never cache auth responses or API data. */
-const SHELL = 'pathmap-shell-v22';
+const SHELL = 'pathmap-shell-v23';
 const LESSONS = 'pathmap-lessons-v3';
 const PUBLIC_PAGES = [
   '/',
